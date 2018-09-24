@@ -5,4 +5,9 @@ using Node.js + Express.js. We will research API's that return recipies, and our
 will filter those out to show Keto recipies with a filter for Vegan and Gluten Free.
 
 ### Project Team
-Nico and Phyllis 
+Nicolai Safai, Phyllis wong, and Leslie Kimm
+
+### Roles - TBD
+Phyllis Wong
+Nicolai Safai
+Leslie Kimm
