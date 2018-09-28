@@ -27,6 +27,8 @@ mongoose.set('debug', true);
 
 // routes ======================================================================
 require('./controllers/users')(app); // load our routes and pass in our app
+const recipeController = require('./controllers/recipe')(app);
+// app.use(recipeController);
 
 
 // launch ======================================================================
