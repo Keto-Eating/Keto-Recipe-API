@@ -14,17 +14,16 @@ const bodyParser = require('body-parser');
 // Port
 const port = process.env.PORT;
 
-// configuration ===============================================================
+// Database configuration ===============================================================
 let mongoUri = process.env.MONGODB_URI;
 mongoose.connect(mongoUri, { useNewUrlParser: true } ); //connect our database
 mongoose.set('debug', true);
 
 
-app.get('/', function(req, res) {
-  res.send('Hello Keto!');
-});
+// routes ======================================================================
+require('./controllers/users')(app); // load our routes and pass in our app
 
 
-app.listen(port, () => {
-  console.log(`Server listening on ${port} `)
-});
+
+// launch ======================================================================
+app.listen(port, () => { console.log(`Keto server listening on ${port} `) });
