@@ -1,9 +1,9 @@
 // controllers/users.js
 
-module.exports = {
+module.exports = (app) => {
 
   app.get('/', (req, res) => {
     res.send('Hello Keto!');
   });
 
-}
+};
