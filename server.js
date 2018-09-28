@@ -1,30 +1,34 @@
+require('dotenv').config();
 const exp = require('express');
 const app = exp();
-require('dotenv').config();
-const mongoose = require('mongoose');
-
-const passport = require('passport'); // Authentication
-const flash = require('connect-flash'); // messages
-
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+// const passport = require('passport'); // Authentication
+// const flash = require('connect-flash'); // messages
+
+// MIDDLEWARE configuration ===============================================================
+// set up our express application
+app.use(morgan('dev')); // Log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser.urlencoded({ extended: true })); // get information from forms
 
 
-// Port
-const port = process.env.PORT;
+// Static content
+app.use(exp.static('./public'));
 
-// configuration ===============================================================
-let mongoUri = process.env.MONGODB_URI;
-mongoose.connect(mongoUri, { useNewUrlParser: true } ); //connect our database
+// Database configuration ===============================================================
+const mongoose = require('mongoose');
+const dbConfig = require('./src/config/database');
+
+mongoose.connect(dbConfig.uri, { useNewUrlParser: true }); // connect our database
 mongoose.set('debug', true);
 
 
-app.get('/', function(req, res) {
-  res.send('Hello Keto!');
-});
+// routes ======================================================================
+require('./controllers/users')(app); // load our routes and pass in our app
 
 
-app.listen(port, () => {
-  console.log(`Server listening on ${port} `)
-});
+// launch ======================================================================
+const port = process.env.PORT;
+app.listen(port, () => { console.log(`Keto server listening on ${port} `); });
