@@ -1,5 +1,6 @@
 require('dotenv').config();
 const exp = require('express');
+
 const app = exp();
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -31,4 +32,6 @@ require('./controllers/users')(app); // load our routes and pass in our app
 
 // launch ======================================================================
 const port = process.env.PORT;
-app.listen(port, () => { console.log(`Keto server listening on ${port} `); });
+app.listen(port, () => {
+  console.log(`Keto server listening on ${port} `);
+});
