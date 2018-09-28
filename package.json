@@ -4,7 +4,8 @@
   "description": "This project is intended to be an API that serves up keto recipies, and then converts them to a shopping list. The v0 idea is to first serve up recipes. The v1 idea is to convert the recipes into a grocery list. This API will be built using Node.js + Express.js. We will research API's that return recipies, and our API  will filter those out to show Keto recipies with a filter for Vegan and Gluten Free.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -17,8 +18,15 @@
   },
   "homepage": "https://github.com/Keto-Eating/Keto-Recipe-API#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "mocha": "^5.2.0",
     "mongodb": "^3.1.6",
-    "mongoose": "^5.2.17"
+    "mongoose": "^5.2.17",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.0"
   }
 }
