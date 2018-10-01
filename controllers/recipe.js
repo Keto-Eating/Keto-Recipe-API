@@ -3,19 +3,45 @@
 
 
 module.exports = (app) => {
-  const RecipeSchema = require('../models/recipe');
-  // Display all the recipes saved in a users cart
+  // const pinterestRecipes = require(node_pinterest)
+  // const RecipeSchema /= require('../models/recipe');
+  // Display a random selection of recipes
+  // app.get('/', (req, res) => {
+  //   pinterestRecipes.goGetTheKetos()
+  //         if ('content-type' === 'application/json') {
+  //           .then( res => {
+  //             res.json('the recipes');
+  //           })
+  //         } else {
+  //           res.render('someTemplate') // <----- design the response to work with templates
+  //         }
+  //
+  // });
 
+  // Show all trending movies
   app.get('/', (req, res) => {
+    moviedb.miscNowPlayingMovies() // change this to the pinterest url
+      .then(response => {
+        res.render('movies/movies-index', { movies: response.results });
+      }).catch(console.error)
+  });
+
+  // Display a single recipe from the cart
+  app.get('/recipes/:id', (req, res) => {
     RecipeSchema.find({}, (err, recipes) => {
       res.send({ recipes })
         .then(console.log({ recipes })
-          .catch(console.log('nope') ));
+          .catch(console.log( 'nope') ));
     });
   });
 
+
+
+  // Show all recipes saved in their cart
   app.get('/recipes', (req, res) => {
     res.send('YoLo');
+
+    RecipeSchema.findById(req.params._id);
   });
 
   // Send a POST request to the database to create the recipes collection
