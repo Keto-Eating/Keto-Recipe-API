@@ -17,7 +17,6 @@ module.exports = (app) => {
   //         }
   //
   // });
-
   
   // Display a single recipe from the cart
   app.get('/recipes/:id', (req, res) => {
