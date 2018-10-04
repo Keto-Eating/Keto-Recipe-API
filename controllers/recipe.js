@@ -18,14 +18,7 @@ module.exports = (app) => {
   //
   // });
 
-  // Show all trending movies
-  app.get('/', (req, res) => {
-    moviedb.miscNowPlayingMovies() // change this to the pinterest url
-      .then(response => {
-        res.render('movies/movies-index', { movies: response.results });
-      }).catch(console.error)
-  });
-
+  
   // Display a single recipe from the cart
   app.get('/recipes/:id', (req, res) => {
     RecipeSchema.find({}, (err, recipes) => {
