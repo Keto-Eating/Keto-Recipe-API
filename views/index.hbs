@@ -1,19 +1,26 @@
+<div class="container">
+    <div class="card-deck">
 
+        {{#each recipes}}
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="{{this.recipe.image}}" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">{{this.recipe.label}}</h4>
+                            {{#each this.recipe.ingredients}}
+                                <li class="card-text">{{this.text}}</li>
+                            {{/each}}
 
-
-      <div class="card-deck">
-
-      {{#each recipes}}
-
-      <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src="{{this.recipe.image}}" alt="Card image">
-        <div class="card-body">
-          {{#each this.recipe.ingredients}}
-            <h5 class="card-title">{{this.recipe.label}}</h5>
-            <p class="card-text">{{this.text}}</p>
-          {{/each}}
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-      {{/each}}
-      </div>
+                        </div>
+                        <a href="#">
+                            <div class="card-footer">
+                                Go somewhere
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
