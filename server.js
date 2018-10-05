@@ -70,9 +70,9 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/', (req, res) => {
-  // res.send('docs/index.html')
-});
+// app.get('/', (req, res) => {
+//   // res.send('docs/index.html')
+// });
 
 // launch =============================================================================
 const port = process.env.PORT;
