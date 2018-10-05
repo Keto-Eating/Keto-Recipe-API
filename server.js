@@ -63,9 +63,9 @@ app.get('/', (req, res) => {
 
       // WHEN DATA IS FULLY RECEIVED PARSE INTO JSON
       const parsed = JSON.parse(body);
-      console.log(parsed.hits[0].recipe.label);
-      // RENDER THE INDEX TEMPLATE AND PASS THE RECIPE DATA IN TO THE TEMPLATE
-      res.render('index', { recipes: parsed.data });
+      console.log(parsed.hits[0].recipe.image); // <-- Confirmed this shows the correct data!!!! -->
+      //  Index Template & pass recipe data into the template
+      res.render('index', { recipes: parsed.hits });
     });
   });
 });
