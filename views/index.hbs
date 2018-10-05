@@ -1,4 +1,19 @@
 
-  {{#each recipes}}
-    <img src="{{this.recipe.image}}">
-  {{/each}}
+
+
+      <div class="card-deck">
+
+      {{#each recipes}}
+
+      <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{{this.recipe.image}}" alt="Card image">
+        <div class="card-body">
+          {{#each this.recipe.ingredients}}
+            <h5 class="card-title">{{this.recipe.label}}</h5>
+            <p class="card-text">{{this.text}}</p>
+          {{/each}}
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      {{/each}}
+      </div>
