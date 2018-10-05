@@ -6,8 +6,13 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
+const http = require('https');
 // const passport = require('passport'); // Authentication
 // const flash = require('connect-flash'); // messages
+
+const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
+const EDAMAM_API_KEY = process.env.EDAMAM_API_KEY;
+
 
 // MIDDLEWARE configuration ============================================================
 // set up our express application
@@ -16,7 +21,7 @@ app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({ extended: true })); // get information from forms
 
 // TEMPLATE configuration ===============================================================
-app.engine('hbs', exphbs({defaultLayout: 'main', extname: 'hbs'}));
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: 'hbs' }));
 app.set('view engine', 'hbs');
 
 
@@ -34,10 +39,39 @@ mongoose.set('debug', true);
 // routes =============================================================================
 require('./controllers/users')(app); // load our routes and pass in our app
 const recipeController = require('./controllers/recipe')(app);
-// app.use(recipeController);
+
 
 app.get('/', (req, res) => {
-    // res.send('docs/index.html')
+  // console.log(req.query.term)
+  const queryString = 'keto tacos';
+  // ENCODE THE QUERY STRING TO REMOVE WHITE SPACES AND RESTRICTED CHARACTERS
+  const term = encodeURIComponent(queryString);
+  // PUT THE SEARCH TERM INTO THE EDEMAM API SEARCH URL
+  const url = `https://api.edamam.com/search?q=${term}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
+  console.log(`URL: ${url}`);
+  http.get(url, (response) => {
+    // SET ENCODING OF RESPONSE TO UTF8
+    response.setEncoding('utf8');
+    let body = '';
+
+    response.on('data', (d) => {
+      // CONTINUOUSLY UPDATE STREAM WITH DATA FROM GIPHY
+      body += d;
+    });
+
+    response.on('end', () => {
+
+      // WHEN DATA IS FULLY RECEIVED PARSE INTO JSON
+      const parsed = JSON.parse(body);
+      console.log(parsed.hits[0].recipe.label);
+      // RENDER THE INDEX TEMPLATE AND PASS THE RECIPE DATA IN TO THE TEMPLATE
+      res.render('index', { recipes: parsed.data });
+    });
+  });
+});
+
+app.get('/', (req, res) => {
+  // res.send('docs/index.html')
 });
 
 // launch =============================================================================
