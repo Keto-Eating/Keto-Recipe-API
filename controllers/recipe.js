@@ -3,32 +3,6 @@
 
 
 module.exports = (app) => {
-  // const pinterestRecipes = require(node_pinterest)
-  // const RecipeSchema /= require('../models/recipe');
-  // Display a random selection of recipes
-  // app.get('/', (req, res) => {
-  //   pinterestRecipes.goGetTheKetos()
-  //         if ('content-type' === 'application/json') {
-  //           .then( res => {
-  //             res.json('the recipes');
-  //           })
-  //         } else {
-  //           res.render('someTemplate') // <----- design the response to work with templates
-  //         }
-  //
-  // });
-
-  // Display a single recipe from the cart
-  app.get('/recipes/:id', (req, res) => {
-    RecipeSchema.find({}, (err, recipes) => {
-      res.send({ recipes })
-        .then(console.log({ recipes })
-          .catch(console.log( 'nope') ));
-    });
-  });
-
-
-
   // Show all recipes saved in their cart
   app.get('/recipes', (req, res) => {
     res.send('YoLo');
