@@ -7,21 +7,19 @@ will filter those out to show Keto recipies with a filter for Vegan and Gluten F
 ### Project Team
 Nicolai Safai, Phyllis wong, and Leslie Kimm
 
-### Project Roles
-#####Project Manager / Lead Backend Engineer
-Nicolai Safai
-#####Lead Frontend Engineer 
-Phyllis Wong
+### Roles
+**Lead Backend Engineer / PM**<br>
+Nicolai Safai<br><br>
+**Lead Frontend Engineer**<br> 
+Phyllis Wong<br><br>
+**Senior Engineer / QA**<br>
+Leslie Kimm<br><br>
 
-#####Senior Engineer / QA 
-Leslie Kimm
-
-### Milestone
-- [x] Shipped to Heroku
-- [ ] Non-authenticated landing page by Oct 10
-		* MVP Search for food item --> return keto recipes
-- [ ] Stretch goal - authenticated version by Oct 14
-- [ ] Shipped to our domain by Oct 21
+### Milestones
+- [x] **Sep 28** Shipped to Heroku
+- [ ] **Oct 10** Non-authenticated landing page by <br>MVP Search for food item --> return keto recipes
+- [ ] **Oct 14** Stretch goal - authenticated version by Oct 14
+- [ ] **Oct 21** Shipped to our domain by 
 
 
 
