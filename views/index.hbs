@@ -5,17 +5,23 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="card" style="width: 20rem;">
-                        <img class="card-img-top" src="{{this.recipe.image}}" alt="Card image">
+                        <a href="{{this.recipe.url}}" target="_blank">
+                            <img class="card-img-top" src="{{this.recipe.image}}" alt="Card image">
+                        </a>
                         <div class="card-body">
-                            <h4 class="card-title">{{this.recipe.label}}</h4>
+                            <a href="{{this.recipe.url}}" target="_blank"><h4 class="card-title">{{this.recipe.label}}</h4></a>
+                            <div class="time-left-subheader">
+                                <img src="https://cdn4.iconfinder.com/data/icons/basic-ui-elements-1-1/100/Untitled-32-512.png" style="vertical-align: middle" class="clock-icon">
+                                <span class="cooking-time">40 mins</span>
+                            </div>
                             {{#each this.recipe.ingredients}}
                                 <li class="card-text">{{this.text}}</li>
                             {{/each}}
 
                         </div>
-                        <a href="#">
+                        <a href="{{this.recipe.url}}" target="_blank">
                             <div class="card-footer">
-                                Go somewhere
+                                View Full Recipe
                             </div>
                         </a>
                     </div>

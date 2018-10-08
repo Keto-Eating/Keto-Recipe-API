@@ -8,14 +8,39 @@ img {
     padding-top: 1rem;
 }
 
+a li {
+	text-decoration: none;
+}
+
 .container {
 
 }
 
-.card {
-	/* border: 1rem solid black;
+.card-title {
+	color:#343a40;
+}
 
-	border-radius: 3rem; */
+.card-title:hover {
+	color:green;
+	text-decoration: underline;
+}
+
+.time-left-subheader {
+	display:flex;
+	align-items:center;
+	margin-bottom:1em
+	color:grey;
+}
+
+.clock-icon {
+	padding: 0;
+	margin-bottom: 0;
+	height:1em;
+	width:1em;
+}
+
+.cooking-time {
+	margin-left: 0.33em;
 }
 
 .card-footer {
