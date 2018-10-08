@@ -69,6 +69,10 @@ a li {
     color: white;
 }
 
+.card-footer:hover {
+	background-color:grey;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
