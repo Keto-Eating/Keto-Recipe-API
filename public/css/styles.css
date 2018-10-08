@@ -17,7 +17,7 @@ a li {
 }
 
 .card {
-
+	margin-bottom:1em !important;
 }
 
 .card-title {
