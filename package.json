@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Keto-Eating/Keto-Recipe-API#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "dotenv": "^6.0.0",
