@@ -20,7 +20,7 @@ module.exports = (app) => {
 
     food.save((err, food) => res.send(food)
       .then((food) => {
-        console.log("You're a beast!");
+        console.log(`You're a beast! ${food}`);
       })
       .catch((err) => {
         console.log(err.message);

@@ -26,3 +26,7 @@ img {
     display: flex;
     justify-content: space-between;
 }
+
+.btn {
+	margin-right: 1rem;
+}
