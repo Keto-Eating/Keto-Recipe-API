@@ -20,13 +20,10 @@ app.use(morgan('dev')); // Log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
   extended: true
-})); // get information from forms
+}));
 
 // TEMPLATE configuration ===============================================================
-app.engine('hbs', exphbs({
-  defaultLayout: 'main',
-  extname: 'hbs'
-}));
+app.engine('hbs', exphbs( {defaultLayout: 'main', extname: 'hbs' }));
 app.set('view engine', 'hbs');
 
 
