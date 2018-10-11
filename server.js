@@ -41,44 +41,43 @@ mongoose.set('debug', true);
 
 
 // routes =============================================================================
-require('./controllers/users')(app); // load our routes and pass in our app
-const recipeController = require('./controllers/recipe')(app);
-
+require('./controllers/users')(app); // load our routes and pass to our app
+require('./controllers/recipe')(app); // load our routes and pass to our app
 
 app.get('/', (req, res) => {
-  console.log(req.query);
-  // console.log(req.query.term)
-  const queryString = `keto ${req.query.term}`;
-  // ENCODE THE QUERY STRING TO REMOVE WHITE SPACES AND RESTRICTED CHARACTERS
-  const term = encodeURIComponent(queryString);
-  // PUT THE SEARCH TERM INTO THE EDEMAM API SEARCH URL
-  const url = `https://api.edamam.com/search?q=${term}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
-  console.log(`URL: ${url}`);
-  http.get(url, (response) => {
-    // SET ENCODING OF RESPONSE TO UTF8
-    response.setEncoding('utf8');
-    let body = '';
-
-    response.on('data', (d) => {
-      // CONTINUOUSLY UPDATE STREAM WITH DATA FROM GIPHY
-      body += d;
-    });
-
-    response.on('end', () => {
-
-      // WHEN DATA IS FULLY RECEIVED PARSE INTO JSON
-      const parsed = JSON.parse(body);
-      // console.log(parsed.hits[0].recipe.image); // <-- Confirmed this shows the correct data!!!! -->
-      //  Index Template & pass recipe data into the template
-      res.render('index', {
-        recipes: parsed.hits
-      });
-    });
-  });
+  res.render('index');
 });
 
+// app.get('/', (req, res) => {
+//   // console.log(req.query);
+//   // console.log(req.query.term)
+//   const queryString = `keto ${req.query.term}`;
+//   // ENCODE THE QUERY STRING TO REMOVE WHITE SPACES AND RESTRICTED CHARACTERS
+//   const term = encodeURIComponent(queryString);
+//   // PUT THE SEARCH TERM INTO THE EDEMAM API SEARCH URL
+//   const url = `https://api.edamam.com/search?q=${term}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
+//   // console.log(`URL: ${url}`);
+//   http.get(url, (response) => {
+//     response.setEncoding('utf8');
+//     let body = '';
+//
+//     response.on('data', (d) => {
+//       // CONTINUOUSLY UPDATE STREAM WITH DATA FROM EDEMAM
+//       body += d;
+//     });
+//
+//     response.on('end', () => {
+//       // WHEN DATA IS FULLY RECEIVED PARSE INTO JSON
+//       const parsed = JSON.parse(body);
+//       // console.log(parsed.hits[0].recipe.image); // <-- Confirmed this shows the correct data!!!! -->
+//       //  Index Template & pass recipe data into the template
+//       res.render('index', { recipes: parsed.hits });
+//     });
+//   });
+// });
+
 // launch =============================================================================
-const port = process.env.PORT;
-app.listen(port, () => {
-  console.log(`Keto server listening on ${port} `);
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`Keto server listening on ${PORT}`);
 });
