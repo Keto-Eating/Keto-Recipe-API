@@ -1,9 +1,9 @@
 // controllers/users.js
-const favorites = require('./favorites')
 
 module.exports = (app) => {
   const jwt = require('jsonwebtoken');
   const UserSchema = require('../models/user');
+  const favorites = require('./favorites')
 
   // Render the signup form
   app.get('/dashboard', (req, res) => {

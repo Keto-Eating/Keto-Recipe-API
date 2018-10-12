@@ -1,14 +1,15 @@
 // models/recipe.js
 const mongoose = require('mongoose');
 
-const RecipeSchema = mongoose.Schema({
+const FavoriteSchema = mongoose.Schema({
   createdAt: { type: Date },
   updatedAt: { type: Date },
-  name: { type: String, required: true }
+  name: { type: String, required: true },
+  uri: {type: String, required: true }
 });
 
 
-RecipeSchema.pre('save', function (next) {
+FavoriteSchema.pre('save', function (next) {
   const now = new Date();
   // SET createdAt AND updatedAt
   this.updatedAt = now;
@@ -19,4 +20,4 @@ RecipeSchema.pre('save', function (next) {
   next();
 });
 
-module.exports = mongoose.model('Recipe', RecipeSchema);
+module.exports = mongoose.model('Favorite', FavoriteSchema);

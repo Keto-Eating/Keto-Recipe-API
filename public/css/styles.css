@@ -52,6 +52,7 @@ a, a li, a:hover {
 .save-to-faves-heart:hover {
   color:#e74c3c;
   font-weight:bold;
+  cursor: pointer;
   /* background-color:red; */
 }
 
