@@ -25,9 +25,9 @@ Leslie Kimm<br><br>
 ### Milestones
 
 -   [x] **Sep 28** Ship to Heroku
--   [x] **Oct 10** Non-authenticated landing page by <br>MVP Search for food item --> return keto recipes
+-   [x] **Oct 10** Non-authenticated landing page: MVP Search for food item --> return keto recipes
 -   [x] **Oct 11** Stretch goal - authenticated version
 -   [x] **Oct 12** Add test(s)
--   [ ] **Oct 12** Add 1 nested route: user favorites
+-   [ ] **Oct 13** Add 1 nested route: user favorites
 -   [ ] **Oct 14** Re-deploy to Heroku
 -   [ ] **Oct 21** Shipped to our custom domain
