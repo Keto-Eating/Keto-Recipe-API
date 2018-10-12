@@ -31,7 +31,7 @@ module.exports = (app) => {
       res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
       app.locals.username = req.body.username;
       // console.log(req.body.username);
-      console.log(app.locals.username);
+      console.log(res.locals.username);
       res.redirect('/');
       // res.send("blah")
     }).catch((err) => {
