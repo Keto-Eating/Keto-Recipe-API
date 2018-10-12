@@ -13,17 +13,18 @@ module.exports = (app) => {
   // Send a POST request to the database to create the recipes collection
   // Test the db is connected
 
-  app.post('/favorites/new', (req, res) => {
-    const food = new FavoriteSchema({
-      name: 'taco'
-    });
+  app.post('/favorites/', (req, res) => {
+    console.log(req.body.recipename);
+    // const favorite = new FavoriteSchema({
+    //   name: 'taco'
+    // });
 
-    food.save((err, food) => res.send(food)
-      .then((food) => {
-        console.log(`You're a beast! ${food}`);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      }));
+    // food.save((err, food) => res.send(food)
+    //   .then((food) => {
+    //     console.log(`You're a beast! ${food}`);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.message);
+    //   }));
   });
 };

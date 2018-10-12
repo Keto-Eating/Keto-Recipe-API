@@ -4,9 +4,14 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="card" style="width: 20rem;">
-          <form action="/favorites/new" method="POST">
+
+
+          <form action="/favorites/" method="POST">
+            <input type="hidden" value="{{this.recipe.label}}" name="recipename"/>
             <input type="submit" value="❤" class="save-to-faves-heart"/>
           </form>
+
+
           <a href="{{this.recipe.url}}" target="_blank">
             <img class="card-img-top" src="{{this.recipe.image}}" alt="Card image">
           </a>
