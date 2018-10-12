@@ -11,7 +11,7 @@ View our API documentation at: https://keto-eating.github.io/Keto-Recipe-API/#/
 
 ### Project Team
 
-Nicolai Safai, Phyllis wong, and Leslie Kimm
+Nicolai Safai, Phyllis Wong, and Leslie Kimm
 
 ### Roles
 
