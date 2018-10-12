@@ -25,7 +25,10 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // TEMPLATE configuration ===============================================================
-app.engine('hbs', exphbs( {defaultLayout: 'main', extname: 'hbs' }));
+app.engine('hbs', exphbs({
+  defaultLayout: 'main',
+  extname: 'hbs'
+}));
 app.set('view engine', 'hbs');
 
 
@@ -47,7 +50,11 @@ require('./controllers/users')(app); // load our routes and pass to our app
 require('./controllers/recipe')(app); // load our routes and pass to our app
 
 app.get('/', (req, res) => {
+  console.log('hello');
+  console.log(res.cookie);
+  // console.log(req.cookie);
   res.render('index');
+
 });
 
 // app.get('/', (req, res) => {

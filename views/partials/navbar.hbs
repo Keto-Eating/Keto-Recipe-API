@@ -8,9 +8,12 @@
 
   <ul class="nav navbar-nav navbar-right">
     <div class="nav-links"></div>
+      {{# if username}}
       <li><a href="/logout" class="btn btn-danger">Logout</a></li>
+      {{else}}
       <li><a href="/login" class="btn btn-success">Login</a></li>
       <li><a href="/sign-up" class="btn btn-info">Sign Up</a></li>
+      {{/if}}
     </div>
   </ul>
 </nav>
