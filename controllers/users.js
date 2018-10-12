@@ -1,12 +1,13 @@
 // controllers/users.js
+const favorites = require('./favorites')
 
 module.exports = (app) => {
   const jwt = require('jsonwebtoken');
   const UserSchema = require('../models/user');
 
   // Render the signup form
-  app.get('/sign-up', (req, res) => {
-    res.render('sign-up');
+  app.get('/dashboard', (req, res) => {
+    res.render('dashboard');
   });
 
   // POST: creates a new user
@@ -25,8 +26,6 @@ module.exports = (app) => {
         httpOnly: true
       });
       app.locals.username = req.body.username;
-      // console.log(req.body.username);
-      console.log(res.locals.username);
       res.redirect('/');
       // res.send("blah")
     }).catch((err) => {
@@ -45,6 +44,7 @@ module.exports = (app) => {
   app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
+    app.locals.username = req.body.username;
 
     // Look for this user name
     UserSchema.findOne({
@@ -79,7 +79,7 @@ module.exports = (app) => {
             httpOnly: true
           });
           console.log('Successfully logged in.');
-          res.redirect('logged-in/');
+          res.redirect('favorites/');
         });
       })
       .catch((err) => {
@@ -90,12 +90,8 @@ module.exports = (app) => {
   // LOGOUT
   app.get('/logout', (req, res) => {
     res.clearCookie('nToken');
+    app.locals.username = null;
     res.redirect('logged-out/');
-  });
-
-  // Render the logged-in template
-  app.get('/logged-in', (req, res) => {
-    res.render('logged-in');
   });
 
   // Render the logged-out template

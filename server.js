@@ -46,44 +46,45 @@ mongoose.set('debug', true);
 
 
 // routes =============================================================================
+ // load our routes and pass to our app
 require('./controllers/users')(app); // load our routes and pass to our app
-require('./controllers/recipe')(app); // load our routes and pass to our app
-
-app.get('/', (req, res) => {
-  console.log('hello');
-  console.log(res.cookie);
-  // console.log(req.cookie);
-  res.render('index');
-
-});
+require('./controllers/favorites')(app); // load our routes and pass to our app
 
 // app.get('/', (req, res) => {
-//   // console.log(req.query);
-//   // console.log(req.query.term)
-//   const queryString = `keto ${req.query.term}`;
-//   // ENCODE THE QUERY STRING TO REMOVE WHITE SPACES AND RESTRICTED CHARACTERS
-//   const term = encodeURIComponent(queryString);
-//   // PUT THE SEARCH TERM INTO THE EDEMAM API SEARCH URL
-//   const url = `https://api.edamam.com/search?q=${term}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
-//   // console.log(`URL: ${url}`);
-//   http.get(url, (response) => {
-//     response.setEncoding('utf8');
-//     let body = '';
+//   console.log('hello');
+//   console.log(res.cookie);
+//   // console.log(req.cookie);
+//   res.render('index');
 //
-//     response.on('data', (d) => {
-//       // CONTINUOUSLY UPDATE STREAM WITH DATA FROM EDEMAM
-//       body += d;
-//     });
-//
-//     response.on('end', () => {
-//       // WHEN DATA IS FULLY RECEIVED PARSE INTO JSON
-//       const parsed = JSON.parse(body);
-//       // console.log(parsed.hits[0].recipe.image); // <-- Confirmed this shows the correct data!!!! -->
-//       //  Index Template & pass recipe data into the template
-//       res.render('index', { recipes: parsed.hits });
-//     });
-//   });
 // });
+
+app.get('/', (req, res) => {
+  // console.log(req.query);
+  // console.log(req.query.term)
+  const queryString = `keto ${req.query.term}`;
+  // ENCODE THE QUERY STRING TO REMOVE WHITE SPACES AND RESTRICTED CHARACTERS
+  const term = encodeURIComponent(queryString);
+  // PUT THE SEARCH TERM INTO THE EDEMAM API SEARCH URL
+  const url = `https://api.edamam.com/search?q=${term}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
+  // console.log(`URL: ${url}`);
+  http.get(url, (response) => {
+    response.setEncoding('utf8');
+    let body = '';
+
+    response.on('data', (d) => {
+      // CONTINUOUSLY UPDATE STREAM WITH DATA FROM EDEMAM
+      body += d;
+    });
+
+    response.on('end', () => {
+      // WHEN DATA IS FULLY RECEIVED PARSE INTO JSON
+      const parsed = JSON.parse(body);
+      // console.log(parsed.hits[0].recipe.image); // <-- Confirmed this shows the correct data!!!! -->
+      //  Index Template & pass recipe data into the template
+      res.render('index', { recipes: parsed.hits });
+    });
+  });
+});
 
 // launch =============================================================================
 const PORT = process.env.PORT;

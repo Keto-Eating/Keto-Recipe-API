@@ -11,7 +11,7 @@ body {
 
 img {}
 
-a li {
+a, a li, a:hover {
   text-decoration: none;
 }
 
@@ -30,7 +30,7 @@ a li {
   justify-content: space-between;
 }
 
-.nav-button {
+.navbar-right {
   flex-direction: row;
 }
 

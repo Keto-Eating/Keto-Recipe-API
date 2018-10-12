@@ -3,11 +3,13 @@
 
 
 module.exports = (app) => {
+  const auth = require('./helpers/auth')
   // Show all recipes saved in their cart
-  app.get('/recipes', (req, res) => {
-    res.send('YoLo');
+  app.get('/favorites', (req, res) => {
+    console.log(app.locals.username);
+    res.render('favorites', {username: app.locals.username});
 
-    RecipeSchema.findById(req.params._id);
+    // RecipeSchema.findById(req.params._id);
   });
 
   // Send a POST request to the database to create the recipes collection

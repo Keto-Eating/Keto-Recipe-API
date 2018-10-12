@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
-  <a class="navbar-brand" href="#">Keto Eating</a>
+  <a class="navbar-brand" href="/">Keto Eating</a>
 
   <form class="form-inline my-2 my-lg-0" action="/">
     <input class="form-control mr-sm-2 search-bar" type="search" placeholder="Enter keywords (ex: pizza)" aria-label="Search" name="term">
@@ -9,7 +9,8 @@
   <ul class="nav navbar-nav navbar-right">
     <div class="nav-links"></div>
     {{# if username}}
-      <li><a href="/logout" class="btn btn-danger nav-button">Logout</a></li>
+    <li><a href="/favorites" class="btn btn-info nav-button">My Favorites</a></li>
+      <li><a href="/logout" class="btn btn-light nav-button">Logout</a></li>
     {{else}}
       <li><a href="/login" class="btn btn-success nav-button">Login</a></li>
       <li><a href="/sign-up" class="btn btn-info nav-button">Sign Up</a></li>
