@@ -4,22 +4,10 @@ module.exports = (app) => {
   const jwt = require('jsonwebtoken');
   const UserSchema = require('../models/user');
 
-
   // Render the signup form
   app.get('/sign-up', (req, res) => {
     res.render('sign-up');
   });
-
-  // Render the logged-in template
-  app.get('/logged-in', (req, res) => {
-    res.render('logged-in');
-  });
-
-  // Render the logged-out template
-  app.get('/logged-out', (req, res) => {
-    res.render('logged-out');
-  });
-
 
   // POST: creates a new user
   app.post('/sign-up', (req, res) => {
@@ -84,4 +72,15 @@ module.exports = (app) => {
     res.clearCookie('nToken');
     res.redirect('logged-out/');
   });
+
+  // Render the logged-in template
+  app.get('/logged-in', (req, res) => {
+    res.render('logged-in');
+  });
+
+  // Render the logged-out template
+  app.get('/logged-out', (req, res) => {
+    res.render('logged-out');
+  });
+
 };
