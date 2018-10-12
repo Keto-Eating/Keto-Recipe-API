@@ -1,9 +1,12 @@
-<div class="card-columns">
+<div class="card-deck">
 
   {{#each recipes}}
     <div class="row">
       <div class="col-sm-4">
         <div class="card" style="width: 20rem;">
+          <form action="/favorites/new" method="POST">
+            <input type="submit" value="❤" class="save-to-faves-heart"/>
+          </form>
           <a href="{{this.recipe.url}}" target="_blank">
             <img class="card-img-top" src="{{this.recipe.image}}" alt="Card image">
           </a>
@@ -13,7 +16,12 @@
             </a>
             <div class="time-left-subheader">
               <img src="https://cdn4.iconfinder.com/data/icons/basic-ui-elements-1-1/100/Untitled-32-512.png" style="vertical-align: middle" class="clock-icon">
-              <span class="cooking-time">{{# if recipe.totalTime}}{{this.recipe.totalTime}}{{else}}--{{/if}} minutes</span>
+              <span class="cooking-time">
+                {{# if recipe.totalTime}}
+                  {{this.recipe.totalTime}}
+                {{else}}
+                  --
+                {{/if}} minutes</span>
             </div>
             <div class="ingredients-container">
               {{#each this.recipe.ingredients}}

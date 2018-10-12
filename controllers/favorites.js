@@ -15,7 +15,7 @@ module.exports = (app) => {
   // Send a POST request to the database to create the recipes collection
   // Test the db is connected
 
-  app.post('/recipes/new', (req, res) => {
+  app.post('/favorites/new', (req, res) => {
     const food = new RecipeSchema({
       name: 'taco'
     });
