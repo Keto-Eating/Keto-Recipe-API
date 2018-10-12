@@ -7,11 +7,11 @@ const User = require('../models/user');
 
 chai.use(chaiHttp);
 
-// Log in
+// Login
 const agent = chai.request.agent(app);
 agent
   .post('/session')
-  .send({ username: 'me', password: '123' })
+  .send({ username: 'test1@test.com', password: 'test123' })
   .then(function (res) {
     expect(res).to.have.cookie('sessionid');
     // The `agent` now has the sessionid cookie saved, and will send it
