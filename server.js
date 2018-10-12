@@ -21,6 +21,8 @@ app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+// parse application/json
+app.use(bodyParser.json());
 
 // TEMPLATE configuration ===============================================================
 app.engine('hbs', exphbs( {defaultLayout: 'main', extname: 'hbs' }));
@@ -81,3 +83,5 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Keto server listening on ${PORT}`);
 });
+
+module.exports = app;
