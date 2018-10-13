@@ -1,16 +1,21 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
-  <a class="navbar-brand" href="#">Keto Eating</a>
+  <a class="navbar-brand" href="/">Keto Eating</a>
 
   <form class="form-inline my-2 my-lg-0" action="/">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="term">
+    <input class="form-control mr-sm-2 search-bar" type="search" placeholder="Enter keywords (ex: pizza)" aria-label="Search" name="term">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
 
   <ul class="nav navbar-nav navbar-right">
-    <div class="nav-links"></div>
-      <li><a href="/logout" class="btn btn-danger">Logout</a></li>
-      <li><a href="/login" class="btn btn-success">Login</a></li>
-      <li><a href="/sign-up" class="btn btn-info">Sign Up</a></li>
+    <div class="nav-links">
+      {{# if username}}
+        <li><a href="/favorites" class="btn btn-light">My Favorites</a></li>
+        <li><a href="/logout" class="btn btn-link">Logout</a></li>
+        {{else}}
+          <li><a href="/favorites" class="btn btn-light">Favorites</a></li>
+          <li><a href="/signup" class="btn btn-success">Sign Up</a></li>
+          <li><a href="/login" class="btn btn-secondary">Login</a></li>
+          {{/if}}
     </div>
   </ul>
 </nav>
