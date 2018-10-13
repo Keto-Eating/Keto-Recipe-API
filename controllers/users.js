@@ -6,12 +6,12 @@ module.exports = (app) => {
   const favorites = require('./favorites')
 
   // Render the signup form
-  app.get('/dashboard', (req, res) => {
-    res.render('dashboard');
+  app.get('/signup', (req, res) => {
+    res.render('signup.hbs');
   });
 
   // POST: creates a new user
-  app.post('/sign-up', (req, res) => {
+  app.post('/signup', (req, res) => {
     // CREATE User and JWT
     const user = new UserSchema(req.body);
 
