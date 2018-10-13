@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  // const auth = require('./helpers/auth')
+  const auth = require('./helpers/auth')
   const FavoriteSchema = require('../models/favorite');
 
   // Show all recipes saved in their cart
@@ -12,8 +12,7 @@ module.exports = (app) => {
   });
 
   // Send a POST request to the database to create the recipes collection
-
-  app.post('/favorites/', (req, res) => {
+  app.post('/favorites/', auth.requireLogin, (req, res) => {
 
     const favorite = new FavoriteSchema({
       recipeName: req.body.recipeName,
