@@ -2,9 +2,12 @@ $(document).ready(function() {
 
   $('.favorite-form').submit(function (e) {
     e.preventDefault();
-    var recipeName = $('input[name="recipeName"]').val();
-    console.log(recipeName);
-    console.log('trying to fire ajax request');
+    let recipeName = $('input[name="recipeName"]').val();
+    let imageUrl = $('input[name="imageUrl"]').val();
+    let recipeUrl = $('input[name="recipeUrl"]').val();
+    let ingredients = $('input[name="ingredients"]').val();
+    let uri = $('input[name="uri"]').val();
+
     $.post("favorites/", {
       recipeName: recipeName,
       imageUrl: imageUrl,
@@ -12,23 +15,5 @@ $(document).ready(function() {
       ingredients: ingredients,
       uri: uri
      });
-
-     console.log(req.body.recipeName);
-     console.log(req.body.imageUrl);
-     console.log(req.body.recipeUrl);
-     console.log(req.body.ingredients);
-     console.log(req.body.uri);
-    // $.ajax({
-    //   type: 'POST',
-    //   url: 'favorites/',
-    //   data: { field1: "hello", field2 : "hello2"},
-    //   success: function(data) {
-    //     console.log("making an ajax request");
-    //   },
-    //   error: function(err) {
-    //     console.log(err.messsage);
-    //   }
-    // });
   });
-
 });

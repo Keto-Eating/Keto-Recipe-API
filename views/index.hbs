@@ -6,7 +6,11 @@
         <div class="card" style="width: 20rem;">
 
           <form class=favorite-form>
-            <input type="hidden" value="{{this.recipe.label}}" name="recipename"/>
+            <input type="hidden" value="{{this.recipe.label}}" name="recipeName"/>
+            <input type="hidden" value="{{this.recipe.image}}" name="imageUrl"/>
+            <input type="hidden" value="{{this.recipe.url}}" name="recipeUrl"/>
+            <input type="hidden" value="{{this.recipe.ingredients}}" name="ingredients"/>
+            <input type="hidden" value="{{this.recipe.uri}}" name="uri"/>
             <input type="submit" value="❤" class="save-to-faves-heart" />
           </form>
 
