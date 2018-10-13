@@ -94,9 +94,4 @@ module.exports = (app) => {
     res.redirect('back'); // to automatically redirect back to the page the request came from
   });
 
-  // Render the logged-out template
-  app.get('/logged-out', (req, res) => {
-    res.render('logged-out');
-  });
-
 };

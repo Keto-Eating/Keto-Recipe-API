@@ -5,10 +5,11 @@ module.exports = (app) => {
   // Show all recipes saved in their cart
   app.get('/favorites', (req, res) => {
     console.log(app.locals.username);
-    FavoriteSchema.find({}, 'recipeName', function(err, favorites) {
+    FavoriteSchema.find({}, function(err, favorites) {
         if (err) {
             console.error(err);
         } else {
+            console.log(favorites);
             res.render('favorites', {
                 favorites: favorites
             });
