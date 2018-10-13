@@ -1,17 +1,15 @@
 module.exports = (app) => {
   // const auth = require('./helpers/auth')
-  const User = require('../models/favorite');
+  const FavoriteSchema = require('../models/favorite');
 
   // Show all recipes saved in their cart
   app.get('/favorites', (req, res) => {
     console.log(app.locals.username);
     res.render('favorites', {username: app.locals.username});
-    // render favorites using a URL structure like this: `https://api.edamam.com/search?r=${RECIPE.URI}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`
 
   });
 
   // Send a POST request to the database to create the recipes collection
-  // Test the db is connected
 
   app.post('/favorites/', (req, res) => {
     console.log(req.body.recipeName);
@@ -19,6 +17,19 @@ module.exports = (app) => {
     console.log(req.body.recipeUrl);
     console.log(req.body.ingredients);
     console.log(req.body.uri);
+
+    const favorite = new FavoriteSchema({
+      recipeName: req.body.recipeName,
+      imageUrl: req.body.imageUrl,
+      recipeUrl: req.body.recipeUrl,
+      ingredients: req.body.ingredients,
+      uri: req.body.uri
+    });
+
+    favorite.save(function(err, favorite) {
+    if(err) console.log(err);
+    console.log("successfully saved a favorite");
+  });
     // const favorite = new FavoriteSchema({
     //   name: 'taco'
     // });
