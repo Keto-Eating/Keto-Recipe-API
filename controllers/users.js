@@ -91,7 +91,7 @@ module.exports = (app) => {
   app.get('/logout', (req, res) => {
     res.clearCookie('nToken');
     app.locals.username = null;
-    res.redirect('logged-out/');
+    res.redirect('back'); // to automatically redirect back to the page the request came from
   });
 
   // Render the logged-out template

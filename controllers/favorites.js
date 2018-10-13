@@ -1,18 +1,23 @@
 module.exports = (app) => {
-  const auth = require('./helpers/auth')
+  // const auth = require('./helpers/auth')
   const FavoriteSchema = require('../models/favorite');
 
   // Show all recipes saved in their cart
   app.get('/favorites', (req, res) => {
     console.log(app.locals.username);
-    res.render('favorites', {
-      username: app.locals.username
+    FavoriteSchema.find({}, 'recipeName', function(err, favorites) {
+        if (err) {
+            console.error(err);
+        } else {
+            res.render('favorites', {
+                favorites: favorites
+            });
+        }
     });
-
   });
 
   // Send a POST request to the database to create the recipes collection
-  app.post('/favorites/', auth.requireLogin, (req, res) => {
+  app.post('/favorites/', (req, res) => {
 
     const favorite = new FavoriteSchema({
       recipeName: req.body.recipeName,

@@ -1,5 +1,8 @@
 exports.requireLogin = (req, res, next) => {
-  console.log(app);
+  const exp = require('express');
+  const app = exp();
+
+  // console.log(app);
   if(app.locals.username) {
     return next();
   } else {

@@ -2,5 +2,11 @@
   <h1>{{username}}'s Favorites</h1>
 {{else}}
   <h1>My Favorites</h1>
-  <p>You must <a href="/login">login</a> to view your favorites.</p>
+  <p><a href="/login">Login</a> to view your <strong>own</strong> favorites.</p>
 {{/if}}
+
+<ul>
+    {{#each favorites as |favorite|}}
+        <li>{{favorite.recipeName}}</li>
+    {{/each}}
+</ul>
