@@ -30,7 +30,8 @@ a, a li, a:hover {
   justify-content: space-between;
 }
 
-.navbar-right {
+.nav-links {
+  display:flex;
   flex-direction: row;
 }
 

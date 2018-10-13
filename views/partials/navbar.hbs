@@ -7,15 +7,15 @@
   </form>
 
   <ul class="nav navbar-nav navbar-right">
-    <div class="nav-links"></div>
-    {{# if username}}
-    <li><a href="/favorites" class="btn btn-info nav-button">My Favorites</a></li>
-      <li><a href="/logout" class="btn btn-light nav-button">Logout</a></li>
-    {{else}}
-      <li><a href="/favorites" class="btn btn-light nav-button">Public Favorites</a></li>
-      <li><a href="/login" class="btn btn-success nav-button">Login</a></li>
-      <li><a href="/sign-up" class="btn btn-info nav-button">Sign Up</a></li>
-    {{/if}}
+    <div class="nav-links">
+      {{# if username}}
+        <li><a href="/favorites" class="btn btn-light">My Favorites</a></li>
+        <li><a href="/logout" class="btn btn-link">Logout</a></li>
+        {{else}}
+          <li><a href="/favorites" class="btn btn-light">Favorites</a></li>
+          <li><a href="/sign-up" class="btn btn-success">Sign Up</a></li>
+          <li><a href="/login" class="btn btn-secondary">Login</a></li>
+          {{/if}}
     </div>
   </ul>
 </nav>
