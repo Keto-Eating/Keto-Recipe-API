@@ -5,7 +5,9 @@ module.exports = (app) => {
   // Show all recipes saved in their cart
   app.get('/favorites', (req, res) => {
     console.log(app.locals.username);
-    res.render('favorites', {username: app.locals.username});
+    res.render('favorites', {
+      username: app.locals.username
+    });
 
   });
 
@@ -22,19 +24,8 @@ module.exports = (app) => {
     });
 
     favorite.save(function(err, favorite) {
-    if(err) console.log(err);
-    console.log("successfully saved a favorite");
-  });
-    // const favorite = new FavoriteSchema({
-    //   name: 'taco'
-    // });
-
-    // food.save((err, food) => res.send(food)
-    //   .then((food) => {
-    //     console.log(`You're a beast! ${food}`);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //   }));
+      if (err) console.log(err);
+      console.log("successfully saved a favorite");
+    });
   });
 };
