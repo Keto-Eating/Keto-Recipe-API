@@ -14,7 +14,11 @@ module.exports = (app) => {
   // Test the db is connected
 
   app.post('/favorites/', (req, res) => {
-    console.log(req.body.recipename);
+    console.log(req.body.recipeName);
+    console.log(req.body.imageUrl);
+    console.log(req.body.recipeUrl);
+    console.log(req.body.ingredients);
+    console.log(req.body.uri);
     // const favorite = new FavoriteSchema({
     //   name: 'taco'
     // });

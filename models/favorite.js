@@ -5,6 +5,9 @@ const FavoriteSchema = mongoose.Schema({
   createdAt: { type: Date },
   updatedAt: { type: Date },
   name: { type: String, required: true },
+  imageUrl: { type: String, required: true },
+  ingredients: { type: Array, required: true },
+  recipeUrl: { type: String, required: true },
   uri: {type: String, required: true }
 });
 

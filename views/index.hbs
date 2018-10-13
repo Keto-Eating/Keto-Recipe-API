@@ -5,22 +5,24 @@
       <div class="col-sm-4">
         <div class="card" style="width: 20rem;">
 
-
-          <form action="/favorites/" method="POST">
+          <form class=favorite-form>
             <input type="hidden" value="{{this.recipe.label}}" name="recipename"/>
-            <input type="submit" value="❤" class="save-to-faves-heart"/>
+            <input type="submit" value="❤" class="save-to-faves-heart" />
           </form>
-
 
           <a href="{{this.recipe.url}}" target="_blank">
             <img class="card-img-top" src="{{this.recipe.image}}" alt="Card image">
           </a>
+
           <div class="card-body">
+
             <a href="{{this.recipe.url}}" target="_blank">
               <h4 class="card-title">{{this.recipe.label}}</h4>
             </a>
+
             <div class="time-left-subheader">
               <img src="https://cdn4.iconfinder.com/data/icons/basic-ui-elements-1-1/100/Untitled-32-512.png" style="vertical-align: middle" class="clock-icon">
+
               <span class="cooking-time">
                 {{# if recipe.totalTime}}
                   {{this.recipe.totalTime}}
@@ -28,6 +30,7 @@
                   --
                 {{/if}} minutes</span>
             </div>
+
             <div class="ingredients-container">
               {{#each this.recipe.ingredients}}
                 <li class="card-text">{{this.text}}</li>
@@ -35,10 +38,13 @@
             </div>
 
           </div>
+
           <a href="{{this.recipe.url}}" target="_blank">
+
             <div class="card-footer">
               View Full Recipe
             </div>
+
           </a>
         </div>
       </div>
