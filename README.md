@@ -23,11 +23,11 @@ Phyllis Wong<br><br>
 Leslie Kimm<br><br>
 
 ### Pages/Routes:
-/ (home)<br>
-/?term=pizza (searches for pizza). For multiple terms, separate each term by %20 or use the search bar<br>
-/favorites (logged out: list of public favorites / logged in: list of your saved favorites)<br>
-/login (login for existing users)<br>
-/signup (create new account)<br>
+- **/** (home)<br>
+- **/?term=pizza** (searches for keto recipes for 'pizza'. For multiple terms, separate each term by %20 or use the search bar)<br>
+- **/favorites** (logged out: list of public favorites / logged in: list of your saved favorites)<br>
+- **/login** (login for existing users)<br>
+- **/signup** (create new account)<br>
 
 ### Milestones
 
