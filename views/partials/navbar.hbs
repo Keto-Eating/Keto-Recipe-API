@@ -8,11 +8,11 @@
 
   <ul class="nav navbar-nav navbar-right">
     <div class="nav-links">
+        <li><a href="/favorites" class="btn btn-light">Public Favorites</a></li>
       {{# if username}}
-        <li><a href="/favorites" class="btn btn-light">My Favorites</a></li>
+        <li><a href="/dashboard" class="btn btn-success">Dashboard</a></li>
         <li><a href="/logout" class="btn btn-link">Logout</a></li>
         {{else}}
-          <li><a href="/favorites" class="btn btn-light">Favorites</a></li>
           <li><a href="/signup" class="btn btn-success">Sign Up</a></li>
           <li><a href="/login" class="btn btn-secondary">Login</a></li>
           {{/if}}

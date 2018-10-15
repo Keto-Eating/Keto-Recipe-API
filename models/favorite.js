@@ -8,7 +8,8 @@ const FavoriteSchema = mongoose.Schema({
   imageUrl: { type: String, required: true },
   recipeUrl: { type: String, required: true },
   ingredients: { type: Array, required: true },
-  uri: {type: String, required: true }
+  uri: {type: String, required: true },
+  totalVotes: {type: Number}
 });
 
 FavoriteSchema.pre('save', function (next) {
