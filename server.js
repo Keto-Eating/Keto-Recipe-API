@@ -71,7 +71,7 @@ app.get('/', (req, res) => {
   const term = encodeURIComponent(queryString);
   // PUT THE SEARCH TERM INTO THE EDEMAM API SEARCH URL
   const url = `https://api.edamam.com/search?q=${term}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
-
+  console.log(url);
   // console.log(`URL: ${url}`);
   http.get(url, (response) => {
     response.setEncoding('utf8');
