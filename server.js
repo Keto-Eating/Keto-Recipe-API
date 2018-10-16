@@ -49,7 +49,7 @@ mongoose.set('debug', true);
 // load our routes and pass to our app
 require('./controllers/users')(app); // load our routes and pass to our app
 require('./controllers/favorites')(app); // load our routes and pass to our app
-
+require('./controllers/dashboard')(app);
 // app.get('/', (req, res) => {
 //   console.log('hello');
 //   console.log(res.cookie);
