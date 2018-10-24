@@ -1,31 +1,6 @@
-{{# if username}}
-  <h1>{{username}}'s Favorites</h1>
-  {{else}}
-    <h6><a href="/login">Login</a> to view your <strong>own</strong> favorites.</h6>
-    <h1>Public Favorites</h1>
-    {{/if}}
-
-    <div class="card-deck">
-
-      {{#each favorites as |favorite|}}
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="card" style="width: 20rem;">
-              <a href="{{favorite.recipeUrl}}" target="_blank">
-                <img class="card-img-top" src="{{favorite.imageUrl}}" alt="Card image">
-              </a>
-              <div class="card-body">
-                <a href="{{favorite.recipeUrl}}" target="_blank">
-                  <h4 class="card-title">{{favorite.recipeName}}</h4>
-                </a>
-              </div>
-              <a href="{{favorite.recipeUrl}}" target="_blank">
-                <div class="card-footer">
-                  View Recipe
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      {{/each}}
-    </div>
+<a href="/favorites">Public Favorites</a> ><br><br>
+<h1>Public Favorites</h1>
+<hr>
+<h6>Did you want to view your <a href="/dashboard/favorites">own favorites</a>?</h6>
+<br>
+{{>favorite-cards}}

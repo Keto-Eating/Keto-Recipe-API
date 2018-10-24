@@ -1,0 +1,33 @@
+<a href="/dashboard">Dashboard</a> ><br><br>
+<h1>Dashboard</h1>
+<hr>
+<h2>Account Details:</h2>
+<hr>
+
+<ul>
+  <li>Username: {{username}}</li>
+  <li>Password: ****** <!--(change password) --></li>
+</ul>
+<br>
+<h2>My Favorites:</h2>
+
+<hr>
+  <div class="card-deck">
+    {{#each favorites as |favorite|}}
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="card" style="width: 20rem;">
+            <a href="{{favorite.recipeUrl}}" target="_blank">
+              <img class="card-img-top" id="dashboard-favorite-img" src="{{favorite.imageUrl}}" alt="Card image">
+            </a>
+            <div class="card-body">
+              <a href="{{favorite.recipeUrl}}" target="_blank">
+                <h4 class="card-title">{{favorite.recipeName}}</h4>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+  <a href="/dashboard/favorites">View All My Favorites</a>

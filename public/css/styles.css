@@ -112,3 +112,10 @@ a, a li, a:hover {
 .card-footer:hover {
   background-color: grey;
 }
+
+/** DASHBOARD **/
+
+#dashboard-favorite-img {
+  max-height: 5em;
+  object-fit: cover;
+}

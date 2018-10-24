@@ -49,7 +49,7 @@ mongoose.set('debug', true);
 // load our routes and pass to our app
 require('./controllers/users')(app); // load our routes and pass to our app
 require('./controllers/favorites')(app); // load our routes and pass to our app
-
+require('./controllers/dashboard')(app);
 // app.get('/', (req, res) => {
 //   console.log('hello');
 //   console.log(res.cookie);
@@ -71,7 +71,7 @@ app.get('/', (req, res) => {
   const term = encodeURIComponent(queryString);
   // PUT THE SEARCH TERM INTO THE EDEMAM API SEARCH URL
   const url = `https://api.edamam.com/search?q=${term}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
-
+  // console.log(url);
   // console.log(`URL: ${url}`);
   http.get(url, (response) => {
     response.setEncoding('utf8');
