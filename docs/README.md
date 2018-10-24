@@ -37,4 +37,5 @@ Leslie Kimm<br><br>
 -   [x] **Oct 12** Add test(s)
 -   [x] **Oct 13** Add 1 nested route: user favorites
 -   [x] **Oct 14** Re-deploy to Heroku
--   [x] **Oct 21** Shipped to our custom domain
+-   [ ] **Oct 21** Shipped to our custom domain
+-   [ ] **Dec 7** Ship functional version and share with friends
