@@ -35,6 +35,6 @@ Leslie Kimm<br><br>
 -   [x] **Oct 10** Non-authenticated landing page: MVP Search for food item --> return keto recipes
 -   [x] **Oct 11** Stretch goal - authenticated version
 -   [x] **Oct 12** Add test(s)
--   [ ] **Oct 13** Add 1 nested route: user favorites
--   [ ] **Oct 14** Re-deploy to Heroku
--   [ ] **Oct 21** Shipped to our custom domain
+-   [x] **Oct 13** Add 1 nested route: user favorites
+-   [x] **Oct 14** Re-deploy to Heroku
+-   [x] **Oct 21** Shipped to our custom domain
