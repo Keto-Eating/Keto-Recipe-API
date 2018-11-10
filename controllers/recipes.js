@@ -5,7 +5,7 @@ module.exports = (app) => {
   const schedule = require('node-schedule');
   const RecipeSchema = require('../models/recipe');
 
-  const edamamJob = schedule.scheduleJob('30 * * * * *', function() {
+  const edamamJob = schedule.scheduleJob('59 59 23 * * *', function() {
     // second min hr dayOfMonth month dayOfWeek
 
     // TODO: add loop later to change from/to params
@@ -44,37 +44,19 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/', (req, res) => {
-    let queryString = '';
+	app.get('/', (req, res) => {
+    let queryString = req.query.term;
 
-    // This preloads the page with first 100 recipes
-    if (!req.query.term) {
-      queryString = 'keto';
-    } else {
-      queryString = `keto ${req.query.term}`;
-    }
+		// find recipe(s) searching with term above
+		results = RecipeSchema.find({ label: `${queryString}`/i}, (function(recipes) {
+				console.log(recipes);
+			}));
+		// if found assign array to results
 
-    // ENCODE THE QUERY STRING TO REMOVE WHITE SPACES AND RESTRICTED CHARACTERS
-    const term = encodeURIComponent(queryString);
-    // PUT THE SEARCH TERM INTO THE EDEMAM API SEARCH URL
-    const url = `https://api.edamam.com/search?q=${term}&from=0&to=100&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
-
-    http.get(url, (response) => {
-      response.setEncoding('utf8');
-      let body = '';
-
-      response.on('data', (d) => {
-        body += d;
-      });
-
-      response.on('end', () => {
-        // WHEN DATA IS FULLY RECEIVED PARSE INTO JSON
-        const parsed = JSON.parse(body);
-        // Index Template & pass recipe data to the template
-        res.render('index', {
-          recipes: parsed.hits
-        });
-      });
-    });
+		// Index Template & pass recipe data to the template
+		res.render('index', {
+			//results is an array
+			// recipes: results
+		});
   });
 }
