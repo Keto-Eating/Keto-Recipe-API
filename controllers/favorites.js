@@ -29,24 +29,15 @@ module.exports = (app) => {
 
     // find recipe, add userId to usersWhoFavorited
     RecipeSchema.findByIdAndUpdate(favoriteId, {
-      $addToSet: {
-        usersWhoFavorited: userId
-      }
-    }, function(err) {
-      if (err) {
-        console.error(err)
-      };
+      $addToSet: {usersWhoFavorited: userId }}, function(err) {
+      if (err) return handleError(err);
     });
     // find user, save favorite to arrayOfFavoriteRecipes
     UserSchema.findByIdAndUpdate(userId, {
-      $addToSet: {
-        arrayOfFavoriteRecipes: favoriteId
-      }
-    }, function(err) {
-      if (err) {
-        app.locals.user = user
-        console.error(err)
-      };
+      $addToSet: { arrayOfFavoriteRecipes: favoriteId }}, function (err, user) {
+      if (err) return handleError(err);
+      app.locals.user = user // update user locally
+      console.log(user);
     });
   });
 };

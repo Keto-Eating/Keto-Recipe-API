@@ -51,11 +51,15 @@ a, a li, a:hover {
   background:none;
 }
 
-.save-to-faves-heart:hover {
+.save-to-faves-heart:hover, {
   color:#e74c3c;
   font-weight:bold;
   cursor: pointer;
   /* background-color:red; */
+}
+
+.save-to-faves-heart.favorited {
+  color:#e74c3c;
 }
 
 .card-title {
