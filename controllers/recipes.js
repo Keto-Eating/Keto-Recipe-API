@@ -3,7 +3,7 @@ module.exports = (app) => {
   const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
   const EDAMAM_API_KEY = process.env.EDAMAM_API_KEY;
   const schedule = require('node-schedule');
-  const RecipeSchema = require('../models/recipe');
+  const Recipe = require('../models/recipe');
 
   const edamamJob = schedule.scheduleJob('59 59 23 * * *', function() {
     // second min hr dayOfMonth month dayOfWeek
@@ -24,12 +24,13 @@ module.exports = (app) => {
         const parsed = JSON.parse(body);
         parsed.hits.forEach(function(hit) {
           const recipe = new RecipeSchema(hit.recipe);
-          RecipeSchema.findOne({ uri: hit.recipe.uri })
+          Recipe.findOne({ uri: hit.recipe.uri })
             .then(function(recipe) {
               if (recipe) {
                 console.log("recipe already exists");
               } else if (!recipe) {
                 // recipe isn't in DB, save ot
+								console.log('ADD ME');
                 recipe.save(function(err, recipe) {
                   if (err) console.log(err);
                   console.log("successfully saved a recipe: " + hit.recipe.label);
@@ -46,17 +47,44 @@ module.exports = (app) => {
 
 	app.get('/', (req, res) => {
     let queryString = req.query.term;
+		console.log(queryString);
+		var regQuery = new RegExp(queryString, 'i');
+		console.log(regQuery);
+		// Recipe.find().or([{ 'label': { $regex: regQuery }}, { 'ingredientLines': { $regex: regQuery }}])
+		// 	.exec(function(err, recipes) {
+		// 		res.render('index', {
+	  //       recipes: recipes
+	  //     });
+		// });
+
+		// let regQuery = new RegExp('^'+req.body.customerName+'$', 'i');
+		// let query = { $or : [ { label: regQuery }, { lastName: regQuery } ] };
 
 		// find recipe(s) searching with term above
-		results = RecipeSchema.find({ label: `${queryString}`/i}, (function(recipes) {
+		// results = RecipeSchema.find({}, (function(recipes) {
+		// 		res.render('index', { recipes: results });
+		// 		console.log(recipes);
+		// 	}));
+
+		// db.users.findOne({"username" : {$regex : "son"}});
+
+		Recipe.find({
+			"label" : regQuery
+		}, function(err, recipes) {
+	    if (err) {
+	      console.error(err);
+	    } else {
+	      res.render('index', {
+	        recipes: recipes
+	      });
 				console.log(recipes);
-			}));
+	    }
+	  }).sort([
+	    // ['timesFavorited', 1]
+	  ]);
 		// if found assign array to results
 
 		// Index Template & pass recipe data to the template
-		res.render('index', {
-			//results is an array
-			// recipes: results
-		});
+
   });
 }
