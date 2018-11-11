@@ -58,7 +58,6 @@ module.exports = (app) => {
 	      res.render('index', {
 	        recipes: recipes
 	      });
-				console.log(recipes);
 	    }
 	  })
   });

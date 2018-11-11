@@ -77,7 +77,7 @@ module.exports = (app) => {
               httpOnly: true
             });
             console.log('Successfully logged in.');
-            res.redirect('favorites/');
+            res.redirect('/');
           });
         }
       })

@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  // const auth = require('./helpers/auth')
+  const auth = require('./helpers/auth')
   const RecipeSchema = require('../models/recipe');
   const UserSchema = require('../models/user');
 
@@ -14,7 +14,7 @@ module.exports = (app) => {
       if (err) {
         console.error(err);
       } else {
-        res.render('index', {
+        res.render('favorites', {
           recipes: recipes
         });
         console.log(recipes);
@@ -24,11 +24,13 @@ module.exports = (app) => {
 
   // Send a POST request to the database to create the recipes collection
   app.post('/favorites/', (req, res) => {
+    console.log(req.params);
     const favoriteId = req.body.favoriteId;
-    const userId = app.locals.user.userId
+    console.log('favoriteId: ' + favoriteId);
+    const userId = app.locals.user.id
 
-    // find recipe, add username to usersWhoFavorited
-    RecipeSchema.findByIdAndUpdate(req.body.favoriteId, {
+    // find recipe, add userId to usersWhoFavorited
+    RecipeSchema.findByIdAndUpdate(favoriteId, {
       $addToSet: {
         usersWhoFavorited: userId
       }
@@ -38,9 +40,9 @@ module.exports = (app) => {
       };
     });
     // find user, save favorite to arrayOfFavoriteRecipes
-    UserSchema.findByIdAndUpdate(req.body.userId, {
+    UserSchema.findByIdAndUpdate(userId, {
       $addToSet: {
-        arrayOfFavoriteRecipes: userId
+        arrayOfFavoriteRecipes: favoriteId
       }
     }, function(err) {
       if (err) {

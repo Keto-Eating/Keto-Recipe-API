@@ -3,7 +3,7 @@ exports.requireLogin = (req, res, next) => {
   const app = exp();
 
   // console.log(app);
-  if (app.locals.username) {
+  if (app.locals.user) {
     return next();
   }
   const err = new Error('You must log in to view this page');
