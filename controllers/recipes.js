@@ -25,26 +25,31 @@ module.exports = (app) => {
         parsed.hits.forEach( function(hit) {
           const recipe = new RecipeSchema(hit.recipe);
 
+          // TODO: is this going to duplicate every 24 hrs?
+          // Perhaps check if there is a collection, and make the collection first
 	        recipe.save(function(err, recipe) {
 		        if (err) { console.log(err.message) }
 		        else {
-			        console.log("successfully saved a recipe: " + hit.recipe.label)
+			        console.log(`successfully saved a recipe: ${recipe.label}`)
 		        }
 	        });
 
           RecipeSchema.findOne({ uri: hit.recipe.uri })
-            .then(function(recipe) {
+            .then( (recipe) => {
               if (recipe) {
                 console.log("recipe already exists");
-              } else if (!recipe) {
-                // recipe isn't in DB, save ot
-								console.log('ADD ME');
-                recipe.save(function(err, recipe) {
-                  if (err) console.log(err);
-                  console.log("successfully saved a recipe: " + hit.recipe.label);
+              }
+
+              else if (!recipe) {
+                recipe.save( (err, recipe) => {
+                  if (err) { console.log(err.message) }
+                  else {
+                    console.log(`successfully saved a recipe: ${ recipe.label }`)
+                  }
                 });
               }
             })
+
             .catch((error, done) => {
               return done(error)
             });
@@ -54,20 +59,17 @@ module.exports = (app) => {
   });
 
 	app.get('/', (req, res) => {
-    let queryString = req.query.term;
+		let queryString = req.query.term;
 		var regExpQuery = new RegExp(queryString, 'i');
 
-		RecipeSchema.find({
-			"label" : queryFields
-		}, function(err, recipes) {
-	    if (err) {
-	      console.error(err);
-	    } else {
-	      res.render('index', {
-	        recipes: recipes
-	      });
+		RecipeSchema.find({label : regExpQuery}, function (err, recipes) {
+			if (err) {
+				console.error(err.message)
+			}
+			else {
+				res.render('index', {recipes: recipes});
 				console.log(recipes);
-	    }
-	  })
-  });
+			}
+		})
+	})
 }
