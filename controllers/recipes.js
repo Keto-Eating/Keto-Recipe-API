@@ -38,6 +38,7 @@ module.exports = (app) => {
                 console.log("recipe already exists");
               } else if (!recipe) {
                 // recipe isn't in DB, save ot
+								console.log('ADD ME');
                 recipe.save(function(err, recipe) {
                   if (err) console.log(err);
                   console.log("successfully saved a recipe: " + hit.recipe.label);
@@ -54,17 +55,19 @@ module.exports = (app) => {
 
 	app.get('/', (req, res) => {
     let queryString = req.query.term;
+		var regExpQuery = new RegExp(queryString, 'i');
 
-		// find recipe(s) searching with term above
-		results = RecipeSchema.find({ label: `${queryString}/i`}, (function(recipes) {
+		RecipeSchema.find({
+			"label" : queryFields
+		}, function(err, recipes) {
+	    if (err) {
+	      console.error(err);
+	    } else {
+	      res.render('index', {
+	        recipes: recipes
+	      });
 				console.log(recipes);
-			}));
-		// if found assign array to results
-
-		// Index Template & pass recipe data to the template
-		res.render('index', {
-			//results is an array
-			// recipes: results
-		});
+	    }
+	  })
   });
 }
