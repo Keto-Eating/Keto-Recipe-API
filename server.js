@@ -48,6 +48,16 @@ require('./controllers/users')(app); // load our routes and pass to our app
 require('./controllers/favorites')(app); // load our routes and pass to our app
 require('./controllers/dashboard')(app);
 
+app.get('/api/hello', (req, res) => {
+	res.send({ express: 'Hello From Express' });
+});
+
+app.post('/api/world', (req, res) => {
+	console.log(req.body);
+	res.send(
+		`I received your POST request. This is what you sent me: ${req.body.post}`,
+	);
+});
 
 // 404 page
 app.get('*', (req, res) => {
