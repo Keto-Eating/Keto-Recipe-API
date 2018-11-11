@@ -48,23 +48,6 @@ module.exports = (app) => {
 	app.get('/', (req, res) => {
     let queryString = req.query.term;
 		var regExpQuery = new RegExp(queryString, 'i');
-		// Recipe.find().or([{ 'label': { $regex: regQuery }}, { 'ingredientLines': { $regex: regQuery }}])
-		// 	.exec(function(err, recipes) {
-		// 		res.render('index', {
-	  //       recipes: recipes
-	  //     });
-		// });
-
-		// let regQuery = new RegExp('^'+req.body.customerName+'$', 'i');
-		let queryFields = { $or : [ { label: regExpQuery }, { lastName: regExpQuery } ] };
-
-		// find recipe(s) searching with term above
-		// results = RecipeSchema.find({}, (function(recipes) {
-		// 		res.render('index', { recipes: results });
-		// 		console.log(recipes);
-		// 	}));
-
-		// db.users.findOne({"username" : {$regex : "son"}});
 
 		Recipe.find({
 			"label" : queryFields
@@ -77,12 +60,6 @@ module.exports = (app) => {
 	      });
 				console.log(recipes);
 	    }
-	  }).sort([
-	    // ['timesFavorited', 1]
-	  ]);
-		// if found assign array to results
-
-		// Index Template & pass recipe data to the template
-
+	  })
   });
 }
