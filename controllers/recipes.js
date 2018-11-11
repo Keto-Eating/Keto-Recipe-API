@@ -57,6 +57,7 @@ module.exports = (app) => {
 	    } else {
 	      res.render('index', {
 	        recipes: recipes
+					// user: req.body.user
 	      });
 	    }
 	  })

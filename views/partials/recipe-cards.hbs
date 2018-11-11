@@ -5,6 +5,9 @@
         <div class="card" style="width: 20rem;">
           <form class=favorite-form>
             <input type="hidden" value="{{this.id}}" name="favoriteId"/>
+            {{#if @root.user._id}}
+              <input type="hidden" value="{{@root.user._id}}" name="userId"/>
+            {{/if}}
             <input type="submit" value="❤" class="save-to-faves-heart" />
           </form>
           <a href="{{this.url}}" target="_blank">
