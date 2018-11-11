@@ -48,7 +48,7 @@ require('./controllers/users')(app); // load our routes and pass to our app
 require('./controllers/favorites')(app); // load our routes and pass to our app
 require('./controllers/dashboard')(app);
 
-app.get('/api/hello', (req, res) => {
+app.get('/', (req, res) => {
 	res.send({ express: 'Hello From Express' });
 });
 

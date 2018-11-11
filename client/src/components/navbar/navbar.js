@@ -9,7 +9,7 @@ class Navbar extends Component {
 				<h1 className='logo'>Keto Eating</h1>
         <div className='search-bar'>
           <input className='search-input'/>
-          <button className='search-button'>seach</button>
+          <button className='search-btn'>seach</button>
         </div>
         <ul className='nav-links'>
           <li><button className='btn btn-submit'>signup</button></li>

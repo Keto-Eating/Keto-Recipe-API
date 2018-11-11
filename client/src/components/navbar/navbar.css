@@ -20,6 +20,17 @@
   justify-content: center;
 }
 
+.search-input {
+  width: 200px;
+  height: 36px;
+  margin: 0.25rem;
+}
+
+.search-btn {
+  width: 60px;
+  margin: 0.25rem;
+}
+
 ul.nav-links {
   margin: 0;
   padding: 0;

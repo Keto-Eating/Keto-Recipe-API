@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -9,7 +22,10 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 50%;
+  background-image: url('./roasted-zuc.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 65vh;
   padding-bottom: 10px;
   display: flex;
   flex-direction: column;
