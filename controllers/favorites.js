@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  const auth = require('./helpers/auth')
+  // const auth = require('./helpers/auth')
   const RecipeSchema = require('../models/recipe');
   const UserSchema = require('../models/user');
 
