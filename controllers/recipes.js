@@ -47,9 +47,7 @@ module.exports = (app) => {
 
 	app.get('/', (req, res) => {
     let queryString = req.query.term;
-		console.log(queryString);
-		var regQuery = new RegExp(queryString, 'i');
-		console.log(regQuery);
+		var regExpQuery = new RegExp(queryString, 'i');
 		// Recipe.find().or([{ 'label': { $regex: regQuery }}, { 'ingredientLines': { $regex: regQuery }}])
 		// 	.exec(function(err, recipes) {
 		// 		res.render('index', {
