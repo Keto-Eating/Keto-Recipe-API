@@ -6,7 +6,7 @@ module.exports = (app) => {
   const RecipeSchema = require('../models/recipe');
 
   const edamamJob = schedule.scheduleJob('59 59 23 * * *', function() {
-    // second min hr dayOfMonth month dayOfWeek
+    // (second min hr dayOfMonth month dayOfWeek)
 
     // TODO: add loop later to change from/to params
     const url = `https://api.edamam.com/search?q=keto&from=0&to=100&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
@@ -20,10 +20,18 @@ module.exports = (app) => {
       });
 
       response.on('end', () => {
-        // WHEN DATA IS FULLY RECEIVED PARSE INTO JSON
         const parsed = JSON.parse(body);
-        parsed.hits.forEach(function(hit) {
+
+        parsed.hits.forEach( function(hit) {
           const recipe = new RecipeSchema(hit.recipe);
+
+	        recipe.save(function(err, recipe) {
+		        if (err) { console.log(err.message) }
+		        else {
+			        console.log("successfully saved a recipe: " + hit.recipe.label)
+		        }
+	        });
+
           RecipeSchema.findOne({ uri: hit.recipe.uri })
             .then(function(recipe) {
               if (recipe) {
@@ -40,9 +48,9 @@ module.exports = (app) => {
             .catch((error, done) => {
               return done(error)
             });
-        });
+        }); // <--------- END of forEach()
       });
-    });
+    }); // <---------- END of fetch request
   });
 
 	app.get('/', (req, res) => {
