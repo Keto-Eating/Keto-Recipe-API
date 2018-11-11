@@ -56,7 +56,7 @@ module.exports = (app) => {
 		// });
 
 		// let regQuery = new RegExp('^'+req.body.customerName+'$', 'i');
-		// let query = { $or : [ { label: regQuery }, { lastName: regQuery } ] };
+		let queryFields = { $or : [ { label: regExpQuery }, { lastName: regExpQuery } ] };
 
 		// find recipe(s) searching with term above
 		// results = RecipeSchema.find({}, (function(recipes) {
@@ -67,7 +67,7 @@ module.exports = (app) => {
 		// db.users.findOne({"username" : {$regex : "son"}});
 
 		Recipe.find({
-			"label" : regQuery
+			"label" : queryFields
 		}, function(err, recipes) {
 	    if (err) {
 	      console.error(err);
