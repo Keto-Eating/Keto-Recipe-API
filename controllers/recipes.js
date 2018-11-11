@@ -50,7 +50,7 @@ module.exports = (app) => {
 		var regExpQuery = new RegExp(queryString, 'i');
 
 		RecipeSchema.find({
-			"label" : queryFields
+			"label" : regExpQuery
 		}, function(err, recipes) {
 	    if (err) {
 	      console.error(err);
