@@ -3,7 +3,7 @@ module.exports = (app) => {
   const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
   const EDAMAM_API_KEY = process.env.EDAMAM_API_KEY;
   const schedule = require('node-schedule');
-  const Recipe = require('../models/recipe');
+  const RecipeSchema = require('../models/recipe');
 
   const edamamJob = schedule.scheduleJob('59 59 23 * * *', function() {
     // second min hr dayOfMonth month dayOfWeek
@@ -24,7 +24,7 @@ module.exports = (app) => {
         const parsed = JSON.parse(body);
         parsed.hits.forEach(function(hit) {
           const recipe = new RecipeSchema(hit.recipe);
-          Recipe.findOne({ uri: hit.recipe.uri })
+          RecipeSchema.findOne({ uri: hit.recipe.uri })
             .then(function(recipe) {
               if (recipe) {
                 console.log("recipe already exists");
@@ -49,7 +49,7 @@ module.exports = (app) => {
     let queryString = req.query.term;
 		var regExpQuery = new RegExp(queryString, 'i');
 
-		Recipe.find({
+		RecipeSchema.find({
 			"label" : queryFields
 		}, function(err, recipes) {
 	    if (err) {
