@@ -18,24 +18,16 @@ module.exports = (app) => {
       response.on('end', () => {
         const parsed = JSON.parse(body);
         parsed.hits.forEach(function(hit) {
-          const recipe = new RecipeSchema(hit.recipe);
-          // TODO: is this going to duplicate every 24 hrs?
-          // Perhaps check if there is a collection, and make the collection first
-          // recipe.save(function(err, recipe) {
-          //   if (err) {
-          //     console.log('Error in recipe save: ', err.message)
-          //   } else {
-          //     console.log(`successfully saved a recipe: ${recipe.label}`)
-          //   }
-          // });
-          RecipeSchema.findOne({
-              uri: hit.recipe.uri
-            })
-            .then((recipe) => {
-              if (recipe) {
+          const recipeFromAPI = new RecipeSchema(hit.recipe);
+          RecipeSchema.findOne({ uri: hit.recipe.uri })
+            .exec(function(err, recipeInDB) {
+              if (err) {
+                console.log('Error in recipe save: ', err.message)
+              } else if (recipeInDB) {
                 console.log("recipe already exists");
-              } else if (!recipe) {
-                recipe.save((err, recipe) => {
+              } else {
+                // recipe is not in DB yet, save it
+                recipeFromAPI.save((err, recipe) => {
                   if (err) {
                     console.log('Error in recipe save: ', err.message)
                   } else {
@@ -43,8 +35,6 @@ module.exports = (app) => {
                   }
                 });
               }
-            }).catch((error, done) => {
-              return done(error)
             });
         }); // <--------- END of forEach()
       });
