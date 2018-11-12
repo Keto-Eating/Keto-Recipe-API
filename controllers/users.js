@@ -45,7 +45,6 @@ module.exports = (app) => {
     const username = req.body.username;
     const password = req.body.password;
     app.locals.username = req.body.username;
-
     // Look for this user name
     UserSchema.findOne({
         username
@@ -57,7 +56,6 @@ module.exports = (app) => {
             message: 'Wrong Username or Password'
           });
         }
-
         // Check the password
         user.comparePassword(password, (err, isMatch) => {
           if (!isMatch) {
@@ -65,7 +63,6 @@ module.exports = (app) => {
               message: 'Wrong Username or Password'
             });
           }
-
           // Create the token
           const token = jwt.sign({
             _id: user._id,

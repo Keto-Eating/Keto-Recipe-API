@@ -31,7 +31,7 @@ a, a li, a:hover {
 }
 
 .nav-links {
-  display:flex;
+  display: flex;
   flex-direction: row;
 }
 
@@ -44,16 +44,16 @@ a, a li, a:hover {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size:3em;
-  color:white;
+  font-size: 3em;
+  color: white;
   /* change this white to a green border with white inside */
-  border:none;
-  background:none;
+  border: none;
+  background: none;
 }
 
 .save-to-faves-heart:hover {
-  color:#e74c3c;
-  font-weight:bold;
+  color: #e74c3c;
+  font-weight: bold;
   cursor: pointer;
   /* background-color:red; */
 }
@@ -103,9 +103,9 @@ a, a li, a:hover {
 }
 
 .card-footer {
-  background-color:green;
+  background-color: green;
   color: white;
-  display:flex;
+  display: flex;
   justify-content: space-between;
 }
 
@@ -114,7 +114,6 @@ a, a li, a:hover {
 }
 
 /** DASHBOARD **/
-
 #dashboard-favorite-img {
   max-height: 5em;
   object-fit: cover;

@@ -2,14 +2,14 @@
 const mongoose = require('mongoose');
 
 const FavoriteSchema = mongoose.Schema({
-  createdAt: { type: Date },
-  updatedAt: { type: Date },
-  recipeName: { type: String, required: true },
-  imageUrl: { type: String, required: true },
-  recipeUrl: { type: String, required: true },
-  ingredients: { type: Array, required: true },
-  uri: {type: String, required: true },
-  totalVotes: {type: Number}
+  createdAt   : { type: Date },
+  updatedAt   : { type: Date },
+  recipeName  : { type: String, required: true },
+  imageUrl    : { type: String, required: true },
+  recipeUrl   : { type: String, required: true },
+  ingredients : { type: Array, required: true },
+  uri         : {type: String, required: true },
+  totalVotes  : {type: Number}
 });
 
 FavoriteSchema.pre('save', function (next) {

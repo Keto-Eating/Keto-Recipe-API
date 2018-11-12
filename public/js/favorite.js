@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  $('.favorite-form').submit(function (e) {
+  $('.favorite-form').submit(function(e) {
     e.preventDefault();
     let recipeName = $('input[name="recipeName"]').val();
     let imageUrl = $('input[name="imageUrl"]').val();
@@ -14,6 +14,6 @@ $(document).ready(function() {
       recipeUrl: recipeUrl,
       ingredients: ingredients,
       uri: uri
-     });
+    });
   });
 });
