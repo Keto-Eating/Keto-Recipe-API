@@ -17,7 +17,6 @@ module.exports = (app) => {
         res.render('favorites', {
           recipes: recipes
         });
-        console.log(recipes);
       }
     })
   });
@@ -29,7 +28,7 @@ module.exports = (app) => {
 
     // find recipe, add userId to usersWhoFavorited
     RecipeSchema.findByIdAndUpdate(favoriteId, {
-      $addToSet: {usersWhoFavorited: userId }}, function(err) {
+      $addToSet: { usersWhoFavorited: userId }}, function(err) {
       if (err) return handleError(err);
     });
     // find user, save favorite to arrayOfFavoriteRecipes

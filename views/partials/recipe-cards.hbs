@@ -3,13 +3,17 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="card" style="width: 20rem;">
-          <form class=favorite-form>
-            <input type="hidden" value="{{this.id}}" name="favoriteId"/>
-            {{#if @root.user._id}}
-              <input type="hidden" value="{{@root.user._id}}" name="userId"/>
-            {{/if}}
-            <input type="submit" value="❤" class="save-to-faves-heart"/>
-          </form>
+          {{this.id}}
+          <input type="hidden" value="{{@root.user._id}}" name="userId"/>
+          {{#if @root.user}}
+            <!-- user is logged in, let them save favorite -->
+            <button class="save-to-faves-heart" name="saveToFavoritesHeart"
+            id="{{this.id}}-heart" onClick="saveFavorite('{{this.id}}')">❤</button>
+          {{else}}
+            <!-- not logged in, redirect to login -->
+            <a href="/login"><button class="save-to-faves-heart" name="saveToFavoritesHeart"
+            id="{{this.id}}-heart">❤</button></a>
+          {{/if}}
           <a href="{{this.url}}" target="_blank">
             <img class="card-img-top" src="{{this.image}}" alt="Card image">
           </a>
