@@ -1,44 +1,7 @@
 .navbar-container {
-  padding: 0.75rem;
-  background-color: green;
+  /* padding: 0.75rem; */
+  /* background-color: var(--light-green); */
   display: flex;
   justify-content: space-between;
-  height: 60px;
-}
-
-.logo {
-  color: white;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-}
-
-.search-bar {
-  padding: 5px;
-  display: flex;
-  justify-content: center;
-}
-
-.search-input {
-  width: 200px;
-  height: 36px;
-  margin: 0.25rem;
-}
-
-.search-btn {
-  width: 60px;
-  margin: 0.25rem;
-}
-
-ul.nav-links {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-links {
-  list-style-type: none;
+  height: 5rem;
 }

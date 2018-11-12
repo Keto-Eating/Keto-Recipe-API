@@ -1,23 +1,31 @@
 import React, { Component } from 'react'
 
+import { Navbar, FormGroup, FormControl, Button } from 'react-bootstrap';
 import './navbar.css'
 
-class Navbar extends Component {
+class Nav extends Component {
 	render() {
 		return (
 			<div className='navbar-container'>
-				<h1 className='logo'>Keto Eating</h1>
-        <div className='search-bar'>
-          <input className='search-input'/>
-          <button className='search-btn'>seach</button>
-        </div>
-        <ul className='nav-links'>
-          <li><button className='btn btn-submit'>signup</button></li>
-          <li><button className='btn btn-submit'>login</button></li>
-        </ul>
+        <Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="/">Keto</a>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+					{/* <Navbar.Collapse> */}
+            <Navbar.Form pullLeft>
+              <FormGroup>
+                <FormControl type="text" placeholder="Search" />
+              </FormGroup>{' '}
+              <Button type="submit">Submit</Button>
+            </Navbar.Form>
+					{/* </Navbar.Collapse> */}
+        </Navbar>
 			</div>
 		)
 	}
 }
 
-export default Navbar;
+export default Nav;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 // Components
-import Navbar from './components/navbar/navbar'
+import Nav from './components/navbar/navbar'
 
 import logo from './logo.svg'
 import './App.css'
@@ -39,7 +39,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-			   <Navbar/>
+			   <Nav/>
 			<header className="App-header">
 			<img src={logo} className="App-logo" alt="logo" />
 			<p>
@@ -55,7 +55,7 @@ class App extends Component {
 		<p>{this.state.response}</p>
 		  <form onSubmit={this.handleSubmit}>
 	  <p>
-		<strong>Post to Server:</strong>
+			<strong>Post to Server:</strong>
 		</p>
 		<input
 		type="text"
