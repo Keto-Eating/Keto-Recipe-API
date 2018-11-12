@@ -58,6 +58,10 @@ a, a li, a:hover {
   /* background-color:red; */
 }
 
+.save-to-faves-heart.favorited {
+  color:#e74c3c;
+}
+
 .card-title {
   color: #343a40;
   display: block;

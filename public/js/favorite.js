@@ -2,18 +2,18 @@ $(document).ready(function() {
 
   $('.favorite-form').submit(function(e) {
     e.preventDefault();
-    let recipeName = $('input[name="recipeName"]').val();
-    let imageUrl = $('input[name="imageUrl"]').val();
-    let recipeUrl = $('input[name="recipeUrl"]').val();
-    let ingredients = $('input[name="ingredients"]').val();
-    let uri = $('input[name="uri"]').val();
-
-    $.post("favorites/", {
-      recipeName: recipeName,
-      imageUrl: imageUrl,
-      recipeUrl: recipeUrl,
-      ingredients: ingredients,
-      uri: uri
-    });
+    let favoriteId = $('input[name="favoriteId"]').val();
+    let userId = $('input[name="userId"]').val(); // TODO: find a safer way to do this
+    // console.log(user);
+    if (userId != null) {
+      // logged in, post to favorites
+      $.post("favorites/", {
+        favoriteId: favoriteId,
+      });
+    } else {
+      // not logged in, redirect to login
+      var url = "/login";
+      $(location).attr('href', url);
+    }
   });
 });

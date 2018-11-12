@@ -4,6 +4,7 @@ module.exports = (app) => {
   const EDAMAM_API_KEY = process.env.EDAMAM_API_KEY;
   const schedule = require('node-schedule');
   const RecipeSchema = require('../models/recipe');
+	const UserSchema = require('../models/user');
 
   const edamamJob = schedule.scheduleJob('59 59 23 * * *', function() {
     // (second min hr dayOfMonth month dayOfWeek)

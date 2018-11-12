@@ -23,7 +23,8 @@ app.use(bodyParser.json());
 // TEMPLATE configuration ===============================================================
 app.engine('hbs', exphbs({
   defaultLayout: 'main',
-  extname: 'hbs'
+  extname: 'hbs',
+  helpers: require("handlebars-helpers")()
 }));
 app.set('view engine', 'hbs');
 
