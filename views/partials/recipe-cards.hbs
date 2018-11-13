@@ -5,7 +5,6 @@
         <div class="card" style="width: 20rem;">
           <input type="hidden" value="{{@root.user._id}}" name="userId"/>
           {{#if @root.user}}
-            <p>{{@root.user}}</p>
             <!-- user is logged in, let them save favorite -->
             <button class="save-to-faves-heart" name="saveToFavoritesHeart"
             id="{{recipe.id}}-heart" onClick="saveFavorite('{{recipe.id}}')">❤</button>

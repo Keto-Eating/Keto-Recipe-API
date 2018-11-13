@@ -6,8 +6,8 @@ module.exports = (app) => {
   const RecipeSchema = require('../models/recipe');
 	const UserSchema = require('../models/user');
 
-	const edamamJob = schedule.scheduleJob('1 * * * * *', function() {
-  // const edamamJob = schedule.scheduleJob('1 59 23 * * *', function() {
+	// const edamamJob = schedule.scheduleJob('1 * * * * *', function() {
+  const edamamJob = schedule.scheduleJob('59 59 23 * * *', function() {
 
     // (second min hr dayOfMonth month dayOfWeek)
     // TODO: add loop later to change from/to params + add max (currently 525 keto recipes)
