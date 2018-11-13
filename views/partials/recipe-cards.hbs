@@ -1,9 +1,8 @@
-<div class="card-deck">
+<div class="card-columns">
   {{#each recipes}}
     <div class="row">
       <div class="col-sm-4">
         <div class="card" style="width: 20rem;">
-          {{this.id}}
           <input type="hidden" value="{{@root.user._id}}" name="userId"/>
           {{#if @root.user}}
             <!-- user is logged in, let them save favorite -->
