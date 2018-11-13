@@ -6,8 +6,14 @@ module.exports = (app) => {
   const RecipeSchema = require('../models/recipe');
 	const UserSchema = require('../models/user');
 
-  const edamamJob = schedule.scheduleJob('23 59 59 * * *', function() {
+  pullEdamamRecipes(); // do this once when server boots up
+	// const edamamJob = schedule.scheduleJob('1 * * * * *', function() {
+  const edamamJob = schedule.scheduleJob('59 59 23 * * *', function() {
     // (second min hr dayOfMonth month dayOfWeek)
+    pullEdamamRecipes();
+  });
+
+  function pullEdamamRecipes() {
     // TODO: add loop later to change from/to params + add max (currently 525 keto recipes)
     const url = `https://api.edamam.com/search?q=keto&from=0&to=100&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
     http.get(url, (response) => {
@@ -40,14 +46,16 @@ module.exports = (app) => {
         }); // <--------- END of forEach()
       });
     }); // <---------- END of fetch request
-  });
+  }
 
   app.get('/', (req, res) => {
     let queryString = req.query.term;
     var regExpQuery = new RegExp(queryString, 'i');
+
     RecipeSchema.find({
       label: regExpQuery
     }, function(err, recipes) {
+      console.log('***********************: call back')
       if (err) {
         console.error(err.message)
       } else {

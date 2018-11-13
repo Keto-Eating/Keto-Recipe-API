@@ -35,6 +35,7 @@ module.exports = (app) => {
     UserSchema.findByIdAndUpdate(userId, {
       $addToSet: { arrayOfFavoriteRecipes: favoriteId }}, function (err, user) {
       if (err) return handleError(err);
+      app.locals.user = user
       app.locals.user.arrayOfFavoriteRecipes.push(favoriteId); // update user locally
       console.log(user);
     });
