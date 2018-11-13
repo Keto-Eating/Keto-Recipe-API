@@ -5,14 +5,20 @@
         <div class="card" style="width: 20rem;">
           <input type="hidden" value="{{@root.user._id}}" name="userId"/>
           {{#if @root.user}}
-            <p>{{@root.user}}</p>
+              <button class="save-to-faves-heart
+              {{#contains @root.user.arrayOfFavoriteRecipes recipe._id}}
+                favorited"
+              name="saveToFavoritesHeart"
+              id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">❤</button>
+            {{else}}
+              <button class="save-to-faves-heart" name="saveToFavoritesHeart"
+              id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">❤</button>
+            {{/contains}}
             <!-- user is logged in, let them save favorite -->
-            <button class="save-to-faves-heart" name="saveToFavoritesHeart"
-            id="{{recipe.id}}-heart" onClick="saveFavorite('{{recipe.id}}')">❤</button>
           {{else}}
             <!-- not logged in, redirect to login -->
             <a href="/login"><button class="save-to-faves-heart" name="saveToFavoritesHeart"
-            id="{{recipe.id}}-heart">❤</button></a>
+            id="{{recipe._id}}-heart">❤</button></a>
           {{/if}}
           <a href="{{recipe.url}}" target="_blank">
             <img class="card-img-top" src="{{recipe.image}}" alt="Card image">
