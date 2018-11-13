@@ -1,5 +1,6 @@
 module.exports = (app) => {
   const RecipeSchema = require('../models/recipe');
+  const UserSchema = require('../models/user');
   // Render the signup form
   app.get('/dashboard', (req, res) => {
     // TODO: (1) Search for user specific favorites (2) show them using code similar to below
@@ -9,11 +10,26 @@ module.exports = (app) => {
     } else {
       res.redirect('/login');
     }
-});
+  });
 
   app.get('/dashboard/favorites', (req, res) => {
     // TODO: (1) Find user's favorites (2) show all of them
-    res.render('dashboard/favorites');
+    if (app.locals.user) {
+      userId = app.locals.user.id;
+      UserSchema.findById(userId, function(err, user) {
+        if (err) { console.error(err) };
+        // to get updated user object
+        RecipeSchema.find()
+          .where('_id')
+          .in(user.arrayOfFavoriteRecipes)
+          .exec(function(err, userFaves) {
+            res.render('dashboard/favorites', {
+              recipes: userFaves
+            });
+          })
+      });
+    } else {
+      res.render('dashboard/favorites');
+    }
   });
-
 }
