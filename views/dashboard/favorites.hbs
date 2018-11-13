@@ -1,13 +1,11 @@
 <a href="/dashboard">Dashboard</a> > <a href='/dashboard/favorites'>Favorites</a><br><br>
-{{#if username}}
-<h1>{{username}}'s Favorites</h1>
+<h1>My Favorites</h1>
 <hr>
+{{#if @root.user}}
 {{else}}
-<h1>My favorites</h1>
-<hr>
-<a href="/login">Login</a> to view your own favorites.
-Or you can view <a href="/favorites">public favorites</a>.
+  <a href="/login">Login</a> to view your own favorites.
+  Or you can view <a href="/favorites">public favorites</a>.
 {{/if}}
-{{#if username}}
-  {{>favorite-cards}} <!-- current showing all favorites, need to narrow down to user's only -->
+{{#if @root.user}}
+  {{>recipe-cards}} <!-- current showing all favorites, need to narrow down to user's only -->
 {{/if}}

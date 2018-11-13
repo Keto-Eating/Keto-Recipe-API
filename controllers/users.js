@@ -3,7 +3,6 @@
 module.exports = (app) => {
   const jwt = require('jsonwebtoken');
   const UserSchema = require('../models/user');
-  const favorites = require('./favorites')
 
   // Render the signup form
   app.get('/signup', (req, res) => {
@@ -25,7 +24,7 @@ module.exports = (app) => {
         maxAge: 900000,
         httpOnly: true
       });
-      app.locals.username = req.body.username;
+      app.locals.user = user;
       res.redirect('/');
       // res.send("blah")
     }).catch((err) => {
@@ -44,7 +43,6 @@ module.exports = (app) => {
   app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    app.locals.username = req.body.username;
 
     // Look for this user name
     UserSchema.findOne({
@@ -56,31 +54,32 @@ module.exports = (app) => {
           return res.status(401).send({
             message: 'Wrong Username or Password'
           });
-        }
-
-        // Check the password
-        user.comparePassword(password, (err, isMatch) => {
-          if (!isMatch) {
-            return res.status(401).send({
-              message: 'Wrong Username or Password'
+        } else {
+          app.locals.user = user;
+          console.log('app locals user: ' + app.locals.user);
+          // Check the password
+          user.comparePassword(password, (err, isMatch) => {
+            if (!isMatch) {
+              return res.status(401).send({
+                message: 'Wrong Username or Password'
+              });
+            }
+            // Create the token
+            const token = jwt.sign({
+              _id: user._id,
+              username: user.username
+            }, process.env.SECRET, {
+              expiresIn: '60 days'
             });
-          }
-
-          // Create the token
-          const token = jwt.sign({
-            _id: user._id,
-            username: user.username
-          }, process.env.SECRET, {
-            expiresIn: '60 days'
+            // Set a cookie and redirect to root
+            res.cookie('nToken', token, {
+              maxAge: 900000,
+              httpOnly: true
+            });
+            console.log('Successfully logged in.');
+            res.redirect('/dashboard');
           });
-          // Set a cookie and redirect to root
-          res.cookie('nToken', token, {
-            maxAge: 900000,
-            httpOnly: true
-          });
-          console.log('Successfully logged in.');
-          res.redirect('favorites/');
-        });
+        }
       })
       .catch((err) => {
         console.log(err.message);
@@ -90,7 +89,7 @@ module.exports = (app) => {
   // LOGOUT
   app.get('/logout', (req, res) => {
     res.clearCookie('nToken');
-    app.locals.username = null;
+    app.locals.user = null;
     res.redirect('back'); // to automatically redirect back to the page the request came from
   });
 
