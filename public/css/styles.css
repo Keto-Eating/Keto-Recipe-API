@@ -47,7 +47,7 @@ a, a li, a:hover {
   font-size: 3em;
   color: white;
   /* change this white to a green border with white inside */
-  border: none;
+  border:none;
   background: none;
 }
 

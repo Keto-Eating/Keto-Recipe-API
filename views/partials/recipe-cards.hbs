@@ -1,41 +1,42 @@
 <div class="card-deck">
-  {{#each recipes}}
+  {{#each recipes as |recipe|}}
     <div class="row">
       <div class="col-sm-4">
         <div class="card" style="width: 20rem;">
           <input type="hidden" value="{{@root.user._id}}" name="userId"/>
           {{#if @root.user}}
+            <p>{{@root.user}}</p>
             <!-- user is logged in, let them save favorite -->
             <button class="save-to-faves-heart" name="saveToFavoritesHeart"
-            id="{{this.id}}-heart" onClick="saveFavorite('{{this.id}}')">❤</button>
+            id="{{recipe.id}}-heart" onClick="saveFavorite('{{recipe.id}}')">❤</button>
           {{else}}
             <!-- not logged in, redirect to login -->
             <a href="/login"><button class="save-to-faves-heart" name="saveToFavoritesHeart"
-            id="{{this.id}}-heart">❤</button></a>
+            id="{{recipe.id}}-heart">❤</button></a>
           {{/if}}
-          <a href="{{this.url}}" target="_blank">
-            <img class="card-img-top" src="{{this.image}}" alt="Card image">
+          <a href="{{recipe.url}}" target="_blank">
+            <img class="card-img-top" src="{{recipe.image}}" alt="Card image">
           </a>
           <div class="card-body">
-            <a href="{{this.url}}" target="_blank">
-              <h4 class="card-title">{{this.label}}</h4>
+            <a href="{{recipe.url}}" target="_blank">
+              <h4 class="card-title">{{recipe.label}}</h4>
             </a>
             <div class="time-left-subheader">
               <img src="https://cdn4.iconfinder.com/data/icons/basic-ui-elements-1-1/100/Untitled-32-512.png" style="vertical-align: middle" class="clock-icon">
               <span class="cooking-time">
-                {{# if this.totalTime}}
-                  {{this.totalTime}}
+                {{# if recipe.totalTime}}
+                  {{recipe.totalTime}}
                 {{else}}
                   --
                 {{/if}} minutes</span>
             </div>
             <div class="ingredientLines-container">
-              {{#each this.ingredientLines}}
+              {{#each recipe.ingredientLines}}
                 <li class="card-text">{{this}}</li>
               {{/each}}
             </div>
           </div>
-          <a href="{{this.url}}" target="_blank">
+          <a href="{{recipe.url}}" target="_blank">
             <div class="card-footer">
               View Full Recipe
             </div>
