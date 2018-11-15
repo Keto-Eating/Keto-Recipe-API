@@ -42,6 +42,7 @@ Leslie Kimm<br><br>
 -   [x] **Nov 12** Shipped to our custom domain
 -   [x] **Nov 12** Ship functional version and share with friends
 -   [ ] Re-factor Favorites (WIP)
+-   [ ] Add styling to dashboard, include a weekly meal plan
 -   [ ] Create a cart object to store current week's recipes
 -   [ ] Parse ingredientLines and create list
 -   [ ] Add same ingredients with same units to create reduced grocery list
