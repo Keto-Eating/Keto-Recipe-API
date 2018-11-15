@@ -49,10 +49,13 @@ module.exports = (app) => {
     let queryString = req.query.term;
     var regExpQuery = new RegExp(queryString, 'i');
 
-    RecipeSchema.find({
-      label: regExpQuery
+    RecipeSchema.find({ $or:
+        [
+          { label: regExpQuery },
+          { url: regExpQuery },
+          { ingredientLines: regExpQuery }
+        ]
     }, function(err, recipes) {
-      console.log('***********************: call back')
       if (err) {
         console.error(err.message)
       } else {
