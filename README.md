@@ -39,6 +39,6 @@ Leslie Kimm<br><br>
 -   [x] **Oct 14** Re-deploy to Heroku
 -   [x] **Nov 14** Create job to store API results to our own DB (WIP)
 -   [x] **Nov 14** Re-factor search to look inside our own DB (WIP)
+-   [x] **Nov 12** Shipped to our custom domain
+-   [x] **Nov 12** Ship functional version and share with friends
 -   [ ] Re-factor Favorites (WIP)
--   [ ] Shipped to our custom domain
--   [ ] Ship functional version and share with friends
