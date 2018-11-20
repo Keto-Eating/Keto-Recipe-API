@@ -1,16 +1,18 @@
-<a href="/dashboard">Dashboard</a> ><br><br>
-<h1>Dashboard</h1>
-<hr>
-<h2>Account Details:</h2>
-<hr>
+<div class="dashboard-container">
+	<a href="/dashboard" class='dash-brd-crum' >Dashboard</a>
+	<div class="btn-container">
+		<a href="/favorites"><button class="fav-btn dash-btn">favorites</button></a>
+		<button class="cart-btn dash-btn">cart</button>
+	</div>
 
-<ul>
-  <li>Username: {{user.username}}</li>
-  <li>Password: ****** <!--(change password) --></li>
-</ul>
-<br>
-<h2>My Favorites:</h2>
+	<div class="dash-content">
+		<h1>Dashboard</h1>
 
-<hr>
-  {{>recipe-cards}}
-  <a href="/dashboard/favorites">View All My Favorites</a>
+		<h2>Account Details:</h2>
+
+		<ul>
+		  <li>Username: {{user.username}}</li>
+		  <li>Password: ****** <!--(change password) --></li>
+		</ul>
+	</div>
+</div>
