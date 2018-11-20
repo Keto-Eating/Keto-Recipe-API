@@ -96,13 +96,18 @@ a, a li, a:hover {
   /* change this white to a green border with white inside */
   border:none;
   background: none;
+  transition: all .2s ease-in-out;
 }
 
 .save-to-faves-heart:hover {
-  color: #e74c3c;
+  transform: scale(1.05);
   font-weight: bold;
   cursor: pointer;
   /* background-color:red; */
+}
+
+.save-to-faves-heart:focus, .save-to-faves-heart:focus-within {
+  outline: none;
 }
 
 .save-to-faves-heart.favorited {
