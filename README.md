@@ -37,8 +37,12 @@ Leslie Kimm<br><br>
 -   [x] **Oct 12** Add test(s)
 -   [x] **Oct 13** Add 1 nested route: user favorites
 -   [x] **Oct 14** Re-deploy to Heroku
--   [ ] Create job to store API results to our own DB (WIP)
--   [ ] Re-factor search to look inside our own DB (WIP)
+-   [x] **Nov 14** Create job to store API results to our own DB (WIP)
+-   [x] **Nov 14** Re-factor search to look inside our own DB (WIP)
+-   [x] **Nov 12** Shipped to our custom domain
+-   [x] **Nov 12** Ship functional version and share with friends
 -   [ ] Re-factor Favorites (WIP)
--   [ ] Shipped to our custom domain
--   [ ] Ship functional version and share with friends
+-   [ ] Add styling to dashboard, include a weekly meal plan
+-   [ ] Create a cart object to store current week's recipes
+-   [ ] Parse ingredientLines and create list
+-   [ ] Add same ingredients with same units to create reduced grocery list
