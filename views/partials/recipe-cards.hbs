@@ -41,11 +41,19 @@
               {{/each}}
             </div>
           </div>
-          <a href="{{recipe.url}}" target="_blank">
-            <div class="card-footer">
-              View Full Recipe
-            </div>
-          </a>
+	        <!--footer container-->
+	        <div class="card-footer-container">
+	          <a href="{{recipe.url}}" target="_blank">
+	            <div class="card-footer card-footer-recipe">
+	              View Full Recipe
+	            </div>
+	          </a>
+		        <a href="/dashboard" target="_blank">
+			        <div class="card-footer card-footer-cart">
+				        Add to Cart
+			        </div>
+		        </a>
+	        </div>
         </div>
       </div>
     </div>
