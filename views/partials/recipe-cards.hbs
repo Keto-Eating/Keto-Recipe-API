@@ -4,14 +4,14 @@
       <div class="col-sm-4">
         <div class="card" style="width: 20rem;">
           <input type="hidden" value="{{@root.user._id}}" name="userId"/>
-          {{#if @root.user}}
 
+          {{#if @root.user}}
               {{#contains @root.user.arrayOfFavoriteRecipes recipe._id}}
                 <button class="save-to-faves-heart favorited" name="saveToFavoritesHeart"
-                id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">❤</button>
+                id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">♥</button>
               {{else}}
                 <button class="save-to-faves-heart" name="saveToFavoritesHeart"
-                id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">❤</button>
+                id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">♥</button>
               {{/contains}}
             <!-- user is logged in, let them save favorite -->
           {{else}}

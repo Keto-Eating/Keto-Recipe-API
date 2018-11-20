@@ -7,9 +7,8 @@ module.exports = (app) => {
 	const UserSchema = require('../models/user');
 
   pullEdamamRecipes(); // do this once when server boots up
-	// const edamamJob = schedule.scheduleJob('1 * * * * *', function() {
   const edamamJob = schedule.scheduleJob('59 59 23 * * *', function() {
-    // (second min hr dayOfMonth month dayOfWeek)
+    // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
     pullEdamamRecipes();
   });
 
@@ -62,7 +61,6 @@ module.exports = (app) => {
         res.render('index', {
           recipes: recipes
         });
-        console.log(recipes);
       }
     })
   })

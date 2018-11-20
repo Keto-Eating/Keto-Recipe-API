@@ -3,41 +3,49 @@ module.exports = (app) => {
   const RecipeSchema = require('../models/recipe');
   const UserSchema = require('../models/user');
 
-  // Show all recipes saved in their cart
-  app.get('/favorites', (req, res) => {
-    // find recipe, return ones that have been favorited 1+ times
-    RecipeSchema.find({
-      'usersWhoFavorited': {
-        $ne: null
-      }
-    }, function(err, recipes) {
-      if (err) {
-        console.error(err);
-      } else {
-        res.render('favorites', {
-          recipes: recipes
-        });
-      }
-    })
-  });
-
   // Send a POST request to the database to create the recipes collection
   app.post('/favorites/', (req, res) => {
     const favoriteId = req.body.favoriteId;
     const userId = app.locals.user.id
 
     // find recipe, add userId to usersWhoFavorited
-    RecipeSchema.findByIdAndUpdate(favoriteId, {
-      $addToSet: { usersWhoFavorited: userId }}, function(err) {
+    RecipeSchema.findById(favoriteId, function(err, favoriteInDB) {
       if (err) return handleError(err);
+      if (favoriteInDB.usersWhoFavorited.includes(userId)) {
+        // user already favorited, and is trying to un-favorite
+        RecipeSchema.findByIdAndUpdate(favoriteId, {
+          $pull: { usersWhoFavorited: userId }}, function(err) {
+          if (err) return handleError(err);
+        });
+      } else {
+        // user has not favorited before
+        RecipeSchema.findByIdAndUpdate(favoriteId, {
+          $addToSet: { usersWhoFavorited: userId }}, function(err) {
+          if (err) return handleError(err);
+        });
+      }
     });
+
     // find user, save favorite to arrayOfFavoriteRecipes
-    UserSchema.findByIdAndUpdate(userId, {
-      $addToSet: { arrayOfFavoriteRecipes: favoriteId }}, function (err, user) {
+    UserSchema.findById(userId, function(err, userInDB) {
       if (err) return handleError(err);
-      app.locals.user = user
-      app.locals.user.arrayOfFavoriteRecipes.push(favoriteId); // update user locally
-      console.log(user);
+      if (userInDB.arrayOfFavoriteRecipes.includes(favoriteId)) {
+        // already favorited, remove from arrayOfFavoriteRecipes
+        UserSchema.findByIdAndUpdate(userId, {
+          $pull: { arrayOfFavoriteRecipes: favoriteId }}, function(err, user) {
+          if (err) return handleError(err);
+          app.locals.user = user
+          app.locals.user.arrayOfFavoriteRecipes.pull(favoriteId); // update user locally
+        });
+      } else {
+        // user has not favorited before, add to arrayOfFavoriteRecipes
+        UserSchema.findByIdAndUpdate(userId, {
+          $addToSet: { arrayOfFavoriteRecipes: favoriteId }}, function(err, user) {
+          if (err) return handleError(err);
+          app.locals.user = user
+          app.locals.user.arrayOfFavoriteRecipes.push(favoriteId); // update user locally
+        });
+      }
     });
   });
 };
