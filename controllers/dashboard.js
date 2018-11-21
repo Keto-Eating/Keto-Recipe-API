@@ -12,6 +12,7 @@ module.exports = (app) => {
     }
   });
 
+  // route for showing favorites
   app.get('/dashboard/favorites', (req, res) => {
     // TODO: (1) Find user's favorites (2) show all of them
     if (app.locals.user) {
@@ -30,6 +31,30 @@ module.exports = (app) => {
       });
     } else {
       res.render('dashboard/favorites');
+    }
+  });
+
+  // route for showing cart
+  app.get('/cart', (req, res) => {
+    // TODO: (1) Find user's favorites (2) show all of them
+    if (app.locals.user) {
+      userId = app.locals.user.id;
+      UserSchema.findById(userId, function(err, user) {
+        if (err) { console.error(err) };
+        // to get updated user object
+        RecipeSchema.find()
+          .where('_id')
+
+          // FIXME: change to show cart
+          .in(user.arrayOfFavoriteRecipes)
+          .exec(function(err, userFaves) {
+            res.render('cart', {
+              recipes: userFaves
+            });
+          })
+      });
+    } else {
+      res.render('cart');
     }
   });
 }
