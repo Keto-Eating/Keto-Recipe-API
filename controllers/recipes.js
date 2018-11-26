@@ -26,10 +26,6 @@ module.exports = (app) => {
         res.render('index', {
           recipes: recipes
         });
-        for (i = 0; i < 5; i++) {
-            // console.log(recipes[i].ingredientLines);
-            parseIngredients(recipes[i].ingredientLines[i]);
-        }
       }
     })
   })
@@ -69,41 +65,5 @@ module.exports = (app) => {
         }); // <--------- END of forEach()
       });
     }); // <---------- END of fetch request
-  }
-
-  function parseIngredients(ingredient) {
-    // var unitsFile = fs.readFileSync("./cooking-units-of-measurement.txt");
-    // var unitsByLine = text.split("\n")
-    listOfUnits = ["teaspoon", "tsp", "tsp.", "tablespoon", "tbl", "tbl.", "tbs", "tbs.", "or tbsp.", "fluid ounce",
-    "fl oz", "gill", "cup", "cups", "pint", "pt", "pt.", "fl pt", "quart", "qt", "fl qt", "gallon",
-    "gal", "ml", "mL", "milliliter", "millilitre", " l ", "liter", "litre,", "dl", "dL", "deciliter", "decilitre",
-    "pound", "lb", "lb.", "lbs.", "ounce", "oz", "oz.", "mg", "milligram", "milligramme", " g ", "gram", "gramme",
-    "kg", "kilogram", "kilogramme", "mm", "millimeter", "millimetre", "cm", "centimeter", "centimetre", " m ",
-    "meter", "metre", "inch", "in"]
-
-    let ingredientsArr = ingredient.split(" ");
-
-    listOfUnits.forEach(function(unit) {
-      // try to find one of the units above inside the ingredientsArr
-      if (ingredientsArr.indexOf(unit) != -1) {
-        // console.log('it was found: ', unit, ingredientsArr);
-        let inx = ingredientsArr.indexOf(unit)
-        let quantity = ingredientsArr.slice(0,inx);
-        let measurement = ingredientsArr[inx];
-        let ingredient = ingredientsArr.slice(inx+1, ingredientsArr.length);
-
-        console.log('quantity: ' + quantity);
-        console.log('unit: ' + measurement);
-        console.log('ingredient: ' + ingredient);
-        return quantity, unit, ingredient
-        // const indexOfUnit = ingredient.indexOf(new RegExp(listOfUnits.join("|")))
-        // console.log('Index of Unit: ', indexOfUnit);
-      } else {
-        let quantity = 1;
-        let measurement = "x";
-        let ingredient = "ingredientsArr"
-      }
-    })
-    // return quantity, unit, ingredient
   }
 }
