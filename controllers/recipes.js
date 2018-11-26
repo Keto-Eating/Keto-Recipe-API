@@ -27,7 +27,7 @@ module.exports = (app) => {
           recipes: recipes
         });
         for (i = 0; i < 5; i++) {
-            console.log(recipes[i].ingredientLines);
+            // console.log(recipes[i].ingredientLines);
             parseIngredients(recipes[i].ingredientLines[i]);
         }
       }
@@ -81,22 +81,27 @@ module.exports = (app) => {
 
     let ingredientsArr = ingredient.split(" ");
 
-    // array.indexOf(thing your looking for)
     listOfUnits.forEach(function(unit) {
+      // try to find one of the units above inside the ingredientsArr
       if (ingredientsArr.indexOf(unit) != -1) {
-        console.log('it was found: ', unit, ingredientsArr);
+        // console.log('it was found: ', unit, ingredientsArr);
+        let inx = ingredientsArr.indexOf(unit)
+        let quantity = ingredientsArr.slice(0,inx);
+        let measurement = ingredientsArr[inx];
+        let ingredient = ingredientsArr.slice(inx+1, ingredientsArr.length);
+
+        console.log('quantity: ' + quantity);
+        console.log('unit: ' + measurement);
+        console.log('ingredient: ' + ingredient);
+        return quantity, unit, ingredient
         // const indexOfUnit = ingredient.indexOf(new RegExp(listOfUnits.join("|")))
         // console.log('Index of Unit: ', indexOfUnit);
+      } else {
+        let quantity = 1;
+        let measurement = "x";
+        let ingredient = "ingredientsArr"
       }
     })
-
-
-    if (new RegExp(listOfUnits.join("|")).test(ingredient)) {
-    // At least one match
-    // if found, separate on found item:
-      // save anything before unit as: quantity
-      // save anything after unit: as ingredient itself)
-    }
-
+    // return quantity, unit, ingredient
   }
 }
