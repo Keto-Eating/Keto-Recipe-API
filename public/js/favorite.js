@@ -1,3 +1,6 @@
+
+// adds an onClick event listener for the heart button
+// post to favs by recipe id
 function saveFavorite(recipeId) {
   $.post("favorites/", {
     favoriteId: recipeId,

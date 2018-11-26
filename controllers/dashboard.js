@@ -40,7 +40,7 @@ module.exports = (app) => {
     if (app.locals.user) {
       userId = app.locals.user.id;
       UserSchema.findById(userId, function(err, user) {
-        if (err) { console.error(err) };
+        if (err) { console.error(err) }
         // to get updated user object
         RecipeSchema.find()
           .where('_id')
