@@ -1,12 +1,12 @@
 module.exports = (app) => {
-  // const auth = require('./helpers/auth')
+
   const RecipeSchema = require('../models/recipe');
   const UserSchema = require('../models/user');
 
   // Send a POST request to the database to create the recipes collection
   app.post('/favorites/', (req, res) => {
-    const favoriteId = req.body.favoriteId;
-    const userId = app.locals.user.id
+    const favoriteId = req.body.recipeId;
+    const userId = app.locals.user.id;
 
     // find recipe, add userId to usersWhoFavorited
     RecipeSchema.findById(favoriteId, function(err, favoriteInDB) {
@@ -34,7 +34,7 @@ module.exports = (app) => {
         UserSchema.findByIdAndUpdate(userId, {
           $pull: { arrayOfFavoriteRecipes: favoriteId }}, function(err, user) {
           if (err) return handleError(err);
-          app.locals.user = user
+          app.locals.user = user;
           app.locals.user.arrayOfFavoriteRecipes.pull(favoriteId); // update user locally
         });
       } else {
