@@ -5,7 +5,7 @@ module.exports = (app) => {
 
   // Send a POST request to the database to create the recipes collection
   app.post('/favorites/', (req, res) => {
-    const favoriteId = req.body.favoriteId;
+    const favoriteId = req.body.recipeId;
     const userId = app.locals.user.id;
 
     // find recipe, add userId to usersWhoFavorited

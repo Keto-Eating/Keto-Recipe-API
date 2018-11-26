@@ -3,7 +3,7 @@
 // post to favs by recipe id
 function saveFavorite(recipeId) {
   $.post("favorites/", {
-    favoriteId: recipeId,
+    recipeId: recipeId,
   });
   // get heart that was just clicked
   let heartId = recipeId + "-heart";
@@ -12,13 +12,13 @@ function saveFavorite(recipeId) {
   heart.classList.toggle('favorited');
 }
 
-function saveToCart(cartId) {
+function saveToCart(recipeId) {
   $.post('cart/', {
-    cartId: recipeId,
+    recipeId: recipeId,
   });
   // get button that was just clicked
   let buttonId = recipeId + "button";
-  heart = document.getElementById(heartId);
-  // toggle 'favorited' class
-  heart.classList.toggle('favorited');
+  // cartButton = document.getElementById(buttonId);
+  // // toggle 'cartRecipes'
+  // cartButton.classList.toggle('addedToCart');
 }

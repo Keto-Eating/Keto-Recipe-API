@@ -46,10 +46,10 @@ module.exports = (app) => {
           .where('_id')
 
           // FIXME: change to show cart
-          .in(user.arrayOfFavoriteRecipes)
-          .exec(function(err, userFaves) {
+          .in(user.recipesInCart)
+          .exec(function(err, cartRecipes) {
             res.render('cart', {
-              recipes: userFaves
+              recipes: cartRecipes
             });
           })
       });
