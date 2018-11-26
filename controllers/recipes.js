@@ -15,16 +15,18 @@ module.exports = (app) => {
   function pullEdamamRecipes() {
     // TODO: add loop later to change from/to params + add max (currently 525 keto recipes)
     const url = `https://api.edamam.com/search?q=keto&from=0&to=100&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
+
     http.get(url, (response) => {
       response.setEncoding('utf8');
       let body = '';
-      response.on('data', (d) => {
-        body += d;
-      });
+      response.on('data', (d) => { body += d });
+
       response.on('end', () => {
         const parsed = JSON.parse(body);
+
         parsed.hits.forEach(function(hit) {
           const recipeFromAPI = new RecipeSchema(hit.recipe);
+
           RecipeSchema.findOne({ uri: hit.recipe.uri })
             .exec(function(err, recipeInDB) {
               if (err) {

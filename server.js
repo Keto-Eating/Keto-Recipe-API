@@ -45,9 +45,10 @@ mongoose.set('debug', true);
 // routes =============================================================================
 // load our routes and pass to our app
 require('./controllers/recipes')(app);
-require('./controllers/users')(app); // load our routes and pass to our app
-require('./controllers/favorites')(app); // load our routes and pass to our app
+require('./controllers/users')(app);
+require('./controllers/favorites')(app);
 require('./controllers/dashboard')(app);
+require('./controllers/cart')(app);
 
 
 // 404 page

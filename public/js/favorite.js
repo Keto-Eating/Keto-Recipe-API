@@ -11,3 +11,14 @@ function saveFavorite(recipeId) {
   // toggle 'favorited' class
   heart.classList.toggle('favorited');
 }
+
+function saveToCart(cartId) {
+  $.post('cart/', {
+    cartId: recipeId,
+  });
+  // get button that was just clicked
+  let buttonId = recipeId + "button";
+  heart = document.getElementById(heartId);
+  // toggle 'favorited' class
+  heart.classList.toggle('favorited');
+}
