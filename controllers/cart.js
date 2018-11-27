@@ -38,7 +38,7 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/cart/grocery-list', (req, res) => {
+  app.get('/cart/grocery-list', async function(req, res, next) {
     // TODO: (1) Find user's favorites (2) show all of them
     if (app.locals.user) {
       userId = app.locals.user.id;
@@ -51,15 +51,10 @@ module.exports = (app) => {
           .where('_id')
           .in(user.recipesInCart)
           .exec(function(err, cartRecipes) {
-
-            var ingredients = parseIngredients(cartRecipes);
-            // console.log(ingredients);
-            console.log(ingredients);
-
             res.render('grocery-list', {
-              ingredients: ingredients
+              ingredients: parseIngredients(cartRecipes)
             });
-          })
+          });
       });
     } else {
       res.render('cart');
@@ -68,21 +63,22 @@ module.exports = (app) => {
 
   function parseIngredients(cartRecipes) {
     listOfUnits = ["serving", "teaspoon", "teaspoons", "tsp", "tsp.", "tablespoon",
-    "tablespoons", "tbl", "tbl.", "tbs", "tbs.", "or tbsp.", "fluid ounce",
-    "fl oz", "gill", "cup", "cups", "pint", "pt", "pt.", "fl pt", "quart", "qt",
-    "fl qt", "gallon","gal", "ml", "mL", "milliliter", "millilitre", "large",
-    " l ", "liter", "litre,", "dl", "dL", "deciliter", "decilitre","pound", "lb",
-    "lb.", "lbs.", "ounce", "oz", "oz.", "mg", "milligram", "milligramme", " g ",
-    "gram", "gramme", "kg", "kilogram", "kilogramme", "mm", "millimeter",
-    "millimetre", "cm", "centimeter", "centimetre", " m ","meter", "metre",
-    "inch", "in"]
+      "tablespoons", "tbl", "tbl.", "tbs", "tbs.", "or tbsp.", "fluid ounce",
+      "fl oz", "gill", "cup", "cups", "pint", "pt", "pt.", "fl pt", "quart", "qt",
+      "fl qt", "gallon", "gal", "ml", "mL", "milliliter", "millilitre", "large",
+      " l ", "liter", "litre,", "dl", "dL", "deciliter", "decilitre", "pound", "lb",
+      "lb.", "lbs.", "ounce", "oz", "oz.", "mg", "milligram", "milligramme", " g ",
+      "gram", "gramme", "kg", "kilogram", "kilogramme", "mm", "millimeter",
+      "millimetre", "cm", "centimeter", "centimetre", " m ", "meter", "metre",
+      "inch", "in"
+    ]
 
     for (i = 0; i < cartRecipes.length; i++) {
-      // console.log(recipes[i].ingredientLines);
+      // iterate through all recipes in cart
       for (j = 0; j < cartRecipes[i].ingredientLines.length; j++) {
-
+        // iterate through each ingredientLine
         let ingredientWords = cartRecipes[i].ingredientLines[j].split(" ");
-
+        // create an list (ingredient words) that holds each word of the ingredientLine
         listOfUnits.forEach(function(unit) {
           // try to find one of the units above inside the ingredientsArr
           if (ingredientWords.indexOf(unit) != -1) {
