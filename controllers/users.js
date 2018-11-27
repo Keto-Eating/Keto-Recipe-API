@@ -56,10 +56,10 @@ module.exports = (app) => {
             message: 'Wrong Username or Password'
           });
         } else {
-          console.log('user is: ' + user);
+          // console.log('user is: ' + user);
           app.locals.user = user;
-          console.log(user)
-          console.log('app locals user: ' + app.locals.user);
+          // console.log(user)
+          // console.log('app locals user: ' + app.locals.user);
           // Check the password
           user.comparePassword(password, (err, isMatch) => {
             if (!isMatch) {
@@ -96,4 +96,4 @@ module.exports = (app) => {
     res.redirect('back'); // to automatically redirect back to the page the request came from
   });
 
-};
+}
