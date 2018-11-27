@@ -66,4 +66,25 @@ module.exports = (app) => {
       });
     }); // <---------- END of fetch request
   }
+
+  app.get('/', (req, res) => {
+    let queryString = req.query.term;
+    var regExpQuery = new RegExp(queryString, 'i');
+
+    RecipeSchema.find({ $or:
+        [
+          { label: regExpQuery },
+          { url: regExpQuery },
+          { ingredientLines: regExpQuery }
+        ]
+    }, function(err, recipes) {
+      if (err) {
+        console.error(err.message)
+      } else {
+        res.render('index', {
+          recipes: recipes
+        });
+      }
+    })
+  })
 }
