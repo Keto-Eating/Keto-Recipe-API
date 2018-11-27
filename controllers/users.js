@@ -24,6 +24,7 @@ module.exports = (app) => {
         maxAge: 900000,
         httpOnly: true
       });
+      console.log('user is: ' + user);
       app.locals.user = user;
       res.redirect('/');
       // res.send("blah")
@@ -47,7 +48,7 @@ module.exports = (app) => {
     // Look for this user name
     UserSchema.findOne({
         username
-      }, 'username password')
+      }, 'username password arrayOfFavoriteRecipes')
       .then((user) => {
         if (!user) {
           // User not found
@@ -55,7 +56,9 @@ module.exports = (app) => {
             message: 'Wrong Username or Password'
           });
         } else {
+          console.log('user is: ' + user);
           app.locals.user = user;
+          console.log(user)
           console.log('app locals user: ' + app.locals.user);
           // Check the password
           user.comparePassword(password, (err, isMatch) => {

@@ -1,0 +1,12 @@
+<div class="cart-container">
+	<a href="/dashboard">Dashboard</a> > <a href='/dashboard/cart'>Cart</a>
+	<h1>My Cart</h1>
+	<hr>
+	{{#if @root.user}}
+	{{else}}
+		<a href="/login">Login</a> to view your own cart.
+	{{/if}}
+	{{#if @root.user}}
+		{{>recipe-cards}} <!-- current showing all favorites, need to narrow down to user's only -->
+	{{/if}}
+</div>
