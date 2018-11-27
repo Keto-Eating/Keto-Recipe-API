@@ -51,10 +51,14 @@ module.exports = (app) => {
           .where('_id')
           .in(user.recipesInCart)
           .exec(function(err, cartRecipes) {
+
+            var ingredients = parseIngredients(cartRecipes);
+            console.log(ingredients);
+
             res.render('grocery-list', {
-              ingredients: parseIngredients(cartRecipes)
+              ingredients: ingredients
             });
-          });
+          })
       });
     } else {
       res.render('cart');
@@ -63,15 +67,14 @@ module.exports = (app) => {
 
   function parseIngredients(cartRecipes) {
     listOfUnits = ["serving", "teaspoon", "teaspoons", "tsp", "tsp.", "tablespoon",
-      "tablespoons", "tbl", "tbl.", "tbs", "tbs.", "or tbsp.", "fluid ounce",
-      "fl oz", "gill", "cup", "cups", "pint", "pt", "pt.", "fl pt", "quart", "qt",
-      "fl qt", "gallon", "gal", "ml", "mL", "milliliter", "millilitre", "large",
-      " l ", "liter", "litre,", "dl", "dL", "deciliter", "decilitre", "pound", "lb",
-      "lb.", "lbs.", "ounce", "oz", "oz.", "mg", "milligram", "milligramme", " g ",
-      "gram", "gramme", "kg", "kilogram", "kilogramme", "mm", "millimeter",
-      "millimetre", "cm", "centimeter", "centimetre", " m ", "meter", "metre",
-      "inch", "in"
-    ]
+    "tablespoons", "tbl", "tbl.", "tbs", "tbs.", "or tbsp.", "fluid ounce",
+    "fl oz", "gill", "cup", "cups", "pint", "pt", "pt.", "fl pt", "quart", "qt",
+    "fl qt", "gallon","gal", "ml", "mL", "milliliter", "millilitre", "large",
+    " l ", "liter", "litre,", "dl", "dL", "deciliter", "decilitre","pound", "lb",
+    "lb.", "lbs.", "ounce", "oz", "oz.", "mg", "milligram", "milligramme", " g ",
+    "gram", "gramme", "kg", "kilogram", "kilogramme", "mm", "millimeter",
+    "millimetre", "cm", "centimeter", "centimetre", " m ","meter", "metre",
+    "inch", "in"]
 
     for (i = 0; i < cartRecipes.length; i++) {
       // iterate through all recipes in cart
@@ -88,9 +91,9 @@ module.exports = (app) => {
             let measurement = ingredientWords[inx];
             let ingredient = ingredientWords.slice(inx + 1, ingredientWords.length);
 
-            console.log('quantity: ' + quantity);
-            console.log('unit: ' + measurement);
-            console.log('ingredient: ' + ingredient);
+            // console.log('quantity: ' + quantity);
+            // console.log('unit: ' + measurement);
+            // console.log('ingredient: ' + ingredient);
             return quantity, unit, ingredient;
             // const indexOfUnit = ingredient.indexOf(new RegExp(listOfUnits.join("|")))
             // console.log('Index of Unit: ', indexOfUnit);
