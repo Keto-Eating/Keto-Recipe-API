@@ -1,6 +1,10 @@
 <div class="cart-container">
+
 	<a href="/dashboard">Dashboard</a> > <a href='/dashboard/cart'>Cart</a>
-	<h1>My Cart</h1>
+	<div class="flex-div">
+		<h1>My Cart</h1>
+		<a href="/cart/grocery-list"><button class="btn btn-success checkout-btn">Create Grocery List</button></a>
+	</div>
 	<hr>
 	{{#if @root.user}}
 	{{else}}

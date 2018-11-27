@@ -1,0 +1,18 @@
+<div class="cart-container">
+
+	<a href="/dashboard">Dashboard</a> > <a href='/dashboard/cart'>Cart</a> > <a href="">Grocery List</a>
+	<h1 class="">Grocery List</h1>
+	<hr>
+	{{#if @root.user}}
+	{{else}}
+		<a href="/login">Login</a> to view your own cart.
+	{{/if}}
+	{{#if @root.user}}
+    {{#each ingredients as |ingredient|}}
+      <ul>
+        <li>{{ingredient}}</li>
+        <!-- <li>{{ingredient.quantity}} {{ingredient.unit}} {{ingredient.ingredient}}</li> -->
+      </ul>
+    {{/each}}
+	{{/if}}
+</div>
