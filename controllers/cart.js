@@ -85,27 +85,25 @@ module.exports = (app) => {
         listOfUnits.forEach(function(unit) {
           // try to find one of the units above inside the ingredientsArr
           if (ingredientWords.indexOf(unit) != -1) {
-            // console.log('it was found: ', unit, ingredientsArr);
+            // if a unit (ex: 'teaspoon') is found in ingredientWords
             let inx = ingredientWords.indexOf(unit)
             let quantity = ingredientWords.slice(0, inx);
             let measurement = ingredientWords[inx];
             let ingredient = ingredientWords.slice(inx + 1, ingredientWords.length);
 
-            // console.log('quantity: ' + quantity);
-            // console.log('unit: ' + measurement);
-            // console.log('ingredient: ' + ingredient);
-            return quantity, unit, ingredient;
-            // const indexOfUnit = ingredient.indexOf(new RegExp(listOfUnits.join("|")))
-            // console.log('Index of Unit: ', indexOfUnit);
+            console.log('quantity: ' + quantity);
+            console.log('unit: ' + measurement);
+            console.log('ingredient: ' + ingredient);
+            return quantity, measurement, ingredient;
           } else {
+            // no unit (ex: 'teaspoon') is found in ingredientWords
             let quantity = 1;
             let measurement = "x";
             let ingredient = ingredientWords;
-            return quantity, unit, ingredient;
+            return quantity, measurement, ingredient;
           }
         })
       }
     }
-    // return quantity, unit, ingredient
   }
 };
