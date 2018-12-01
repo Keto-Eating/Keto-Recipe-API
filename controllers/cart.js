@@ -15,10 +15,7 @@ module.exports = (app) => {
       if (userInDB.recipesInCart.includes(recipeId)) {
         // already addedToCart, remove from recipesInCart
         UserSchema.findByIdAndUpdate(userId, {
-          $pull: {
-            recipesInCart: recipeId
-          }
-        }, function(err, user) {
+          $pull: { recipesInCart: recipeId }}, function(err, user) {
           if (err) return handleError(err);
           app.locals.user = user;
           app.locals.user.recipesInCart.pull(recipeId); // update user locally
@@ -26,10 +23,7 @@ module.exports = (app) => {
       } else {
         // user has not addedToCart before, add to recipesInCart
         UserSchema.findByIdAndUpdate(userId, {
-          $addToSet: {
-            recipesInCart: recipeId
-          }
-        }, function(err, user) {
+          $addToSet: { recipesInCart: recipeId }}, function(err, user) {
           if (err) return handleError(err);
           app.locals.user = user;
           app.locals.user.recipesInCart.push(recipeId); // update user locally
@@ -38,72 +32,151 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/cart/grocery-list', async function(req, res, next) {
+  app.get('/cart/grocery-list', (req, res) => {
     // TODO: (1) Find user's favorites (2) show all of them
     if (app.locals.user) {
       userId = app.locals.user.id;
       UserSchema.findById(userId, function(err, user) {
-        if (err) {
-          console.error(err)
-        }
+        if (err) { console.error(err) }
         // to get updated user object
         RecipeSchema.find()
           .where('_id')
           .in(user.recipesInCart)
-          .exec(function(err, cartRecipes) {
-
-            var ingredients = parseIngredients(cartRecipes);
-            console.log(ingredients);
-
+          .then(function(cartRecipes) {
+            let ingredients = getIngredients(cartRecipes);
             res.render('grocery-list', {
               ingredients: ingredients
             });
           })
+          .catch(function(err) {
+            console.log('error: ' + err);
+          })
       });
     } else {
-      res.render('cart');
+      res.render('grocery-list');
     }
   });
 
+  function getIngredients(cartRecipes) {
+    listOfIngredients = [];
+    cartRecipes.forEach(function(recipe) {
+      // iterate through recipes in cart
+      recipe.ingredientLines.forEach(function(ingredientLine) {
+        listOfIngredients.push(ingredientLine);
+      })
+    })
+    return listOfIngredients
+  }
+
   function parseIngredients(cartRecipes) {
-    listOfUnits = ["serving", "teaspoon", "teaspoons", "tsp", "tsp.", "tablespoon",
-    "tablespoons", "tbl", "tbl.", "tbs", "tbs.", "or tbsp.", "fluid ounce",
-    "fl oz", "gill", "cup", "cups", "pint", "pt", "pt.", "fl pt", "quart", "qt",
-    "fl qt", "gallon","gal", "ml", "mL", "milliliter", "millilitre", "large",
-    " l ", "liter", "litre,", "dl", "dL", "deciliter", "decilitre","pound", "lb",
-    "lb.", "lbs.", "ounce", "oz", "oz.", "mg", "milligram", "milligramme", " g ",
-    "gram", "gramme", "kg", "kilogram", "kilogramme", "mm", "millimeter",
-    "millimetre", "cm", "centimeter", "centimetre", " m ","meter", "metre",
-    "inch", "in"]
 
-    for (i = 0; i < cartRecipes.length; i++) {
-      // iterate through all recipes in cart
-      for (j = 0; j < cartRecipes[i].ingredientLines.length; j++) {
-        // iterate through each ingredientLine
-        let ingredientWords = cartRecipes[i].ingredientLines[j].split(" ");
-        // create an list (ingredient words) that holds each word of the ingredientLine
-        listOfUnits.forEach(function(unit) {
-          // try to find one of the units above inside the ingredientsArr
-          if (ingredientWords.indexOf(unit) != -1) {
-            // if a unit (ex: 'teaspoon') is found in ingredientWords
-            let inx = ingredientWords.indexOf(unit)
-            let quantity = ingredientWords.slice(0, inx);
-            let measurement = ingredientWords[inx];
-            let ingredient = ingredientWords.slice(inx + 1, ingredientWords.length);
+    let listOfMeasurements = ["serving", "drops", "teaspoon", "teaspoons", "tsp", "tsp.",
+    "tablespoon", "tablespoons", "tbl", "tbl.", "tbs", "tbs.", "tbsp.",
+    "fluid ounce", "fl oz", "gill", "cup", "cups", "pint", "pt", "pt.", "fl pt",
+    "quart", "qt", "fl qt", "gallon", "gal", "ml", "mL", "milliliter", "millilitre",
+    "large", "l", "liter", "litre,", "dl", "dL", "deciliter", "decilitre",
+    "pound", "lb", "lb.", "lbs.", "ounce", "oz", "oz.", "mg", "milligram",
+    "milligramme", "g", "gram", "gramme", "kg", "kilogram", "kilogramme", "mm",
+    "millimeter", "millimetre", "cm", "centimeter", "centimetre", "m ", "meter",
+    "metre", "inch", "in", "in."]
 
-            console.log('quantity: ' + quantity);
-            console.log('unit: ' + measurement);
-            console.log('ingredient: ' + ingredient);
-            return quantity, measurement, ingredient;
-          } else {
-            // no unit (ex: 'teaspoon') is found in ingredientWords
-            let quantity = 1;
-            let measurement = "x";
-            let ingredient = ingredientWords;
-            return quantity, measurement, ingredient;
+    cartRecipes.forEach(function(recipe) {
+      // iterate through recipes in cart
+      recipe.ingredientLines.forEach(function(ingredientLine) {
+        // iterate through each ingredient in trecipe
+        let ingrWordsArr = ingredientLine.split(" ");
+        // splits ingredient itself into an array of words
+        let ingredientHasMeasurement = false;
+
+        ingrWordsArr.map(function(measurement) {
+          if (listOfMeasurements.indexOf(measurement) != -1) {
+            // unit of measurement (ex: tsp) was found inside ingrWordsArr
+            console.log("index of measurements for: " + ingrWordsArr + " is: " + listOfMeasurements.indexOf(measurement));
+            //   let quantity = ingrWordsArr.slice(0,indexOfMeasurement);
+            //   let unit = ingrWordsArr[indexOfMeasurement];
+            //   let description = ingrWordsArr.slice(indexOfMeasurement+1, ingrWordsArr.length);
+            //
+            //   console.log('quantity: ' + quantity);
+            //   console.log('unit: ' + measurement);
+            //   console.log('ingredient: ' + description);
+            ingredientHasMeasurement = true;
           }
         })
-      }
-    }
+        // after .map() done iterating, check if measurement was never found:
+        if (ingredientHasMeasurement == false) {
+          console.log('no measurement was found inside: ' + ingrWordsArr);
+        }
+
+        // listOfMeasurements.forEach(function(measurement) {
+        //   // iterate through
+        //
+        //   const index = fruits.findIndex(fruit => fruit === "blueberries");
+        //
+        //
+        //   let quantity = ingrWordsArr.slice(0,indexOfMeasurement);
+        //   let unit = ingrWordsArr[indexOfMeasurement];
+        //   let description = ingrWordsArr.slice(indexOfMeasurement+1, ingrWordsArr.length);
+        //
+        //   console.log('quantity: ' + quantity);
+        //   console.log('unit: ' + measurement);
+        //   console.log('ingredient: ' + description);
+        // }
+        // }
+        // listOfMeasurements.forEach(function(measurement) {
+        //   indexOfMeasurement = ingrWordsArr.indexOf(measurement);
+        //
+        //   if (indexOfMeasurement != -1) {
+        //     // measurement unit (ex: teaspoon) was found inside ingrWordsArr
+        //     let quantity = ingrWordsArr.slice(0,indexOfMeasurement);
+        //     let unit = ingrWordsArr[indexOfMeasurement];
+        //     let description = ingrWordsArr.slice(indexOfMeasurement+1, ingrWordsArr.length);
+        //     console.log('quantity: ' + quantity);
+        //     console.log('unit: ' + measurement);
+        //     console.log('ingredient: ' + description);
+        //   } else {
+        //     console.log('index of measurement is: ' + indexOfMeasurement);
+        //   }
+        // })
+
+        // if (listOfUnits.some(r=> ingrWordsArr.indexOf(r)) != -1) {
+          // let indexOfUnit = ingrWordsArr.indexOf(r)
+          // console.log(indexOfUnit);
+        // }
+        // some(..) checks each element of the array against a test function
+        // and returns true if any element of the array passes the test function,
+        // otherwise, it returns false.
+        // indexOf(..) >= 0 and includes(..) both return true if the given argument
+        // is present in the array.
+
+        // if (unitFound) {
+        //   console.log('found a unit at index: ' + ingrWordsArr);
+        //
+        // } else {
+        //   console.log('did not find a unit inside: ' + ingrWordsArr);
+        // }
+
+        // listOfUnits.forEach(function(unit) {
+        //   if (ingrWordsArr.indexOf(unit) == -1) {
+        //     // NO unit (ex: tsp.) was found inside ingrWordsArr
+        //     console.log('the following is calling the else statement: ' + ingrWordsArr);
+        //
+        //     //   // let quantity = 1;
+        //     //   // let measurement = "x";
+        //     //   // let ingredient = ingrWordsArr
+        //   } else {
+        //     // one of the units above (ex: tsp.) was found inside ingrWordsArr
+        //     let inx = ingrWordsArr.indexOf(unit)
+        //
+        //     let quantity = ingrWordsArr.slice(0,inx);
+        //     let measurement = ingrWordsArr[inx];
+        //     let ingredient = ingrWordsArr.slice(inx+1, ingrWordsArr.length);
+        //
+        //     console.log('quantity: ' + quantity);
+        //     console.log('unit: ' + measurement);
+        //     console.log('ingredient: ' + ingredient);
+        //   }
+        // })
+      })
+    })
   }
 };
