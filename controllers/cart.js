@@ -1,5 +1,5 @@
 module.exports = (app) => {
-
+  const isNumber = require('is-number');
   const RecipeSchema = require('../models/recipe');
   const UserSchema = require('../models/user');
 
@@ -62,7 +62,24 @@ module.exports = (app) => {
     cartRecipes.forEach(function(recipe) {
       // iterate through recipes in cart
       recipe.ingredientLines.forEach(function(ingredientLine) {
-        listOfIngredients.push(ingredientLine);
+        let ingrWithoutStars = ingredientLine.replace("* ","");
+        let ingrWordsArr = ingrWithoutStars.split(" ");
+        console.log(ingrWordsArr);
+
+        if (ingrWordsArr.length == 1) {
+          let qty = 1;
+          let unit = 'x'
+          let desc = ingrWordsArr[0];
+          listOfIngredients.push(unit);
+        } else {
+          let qty = ingrWordsArr[0];
+          let unit = ingrWordsArr[1]
+          let desc = ingrWordsArr.slice(2, ingrWordsArr.length).join(' ')
+          listOfIngredients.push([qty, unit, desc]);
+        }
+        console.log(listOfIngredients);
+        // let cleanIngredient = ingrWordsArr.join(' ');
+        // listOfIngredients.push(cleanIngredient);
       })
     })
     return listOfIngredients

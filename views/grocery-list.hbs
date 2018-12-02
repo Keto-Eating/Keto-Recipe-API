@@ -10,7 +10,7 @@
 	{{#if @root.user}}
     {{#each ingredients as |ingredient|}}
       <ul>
-        <li>{{ingredient}}</li>
+        <li>{{#each ingredient as |content|}}{{content}} {{/each}}</li>
         <!-- <li>{{ingredient.quantity}} {{ingredient.unit}} {{ingredient.ingredient}}</li> -->
       </ul>
     {{/each}}
