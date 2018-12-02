@@ -10,7 +10,10 @@
 	{{#if @root.user}}
     {{#each ingredients as |ingredient|}}
       <ul>
-        <li>{{#each ingredient as |content|}}{{content}} {{/each}}</li>
+				<input type="checkbox">
+				<input type="text" name="quantity" value="{{ingredient.[0]}}">
+				{{ingredient.[1]}} <!-- measurement unit (ex: tsp) -->
+				{{ingredient.[2]}} <!-- description of ingredient (ex: 'sugar') -->
         <!-- <li>{{ingredient.quantity}} {{ingredient.unit}} {{ingredient.ingredient}}</li> -->
       </ul>
     {{/each}}

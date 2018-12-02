@@ -64,136 +64,30 @@ module.exports = (app) => {
       recipe.ingredientLines.forEach(function(ingredientLine) {
         let ingrWithoutStars = ingredientLine.replace("* ","");
         let ingrWordsArr = ingrWithoutStars.split(" ");
-        console.log(ingrWordsArr);
+        // console.log(ingrWordsArr);
 
         if (ingrWordsArr.length == 1) {
+          // this catches instances like "salt"
           let qty = 1;
           let unit = 'x'
-          let desc = ingrWordsArr[0];
-          listOfIngredients.push(unit);
+          let desc = ingrWordsArr.slice(0, ingrWordsArr.length).join(' ')
+          listOfIngredients.push([qty, unit, desc]);
+        } else if ((ingrWordsArr.length == 2) && (isNumber(ingrWordsArr[0]))) {
+          // this catches instances like "1 Lime"
+          let qty = ingrWordsArr[0];
+          let unit = ''
+          let desc = ingrWordsArr.slice(1, ingrWordsArr.length).join(' ')
+          listOfIngredients.push([qty, unit, desc]);
         } else {
+          // almost every other ingredient will land in here
           let qty = ingrWordsArr[0];
           let unit = ingrWordsArr[1]
           let desc = ingrWordsArr.slice(2, ingrWordsArr.length).join(' ')
           listOfIngredients.push([qty, unit, desc]);
         }
         console.log(listOfIngredients);
-        // let cleanIngredient = ingrWordsArr.join(' ');
-        // listOfIngredients.push(cleanIngredient);
       })
     })
     return listOfIngredients
-  }
-
-  function parseIngredients(cartRecipes) {
-
-    let listOfMeasurements = ["serving", "drops", "teaspoon", "teaspoons", "tsp", "tsp.",
-    "tablespoon", "tablespoons", "tbl", "tbl.", "tbs", "tbs.", "tbsp.",
-    "fluid ounce", "fl oz", "gill", "cup", "cups", "pint", "pt", "pt.", "fl pt",
-    "quart", "qt", "fl qt", "gallon", "gal", "ml", "mL", "milliliter", "millilitre",
-    "large", "l", "liter", "litre,", "dl", "dL", "deciliter", "decilitre",
-    "pound", "lb", "lb.", "lbs.", "ounce", "oz", "oz.", "mg", "milligram",
-    "milligramme", "g", "gram", "gramme", "kg", "kilogram", "kilogramme", "mm",
-    "millimeter", "millimetre", "cm", "centimeter", "centimetre", "m ", "meter",
-    "metre", "inch", "in", "in."]
-
-    cartRecipes.forEach(function(recipe) {
-      // iterate through recipes in cart
-      recipe.ingredientLines.forEach(function(ingredientLine) {
-        // iterate through each ingredient in trecipe
-        let ingrWordsArr = ingredientLine.split(" ");
-        // splits ingredient itself into an array of words
-        let ingredientHasMeasurement = false;
-
-        ingrWordsArr.map(function(measurement) {
-          if (listOfMeasurements.indexOf(measurement) != -1) {
-            // unit of measurement (ex: tsp) was found inside ingrWordsArr
-            console.log("index of measurements for: " + ingrWordsArr + " is: " + listOfMeasurements.indexOf(measurement));
-            //   let quantity = ingrWordsArr.slice(0,indexOfMeasurement);
-            //   let unit = ingrWordsArr[indexOfMeasurement];
-            //   let description = ingrWordsArr.slice(indexOfMeasurement+1, ingrWordsArr.length);
-            //
-            //   console.log('quantity: ' + quantity);
-            //   console.log('unit: ' + measurement);
-            //   console.log('ingredient: ' + description);
-            ingredientHasMeasurement = true;
-          }
-        })
-        // after .map() done iterating, check if measurement was never found:
-        if (ingredientHasMeasurement == false) {
-          console.log('no measurement was found inside: ' + ingrWordsArr);
-        }
-
-        // listOfMeasurements.forEach(function(measurement) {
-        //   // iterate through
-        //
-        //   const index = fruits.findIndex(fruit => fruit === "blueberries");
-        //
-        //
-        //   let quantity = ingrWordsArr.slice(0,indexOfMeasurement);
-        //   let unit = ingrWordsArr[indexOfMeasurement];
-        //   let description = ingrWordsArr.slice(indexOfMeasurement+1, ingrWordsArr.length);
-        //
-        //   console.log('quantity: ' + quantity);
-        //   console.log('unit: ' + measurement);
-        //   console.log('ingredient: ' + description);
-        // }
-        // }
-        // listOfMeasurements.forEach(function(measurement) {
-        //   indexOfMeasurement = ingrWordsArr.indexOf(measurement);
-        //
-        //   if (indexOfMeasurement != -1) {
-        //     // measurement unit (ex: teaspoon) was found inside ingrWordsArr
-        //     let quantity = ingrWordsArr.slice(0,indexOfMeasurement);
-        //     let unit = ingrWordsArr[indexOfMeasurement];
-        //     let description = ingrWordsArr.slice(indexOfMeasurement+1, ingrWordsArr.length);
-        //     console.log('quantity: ' + quantity);
-        //     console.log('unit: ' + measurement);
-        //     console.log('ingredient: ' + description);
-        //   } else {
-        //     console.log('index of measurement is: ' + indexOfMeasurement);
-        //   }
-        // })
-
-        // if (listOfUnits.some(r=> ingrWordsArr.indexOf(r)) != -1) {
-          // let indexOfUnit = ingrWordsArr.indexOf(r)
-          // console.log(indexOfUnit);
-        // }
-        // some(..) checks each element of the array against a test function
-        // and returns true if any element of the array passes the test function,
-        // otherwise, it returns false.
-        // indexOf(..) >= 0 and includes(..) both return true if the given argument
-        // is present in the array.
-
-        // if (unitFound) {
-        //   console.log('found a unit at index: ' + ingrWordsArr);
-        //
-        // } else {
-        //   console.log('did not find a unit inside: ' + ingrWordsArr);
-        // }
-
-        // listOfUnits.forEach(function(unit) {
-        //   if (ingrWordsArr.indexOf(unit) == -1) {
-        //     // NO unit (ex: tsp.) was found inside ingrWordsArr
-        //     console.log('the following is calling the else statement: ' + ingrWordsArr);
-        //
-        //     //   // let quantity = 1;
-        //     //   // let measurement = "x";
-        //     //   // let ingredient = ingrWordsArr
-        //   } else {
-        //     // one of the units above (ex: tsp.) was found inside ingrWordsArr
-        //     let inx = ingrWordsArr.indexOf(unit)
-        //
-        //     let quantity = ingrWordsArr.slice(0,inx);
-        //     let measurement = ingrWordsArr[inx];
-        //     let ingredient = ingrWordsArr.slice(inx+1, ingrWordsArr.length);
-        //
-        //     console.log('quantity: ' + quantity);
-        //     console.log('unit: ' + measurement);
-        //     console.log('ingredient: ' + ingredient);
-        //   }
-        // })
-      })
-    })
   }
 };
