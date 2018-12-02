@@ -3,6 +3,10 @@
 	<a href="/dashboard">Dashboard</a> > <a href='/dashboard/cart'>Cart</a> > <a href="">Grocery List</a>
 	<h1 class="">Grocery List</h1>
 	<hr>
+	<p class="page-explanation">
+		This combined grocery list was automatically created from the recipes in
+		your <a href='/dashboard/cart'>cart</a>
+	</p>
 	{{#if @root.user}}
 	{{else}}
 		<a href="/login">Login</a> to view your own grocery list.
@@ -10,11 +14,10 @@
 	{{#if @root.user}}
     {{#each ingredients as |ingredient|}}
       <ul>
-				<input type="checkbox">
-				<input type="text" name="quantity" value="{{ingredient.[0]}}">
-				{{ingredient.[1]}} <!-- measurement unit (ex: tsp) -->
-				{{ingredient.[2]}} <!-- description of ingredient (ex: 'sugar') -->
-        <!-- <li>{{ingredient.quantity}} {{ingredient.unit}} {{ingredient.ingredient}}</li> -->
+				<input type="checkbox"> <!-- TODO: POST request to save whether checked -->
+				<span class="ingredient-qty">{{ingredient.[0]}}</span>
+				<span class="ingredient-meas">{{ingredient.[1]}}</span> <!-- (ex: tsp) -->
+				<span class="ingredient-desc">{{ingredient.[2]}}</span> <!-- (ex: 'sugar') -->
       </ul>
     {{/each}}
 	{{/if}}

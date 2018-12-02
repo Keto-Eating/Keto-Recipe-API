@@ -290,6 +290,16 @@ h1 {
   padding: 0.6em 1.2em;
 }
 
+/******* GROCERY LIST *******/
+.page-explanation {
+  color:#aaa;
+}
+
+.ingredient-qty, .ingredient-meas {
+  font-weight:bold;
+}
+
+
 /*FIXME: make this more finessed*/
 @media (min-width: 1024px) {
   .signup-form {
