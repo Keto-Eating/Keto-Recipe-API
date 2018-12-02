@@ -66,28 +66,30 @@ module.exports = (app) => {
         let ingrWordsArr = ingrWithoutStars.split(" ");
         // console.log(ingrWordsArr);
 
-        if (ingrWordsArr.length == 1) {
+        if ( ingrWordsArr.length == 1 ) {
           // this catches instances like "salt"
           let qty = 1;
-          let unit = 'x'
-          let desc = ingrWordsArr.slice(0, ingrWordsArr.length).join(' ')
+          let unit = 'x';
+          let desc = ingrWordsArr.slice(0, ingrWordsArr.length).join(' ');
           listOfIngredients.push([qty, unit, desc]);
-        } else if ((ingrWordsArr.length == 2) && (isNumber(ingrWordsArr[0]))) {
+
+        } else if ( ingrWordsArr.length == 2 && isNumber(ingrWordsArr[0]) ) {
           // this catches instances like "1 Lime"
           let qty = ingrWordsArr[0];
           let unit = ''
-          let desc = ingrWordsArr.slice(1, ingrWordsArr.length).join(' ')
+          let desc = ingrWordsArr.slice(1, ingrWordsArr.length).join(' ');
           listOfIngredients.push([qty, unit, desc]);
+
         } else {
           // almost every other ingredient will land in here
           let qty = ingrWordsArr[0];
-          let unit = ingrWordsArr[1]
-          let desc = ingrWordsArr.slice(2, ingrWordsArr.length).join(' ')
+          let unit = ingrWordsArr[1];
+          let desc = ingrWordsArr.slice(2, ingrWordsArr.length).join(' ');
           listOfIngredients.push([qty, unit, desc]);
         }
-        console.log(listOfIngredients);
+        // console.log(listOfIngredients);
       })
-    })
+    });
     return listOfIngredients
   }
 };
