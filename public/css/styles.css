@@ -83,7 +83,7 @@ h1 {
 }
 
 /** NAVBAR **/
-.nav {
+/* .nav {
   font-size: 18px;
   background-image: linear-gradient(260deg, #08CE04 0%, green 100%);
   border: 1px solid green;
@@ -112,7 +112,7 @@ h1 {
   font-size: 22px;
   margin-top: 10px;
   margin-left: 20px;
-}
+} */
 
 /*.navbar-toggle {*/
   /*position: absolute;*/
@@ -123,36 +123,36 @@ h1 {
   /*font-size: 24px;*/
 /*}*/
 
-.search-bar {
+/* .search-bar {
   min-width: 215px !important;
   /** to ensure placeholder text is visible **/
-}
+/* } */
 
-.navbar {
+/* .navbar {
   display: flex;
   justify-content: space-between;
   padding-right: 2rem;
   padding-left: 2rem;
-}
+} */
 
-.btn-success {
+/* .btn-success {
   color: green;
   background-color: white;
-}
+} */
 
 
 /*logout button*/
-.nav-links {
+/* .nav-links {
   display: flex;
-}
+} */
 
-.nav-item {
+/* .nav-item {
   flex-direction: row;
   margin-left: 1rem;
-}
+} */
 
 /*dashboard button*/
-.btn-primary {
+/* .btn-primary {
   background-color: #C6C6C6;
   border: 1px solid green;
   color: green;
@@ -160,10 +160,10 @@ h1 {
 .btn-primary:hover{
   background-color: #5f5f5f;
   border: 1px solid #5f5f5f;
-}
+} */
 
 /*cart button*/
-.nav-cart {
+/* .nav-cart {
   color: green !important;
 }
 
@@ -175,7 +175,7 @@ h1 {
   background-color: green;
   color: white !important;
   border-radius: 5px;
-}
+} */
 
 
 
