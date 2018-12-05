@@ -93,12 +93,35 @@ h1 {
 .navbar-brand {
   list-style-type: none;
 }
+.main-nav {
+  list-style-type: none;
+}
 
 .nav-links,
 .logo {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.7);
 }
+
+.main-nav li {
+  text-align: center;
+  margin: 15px auto;
+}
+.logo {
+  display: inline-block;
+  font-size: 22px;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+/*.navbar-toggle {*/
+  /*position: absolute;*/
+  /*top: 10px;*/
+  /*right: 20px;*/
+  /*cursor: pointer;*/
+  /*color: rgba(255,255,255,0.8);*/
+  /*font-size: 24px;*/
+/*}*/
 
 .search-bar {
   min-width: 215px !important;
@@ -108,6 +131,8 @@ h1 {
 .navbar {
   display: flex;
   justify-content: space-between;
+  padding-right: 2rem;
+  padding-left: 2rem;
 }
 
 .btn-success {
@@ -115,10 +140,15 @@ h1 {
   background-color: white;
 }
 
+
 /*logout button*/
 .nav-links {
   display: flex;
+}
+
+.nav-item {
   flex-direction: row;
+  margin-left: 1rem;
 }
 
 /*dashboard button*/
@@ -133,9 +163,18 @@ h1 {
 }
 
 /*cart button*/
-.btn-link {
-  background-color: red;
-  color: white;
+.nav-cart {
+  color: green !important;
+}
+
+.nav-item:hover {
+  font-weight: 600;
+}
+
+.nav-logout {
+  background-color: green;
+  color: white !important;
+  border-radius: 5px;
 }
 
 
