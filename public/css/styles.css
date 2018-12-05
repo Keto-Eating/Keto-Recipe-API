@@ -25,9 +25,19 @@ body {
   margin: 2rem;
 }
 
-
 a, a li, a:hover {
   text-decoration: none;
+}
+
+h1 {
+  margin-top: 0.5em;
+}
+
+.flex-div {
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  /* flex-direction:  */
 }
 
 .signup-form {
@@ -312,6 +322,21 @@ a, a li, a:hover {
 .dash-btn:hover {
   cursor: pointer;
 }
+
+.checkout-btn {
+  font-size:1.1em;
+  padding: 0.6em 1.2em;
+}
+
+/******* GROCERY LIST *******/
+.page-explanation {
+  color:#aaa;
+}
+
+.ingredient-qty, .ingredient-meas {
+  font-weight:bold;
+}
+
 
 /*FIXME: make this more finessed*/
 @media (min-width: 1024px) {
