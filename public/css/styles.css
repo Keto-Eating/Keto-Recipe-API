@@ -53,8 +53,8 @@ h1 {
 
 .form-group {
   position: relative;
-  width: 70%;
-  max-width: 400px;
+  width: 100%;
+  /* max-width: 400px; */
 
 }
 .form-legend {
@@ -73,13 +73,12 @@ h1 {
   position: relative;
   display: flex;
   justify-content: center;
-  max-width: 400px;
-}
+width: 100%}
 
 .btn {
-  margin: 1rem;
+  margin-top: 1rem;
   position: relative;
-  min-width: calc(200px - 1rem);
+  width: 100%;
 }
 
 /** NAVBAR **/
