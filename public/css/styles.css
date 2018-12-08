@@ -76,9 +76,21 @@ h1 {
 width: 100%}
 
 .btn {
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   position: relative;
   width: 100%;
+}
+
+button.btn {
+  margin-right: 5px;
+}
+a.btn {
+  margin-left: 10px;
+}
+
+.form-control {
+  width: 100% !important;
+  margin: 0 !important;
 }
 
 /** NAVBAR **/
@@ -377,6 +389,13 @@ width: 100%}
 
 
 /*FIXME: make this more finessed*/
+
+@@media (min-width: 576px) {
+  .form-control {
+    display: flex;
+  }
+
+}
 @media (min-width: 1024px) {
   .signup-form {
     padding-left: 10rem;
