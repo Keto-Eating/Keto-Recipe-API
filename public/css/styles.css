@@ -97,8 +97,17 @@ a.btn.btn-light {
   margin: 0 !important;
 }
 
+.navbar-collapse {
+  margin-top: 1rem;
+}
 
+.search-bar {
+  margin-bottom: 5px!important;
+}
 
+.nav-links {
+  margin-top: 0.25rem;
+}
 
 /* .nav {
   font-size: 18px;
@@ -355,7 +364,7 @@ a.btn.btn-light {
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
-  width: 50%;
+  width: 100%;
 }
 
 .btn-container button {
@@ -425,6 +434,16 @@ a.btn.btn-light {
     font-size:18px;
   }
 
+  .navbar-collapse {
+    margin-top: 0;
+  }
+
+  .search-bar {
+    min-width: 300px;
+    margin-right: 0.5rem !important;
+    margin-bottom: 0 !important;
+  }
+
   .navbar.container-fluid >.navbar-header {
     float: left;
     margin-right: 10px;
@@ -455,10 +474,12 @@ a.btn.btn-light {
   .btn-container {
     flex-direction: row;
   }
+  .btn-container a {
+    width: 50%;
+  }
 }
 
 /*FIXME: make this more finessed*/
-
 /* @media (min-width: 576px) {
   .form-control {
     display: flex;
