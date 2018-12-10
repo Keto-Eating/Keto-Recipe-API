@@ -9,6 +9,7 @@
 
 body {
   font-family: Roboto;
+  font-size:14px;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -40,6 +41,7 @@ h1 {
   /* flex-direction:  */
 }
 
+/** NAVBAR **/
 .signup-form {
   margin: 0 3rem;
   padding: 3rem;
@@ -55,8 +57,8 @@ h1 {
   position: relative;
   width: 100%;
   /* max-width: 400px; */
-
 }
+
 .form-legend {
   display: flex;
   justify-content: flex-start;
@@ -73,7 +75,8 @@ h1 {
   position: relative;
   display: flex;
   justify-content: center;
-width: 100%}
+  width: 100%;
+}
 
 .btn {
   /* margin-top: 1rem; */
@@ -81,10 +84,11 @@ width: 100%}
   width: 100%;
 }
 
-button.btn {
+button.btn.btn-info {
   margin-right: 5px;
 }
-a.btn {
+
+a.btn.btn-light {
   margin-left: 10px;
 }
 
@@ -93,7 +97,9 @@ a.btn {
   margin: 0 !important;
 }
 
-/** NAVBAR **/
+
+
+
 /* .nav {
   font-size: 18px;
   background-image: linear-gradient(260deg, #08CE04 0%, green 100%);
@@ -322,34 +328,61 @@ a.btn {
   object-fit: cover;
 }
 
+.dash-brd-crum {
+  display: block;
+  /* margin-left: 1rem; */
+  /* margin-top: 1rem; */
+}
+
 .dashboard-container {
   content: "";
   clear: both;
   width: 100%;
   height: 100%;
-  margin: 2rem;
+  padding: 1.5rem;
+  /* margin: 1rem; */
 }
 
 .btn-container {
   margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.btn-container a {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  width: 50%;
+}
+
+.btn-container button {
+  width: 100%;
 }
 
 .dash-content {
-  margin-top: 2rem;
+  /* margin: 2rem 3rem; */
+}
+
+.dash-content ul {
+  list-style: none;
 }
 
 .dash-btn {
   margin-right: 1rem;
-  width: 25rem;
-  height: 20rem;
+  /* min-width: 15rem; */
+  min-height: 5rem;
   position: relative;
   background-size: cover;
   border: 0 solid white;
   border-radius: 2rem;
   box-shadow: 3px 3px 3px grey;
   color: white;
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-shadow: 2px 2px #000;
+  padding: 1rem;
 }
 
 .fav-btn {
@@ -387,15 +420,51 @@ a.btn {
   font-weight:bold;
 }
 
+@media (min-width: 768px) {
+  body {
+    font-size:18px;
+  }
 
-/*FIXME: make this more finessed*/
+  .navbar.container-fluid >.navbar-header {
+    float: left;
+    margin-right: 10px;
+  }
 
-@@media (min-width: 576px) {
-  .form-control {
+  .navbar.navbar-nav {
+    float: left;
+    margin: 5px;
+  }
+
+  .nav > li {
+    float: left;
+  }
+
+  .nav-links {
     display: flex;
   }
 
+  .form-inline {
+    flex-flow: row nowrap;
+  }
+
+  .dash-btn {
+    width: 25rem;
+    height: 20rem;
+  }
+
+  .btn-container {
+    flex-direction: row;
+  }
 }
+
+/*FIXME: make this more finessed*/
+
+/* @media (min-width: 576px) {
+  .form-control {
+    display: flex;
+  }
+}
+
 @media (min-width: 1024px) {
   .signup-form {
     padding-left: 10rem;
@@ -409,4 +478,4 @@ a.btn {
     padding-right: 20rem;
   }
 
-}
+} */
