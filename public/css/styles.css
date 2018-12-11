@@ -92,6 +92,7 @@ a.btn.btn-light {
   margin-left: 10px;
 }
 
+/******** NAVBAR *********/
 .form-control {
   width: 100% !important;
   margin: 0 !important;
@@ -108,102 +109,6 @@ a.btn.btn-light {
 .nav-links {
   margin-top: 0.25rem;
 }
-
-/* .nav {
-  font-size: 18px;
-  background-image: linear-gradient(260deg, #08CE04 0%, green 100%);
-  border: 1px solid green;
-  padding-bottom: 10px;
-}
-
-.navbar-brand {
-  list-style-type: none;
-}
-.main-nav {
-  list-style-type: none;
-}
-
-.nav-links,
-.logo {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.main-nav li {
-  text-align: center;
-  margin: 15px auto;
-}
-.logo {
-  display: inline-block;
-  font-size: 22px;
-  margin-top: 10px;
-  margin-left: 20px;
-} */
-
-/*.navbar-toggle {*/
-  /*position: absolute;*/
-  /*top: 10px;*/
-  /*right: 20px;*/
-  /*cursor: pointer;*/
-  /*color: rgba(255,255,255,0.8);*/
-  /*font-size: 24px;*/
-/*}*/
-
-/* .search-bar {
-  min-width: 215px !important;
-  /** to ensure placeholder text is visible **/
-/* } */
-
-/* .navbar {
-  display: flex;
-  justify-content: space-between;
-  padding-right: 2rem;
-  padding-left: 2rem;
-} */
-
-/* .btn-success {
-  color: green;
-  background-color: white;
-} */
-
-
-/*logout button*/
-/* .nav-links {
-  display: flex;
-} */
-
-/* .nav-item {
-  flex-direction: row;
-  margin-left: 1rem;
-} */
-
-/*dashboard button*/
-/* .btn-primary {
-  background-color: #C6C6C6;
-  border: 1px solid green;
-  color: green;
-}
-.btn-primary:hover{
-  background-color: #5f5f5f;
-  border: 1px solid #5f5f5f;
-} */
-
-/*cart button*/
-/* .nav-cart {
-  color: green !important;
-}
-
-.nav-item:hover {
-  font-weight: 600;
-}
-
-.nav-logout {
-  background-color: green;
-  color: white !important;
-  border-radius: 5px;
-} */
-
-
 
 /*CART*/
 .cart-container {
@@ -230,7 +135,6 @@ a.btn.btn-light {
   transform: scale(1.05);
   font-weight: bold;
   cursor: pointer;
-  /* background-color:red; */
 }
 
 .save-to-faves-heart:focus, .save-to-faves-heart:focus-within {
@@ -339,8 +243,6 @@ a.btn.btn-light {
 
 .dash-brd-crum {
   display: block;
-  /* margin-left: 1rem; */
-  /* margin-top: 1rem; */
 }
 
 .dashboard-container {
@@ -349,7 +251,6 @@ a.btn.btn-light {
   width: 100%;
   height: 100%;
   padding: 1.5rem;
-  /* margin: 1rem; */
 }
 
 .btn-container {
@@ -372,7 +273,6 @@ a.btn.btn-light {
 }
 
 .dash-content {
-  /* margin: 2rem 3rem; */
 }
 
 .dash-content ul {
@@ -381,7 +281,6 @@ a.btn.btn-light {
 
 .dash-btn {
   margin-right: 1rem;
-  /* min-width: 15rem; */
   min-height: 5rem;
   position: relative;
   background-size: cover;
@@ -478,25 +377,3 @@ a.btn.btn-light {
     width: 50%;
   }
 }
-
-/*FIXME: make this more finessed*/
-/* @media (min-width: 576px) {
-  .form-control {
-    display: flex;
-  }
-}
-
-@media (min-width: 1024px) {
-  .signup-form {
-    padding-left: 10rem;
-    padding-right: 10rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .signup-form {
-    padding-left: 20rem;
-    padding-right: 20rem;
-  }
-
-} */
