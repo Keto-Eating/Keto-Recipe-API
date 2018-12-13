@@ -148,6 +148,7 @@ a.btn.btn-light {
 .card-deck {
   padding: 2rem;
   margin: 2rem;
+  justify-content: center;
 }
 
 .card-title {
@@ -328,6 +329,10 @@ a.btn.btn-light {
 @media (min-width: 768px) {
   body {
     font-size:18px;
+  }
+
+  .navbar {
+    padding: 0.5rem 3rem;
   }
 
   .navbar-collapse {
