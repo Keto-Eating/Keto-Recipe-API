@@ -3,14 +3,14 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="/">Keto Eating</a>
+  <a class="navbar-brand" href="/">Keto Eat</a>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <!--md-auto pushes all to the left-->
 
     <form class="form-inline form-login">
-      <input class="form-control mr-sm-2 search-bar" type="search" placeholder="Search" aria-label="Search" name="term">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <input class="form-control mr-sm-2 search-bar" type="search" placeholder="filter recipes" aria-label="Search" name="term">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
     </form>
 
     <!--ml-auto pushes all to the right-->
@@ -20,18 +20,18 @@
         <!-- show these links if the user is logged in  -->
         {{# if user}}
         <li class="nav-item active">
-          <a class="nav-link nav-dash" href="/dashboard">Dashboard</a>
+          <a class="nav-link nav-dash" href="/dashboard">dashboard</a>
         </li>
         <li class="nav-item">
-          <a href="/cart" class="nav-link nav-cart">Cart</a>
+          <a href="/cart" class="nav-link nav-cart">cart</a>
         </li>
         <li class="nav-item">
-          <a href="/logout" class="nav-link nav-logout">Logout</a>
+          <a href="/logout" class="nav-link nav-logout">logout</a>
         </li>
         <!-- show these links if the user is not logged in -->
         {{else}}
-        <li><a href="/signup" class="btn btn-success">Sign Up</a></li>
-        <li><a href="/login" class="btn btn-secondary">Login</a></li>
+        <li><a href="/signup" class="nav-link nav-signup">signup</a></li>
+        <li><a href="/login" class="nav-link nav-login">login</a></li>
         {{/if}}
       </div>
     </ul>

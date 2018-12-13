@@ -43,14 +43,10 @@ h1 {
 
 /** NAVBAR **/
 .signup-form {
-  margin: 0 3rem;
+  margin: auto;
   padding: 3rem;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  min-width: calc(200px - 1rem);
+  min-width: auto;
 }
 
 .form-group {
@@ -219,6 +215,7 @@ a.btn.btn-light {
 }
 .card-footer {
   border: 1px solid green;
+  font-size: 1rem;
 }
 .card-footer-cart {
   background-color: white;
@@ -359,6 +356,18 @@ a.btn.btn-light {
 
   .nav-links {
     display: flex;
+  }
+
+  .login-container {
+    display: flex;
+    justify-content: center;
+    max-width: 50%;
+    background-color: red;
+  }
+
+  .signup-form {
+    align-items: center;
+    max-width: 50%;
   }
 
   .form-inline {
