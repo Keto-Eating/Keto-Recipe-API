@@ -10,9 +10,9 @@ View our live website at: https://keto-eating.herokuapp.com
 View our API documentation at: https://keto-eating.github.io/Keto-Recipe-API/#/
 
 ## User Journeys
-As a user I can browse keto recipes and save my favorites.
-As a user I can search for keto recipes using the search bar to filter down results.
-As a user I can add recipes to my grocery cart and then turn them into grocery lists.
+- As a user I can browse keto recipes and save my favorites.
+- As a user I can search for keto recipes using the search bar to filter down results.
+- As a user I can add recipes to my grocery cart and then turn them into grocery lists.
 
 ### Project Team
 
