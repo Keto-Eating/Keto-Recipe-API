@@ -52,29 +52,28 @@ Leslie Kimm<br><br>
 - As a person who is on the keto diet, I want to be able to easily find recipes with pictures. I want to be able to filter my searches by food types, examples: tacos, mediterranean, gluten free, etc. I want the recipes to include the amounts of each ingredient. I want to be able to favorite recipes so I can go back to them. I also want to be able to modify the recipes. I want to save the current recipes in a cart, and then I want my cart to create a shopping list for me.
 - As a person who likes using other people’s recipes for inspiration, I’d like to browse a list of recipes with pictures, sorted by diet. Once I have decided on a few recipes, I’d like to specify the number of servings I desire and then turn the recipes into a combined grocery list that is smart enough to convert different units of measurement and combine similar ingredients. Once I have the final grocery list, I’d like to easily be able to check off items that I already have in my fridge or pantry. Finally, I might want to save myself a trip to the grocery store by clicking  “checkout via [Instacart or Amazon Prime Now].”
 
-## ERD / Model Relationships
+## Data Models
+### RecipeSchema:
+- createdAt         : { type: Date },
+- updatedAt         : { type: Date },
+- uri               : { type: String, required: true },
+- label             : { type: String, required: true },
+- image             : { type: String, required: true },
+- url               : { type: String, required: true },
+- yield             : { type: Number },
+- cautions          : { type: Array },
+- healthLabels      : { type: Array },
+- dietLabels        : { type: Array },
+- ingredientLines   : { type: Array },
+- calories          : { type: Number },
+- totalWeight       : { type: Number },
+- totalTime         : { type: Number },
+- usersWhoFavorited : { type: Array } *--> an array of userIds*
 
-*RecipeSchema:*
-  createdAt         : { type: Date },
-  updatedAt         : { type: Date },
-  uri               : { type: String, required: true },
-  label             : { type: String, required: true },
-  image             : { type: String, required: true },
-  url               : { type: String, required: true },
-  yield             : { type: Number },
-  cautions          : { type: Array },
-  healthLabels      : { type: Array },
-  dietLabels        : { type: Array },
-  ingredientLines   : { type: Array },
-  calories          : { type: Number },
-  totalWeight       : { type: Number },
-  totalTime         : { type: Number },
-  usersWhoFavorited : { type: Array } *--> an array of userIds*
-
-*UserSchema:*
-  createdAt              :  {  type: Date  },
-  updatedAt              :  {  type: Date  },
-  password               :  {  type: String, select: false},
-  username               :  {  type: String, required: true},
-  arrayOfFavoriteRecipes :  {  type: Array }, *--> an array of recipeIds*
-  recipesInCart          :  {  type: Array } *--> an array of userIds*
+### UserSchema:
+- createdAt              :  {  type: Date  },
+- updatedAt              :  {  type: Date  },
+- password               :  {  type: String, select: false},
+- username               :  {  type: String, required: true},
+- arrayOfFavoriteRecipes :  {  type: Array }, *--> an array of recipeIds*
+- recipesInCart          :  {  type: Array } *--> an array of userIds*
