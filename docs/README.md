@@ -37,11 +37,15 @@ Leslie Kimm<br><br>
 -   [x] **Oct 12** Add test(s)
 -   [x] **Oct 13** Add 1 nested route: user favorites
 -   [x] **Oct 14** Re-deploy to Heroku
--   [ ] Create job to store API results to our own DB (WIP)
--   [ ] Re-factor search to look inside our own DB (WIP)
+-   [x] **Nov 14** Create job to store API results to our own DB (WIP)
+-   [x] **Nov 14** Re-factor search to look inside our own DB (WIP)
+-   [x] **Nov 12** Shipped to our custom domain
+-   [x] **Nov 12** Ship functional version and share with friends
 -   [ ] Re-factor Favorites (WIP)
--   [ ] Shipped to our custom domain
--   [ ] Ship functional version and share with friends
+-   [ ] Add styling to dashboard, include a weekly meal plan
+-   [ ] Create a cart object to store current week's recipes
+-   [ ] Parse ingredientLines and create list
+-   [ ] Add same ingredients with same units to create reduced grocery list
 
 ## Original User Stories (One Version Written By Each Contributor)
 - As a person who has been on the keto diet, a problem that I used to run into is selecting all the recipes I would be using for the following week and then figuring out which ingredients I needed to purchase. This was something that took quite a bit of time, I used my Notes app on my phone to jot down what I needed, and would erase each one as I found it at the grocery store. It was not convenient and a took a lot of time every weekend to do my groceries.
