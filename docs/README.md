@@ -6,8 +6,9 @@ using Node.js + Express.js. We will research API's that return recipes, and our 
 will filter those out to show Keto recipes with a filter for Vegan and Gluten Free.
 
 ## Useful links:
-View our live website at: https://keto-eating.herokuapp.com
-View our API documentation at: https://keto-eating.github.io/Keto-Recipe-API/#/
+- View our [live website](https://keto-eating.herokuapp.com)
+- View our [API documentation](https://keto-eating.github.io/Keto-Recipe-API/#/)
+- View our [Github Repo](https://github.com/Keto-Eating/Keto-Recipe-API)
 
 ### Project Team
 
@@ -46,6 +47,19 @@ Leslie Kimm<br><br>
 -   [ ] Create a cart object to store current week's recipes
 -   [ ] Parse ingredientLines and create list
 -   [ ] Add same ingredients with same units to create reduced grocery list
+
+## How tos
+
+### How to install / run locally
+- Fork our [Github Repo](https://github.com/Keto-Eating/Keto-Recipe-API)  and clone it to your local computer
+- `cd` to project repository in your Terminal
+- install node package manager (if needed)
+- run `npm install`
+
+### How to update docs
+- Update `/docs/README.md` using markdown syntax
+- `cd` to project repository in your Terminal
+- run `docsify serve docs`
 
 ## Original User Stories (One Version Written By Each Contributor)
 - As a person who has been on the keto diet, a problem that I used to run into is selecting all the recipes I would be using for the following week and then figuring out which ingredients I needed to purchase. This was something that took quite a bit of time, I used my Notes app on my phone to jot down what I needed, and would erase each one as I found it at the grocery store. It was not convenient and a took a lot of time every weekend to do my groceries.
