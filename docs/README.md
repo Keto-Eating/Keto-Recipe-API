@@ -9,6 +9,7 @@ will filter those out to show Keto recipes with a filter for Vegan and Gluten Fr
 - View our [live website](https://keto-eating.herokuapp.com)
 - View our [API documentation](https://keto-eating.github.io/Keto-Recipe-API/#/)
 - View our [Github Repo](https://github.com/Keto-Eating/Keto-Recipe-API)
+- View our [Sprint Planning Board](https://github.com/Keto-Eating/Keto-Recipe-API/projects/1)
 
 ## Technologies
 
