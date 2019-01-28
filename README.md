@@ -10,11 +10,15 @@ will filter those out to show Keto recipes with a filter for Vegan and Gluten Fr
 - View our [API documentation](https://keto-eating.github.io/Keto-Recipe-API/#/)
 - View our [Github Repo](https://github.com/Keto-Eating/Keto-Recipe-API)
 
-### Project Team
+## Project Team
 
 Nicolai Safai, Phyllis Wong, and Leslie Kimm
 
-### Roles
+## Technologies
+
+Node.js, Express, MongoDB, Mongoose, Handlebars, Bcryptjs, JS, Edamam API 
+
+## Roles
 
 **Lead Backend Engineer / PM**<br>
 Nicolai Safai<br><br>
@@ -23,14 +27,14 @@ Phyllis Wong<br><br>
 **Senior Engineer / QA**<br>
 Leslie Kimm<br><br>
 
-### Pages/Routes:
+## Pages/Routes:
 - **/** (home)<br>
 - **/?term=pizza** (searches for keto recipes for 'pizza'. For multiple terms, separate each term by %20 or use the search bar)<br>
 - **/favorites** (logged out: list of public favorites / logged in: list of your saved favorites)<br>
 - **/login** (login for existing users)<br>
 - **/signup** (create new account)<br>
 
-### Milestones
+## Milestones
 
 -   [x] **Sep 28** Ship to Heroku
 -   [x] **Oct 10** Non-authenticated landing page: MVP Search for food item --> return keto recipes
