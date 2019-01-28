@@ -14,13 +14,7 @@ will filter those out to show Keto recipes with a filter for Vegan and Gluten Fr
 
 Node.js, Express, MongoDB, Mongoose, Handlebars, Bcryptjs, JS, Edamam API 
 
-## Project Team
-
-Nicolai Safai, Phyllis Wong, and Leslie Kimm
-
-
-
-## Roles
+## Project Team / Roles
 
 **Lead Backend Engineer / PM**<br>
 Nicolai Safai<br><br>
