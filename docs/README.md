@@ -10,13 +10,15 @@ will filter those out to show Keto recipes with a filter for Vegan and Gluten Fr
 - View our [API documentation](https://keto-eating.github.io/Keto-Recipe-API/#/)
 - View our [Github Repo](https://github.com/Keto-Eating/Keto-Recipe-API)
 
+## Technologies
+
+Node.js, Express, MongoDB, Mongoose, Handlebars, Bcryptjs, JS, Edamam API 
+
 ## Project Team
 
 Nicolai Safai, Phyllis Wong, and Leslie Kimm
 
-## Technologies
 
-Node.js, Express, MongoDB, Mongoose, Handlebars, Bcryptjs, JS, Edamam API 
 
 ## Roles
 
