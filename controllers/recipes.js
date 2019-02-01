@@ -33,7 +33,7 @@ module.exports = (app) => {
   function pullEdamamRecipes() {
     let start;
     const increment = 100;
-    for (start = 0; start <= 999; start += increment) {
+    for (start = 0; start <= 600; start += increment) {
       const url = `https://api.edamam.com/search?q=keto&from=${start}&to=${start+increment}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
 
       http.get(url, (response) => {
