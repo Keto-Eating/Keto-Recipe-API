@@ -6,7 +6,13 @@ module.exports = (app) => {
   const RecipeSchema = require('../models/recipe');
 	const UserSchema = require('../models/user');
 
-  pullEdamamRecipes(); // do this once when server boots up
+  let start;
+  const increment = 100;
+  for (start = 0; start <= 999; start += 100) {
+    pullEdamamRecipes(start, (start + increment)); // do this once when server boots up
+    // console.log(start);
+  }
+  
   const edamamJob = schedule.scheduleJob('59 59 23 * * *', function() {
     // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
     pullEdamamRecipes();
@@ -30,9 +36,9 @@ module.exports = (app) => {
     })
   })
 
-  function pullEdamamRecipes() {
+  function pullEdamamRecipes(start, end) {
     // TODO: add loop later to change from/to params + add max (currently 525 keto recipes)
-    const url = `https://api.edamam.com/search?q=keto&from=0&to=100&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
+    const url = `https://api.edamam.com/search?q=keto&from=${start}&to=${end}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
 
     http.get(url, (response) => {
       response.setEncoding('utf8');
@@ -41,7 +47,8 @@ module.exports = (app) => {
 
       response.on('end', () => {
         const parsed = JSON.parse(body);
-
+        console.log(parsed.count);
+        console.log(parsed.hits.length);
         parsed.hits.forEach(function(hit) {
           const recipeFromAPI = new RecipeSchema(hit.recipe);
 
