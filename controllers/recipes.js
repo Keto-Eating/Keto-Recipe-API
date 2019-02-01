@@ -11,7 +11,7 @@ module.exports = (app) => {
   
   const edamamJob = schedule.scheduleJob('59 59 23 * * *', function() {
     // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
-    pullEdamamRecipes(); // do this once when server boots up
+    pullEdamamRecipes();
   });
 
   app.get('/', (req, res) => {
