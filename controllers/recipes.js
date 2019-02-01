@@ -6,16 +6,12 @@ module.exports = (app) => {
   const RecipeSchema = require('../models/recipe');
 	const UserSchema = require('../models/user');
 
-  let start;
-  const increment = 100;
-  for (start = 0; start <= 999; start += 100) {
-    pullEdamamRecipes(start, (start + increment)); // do this once when server boots up
-    // console.log(start);
-  }
+  
+    pullEdamamRecipes(); // do this once when server boots up
   
   const edamamJob = schedule.scheduleJob('59 59 23 * * *', function() {
     // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
-    pullEdamamRecipes();
+    pullEdamamRecipes(); // do this once when server boots up
   });
 
   app.get('/', (req, res) => {
@@ -36,42 +32,45 @@ module.exports = (app) => {
     })
   })
 
-  function pullEdamamRecipes(start, end) {
-    // TODO: add loop later to change from/to params + add max (currently 525 keto recipes)
-    const url = `https://api.edamam.com/search?q=keto&from=${start}&to=${end}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
+  function pullEdamamRecipes() {
+    let start;
+    const increment = 100;
+    for (start = 0; start <= 999; start += increment) {
+      const url = `https://api.edamam.com/search?q=keto&from=${start}&to=${start+increment}&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
 
-    http.get(url, (response) => {
-      response.setEncoding('utf8');
-      let body = '';
-      response.on('data', (d) => { body += d });
+      http.get(url, (response) => {
+        response.setEncoding('utf8');
+        let body = '';
+        response.on('data', (d) => { body += d });
 
-      response.on('end', () => {
-        const parsed = JSON.parse(body);
-        console.log(parsed.count);
-        console.log(parsed.hits.length);
-        parsed.hits.forEach(function(hit) {
-          const recipeFromAPI = new RecipeSchema(hit.recipe);
+        response.on('end', () => {
+          const parsed = JSON.parse(body);
+          console.log(parsed.count);
+          console.log(parsed.hits.length);
+          parsed.hits.forEach(function(hit) {
+            const recipeFromAPI = new RecipeSchema(hit.recipe);
 
-          RecipeSchema.findOne({ uri: hit.recipe.uri })
-            .exec(function(err, recipeInDB) {
-              if (err) {
-                console.log('Error in recipe save: ', err.message)
-              } else if (recipeInDB) {
-                // console.log("recipe already exists");
-              } else {
-                // recipe is not in DB yet, save it
-                recipeFromAPI.save((err, recipe) => {
-                  if (err) {
-                    console.log('Error in recipe save: ', err.message)
-                  } else {
-                    console.log(`successfully saved a recipe: ${ recipe.label }`)
-                  }
-                });
-              }
-            });
-        }); // <--------- END of forEach()
-      });
-    }); // <---------- END of fetch request
+            RecipeSchema.findOne({ uri: hit.recipe.uri })
+              .exec(function(err, recipeInDB) {
+                if (err) {
+                  console.log('Error in recipe save: ', err.message)
+                } else if (recipeInDB) {
+                  // console.log("recipe already exists");
+                } else {
+                  // recipe is not in DB yet, save it
+                  recipeFromAPI.save((err, recipe) => {
+                    if (err) {
+                      console.log('Error in recipe save: ', err.message)
+                    } else {
+                      console.log(`successfully saved a recipe: ${ recipe.label }`)
+                    }
+                  });
+                }
+              });
+          }); // <--------- END of forEach()
+        });
+      }); // <---------- END of fetch request
+    } // <--- END of foor loop
   }
 
   app.get('/', (req, res) => {
