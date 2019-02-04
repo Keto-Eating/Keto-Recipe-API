@@ -111,6 +111,11 @@ a.btn.btn-light {
   margin: 2rem;
 }
 /** CARDS **/
+
+.search-term {
+  text-align: center;
+  margin-top: 2rem;
+}
 .card {
   margin-bottom: 1em !important;
 }

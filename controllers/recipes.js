@@ -18,13 +18,14 @@ module.exports = (app) => {
 
     RecipeSchema.find({
       label: regExpQuery
-    }, function(err, recipes) {
-      console.log('***********************: call back')
+    }, (err, recipes) => {
+      console.log('***********************: call back');
       if (err) {
-        console.error(err.message)
+        console.error('Error finding recipes: ', err.message);
       } else {
         res.render('index', {
-          recipes: recipes
+          recipes,
+          queryString,
         });
       }
     })
