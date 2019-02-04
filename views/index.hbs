@@ -1,2 +1,9 @@
-<h1 class='search-term'>Filter recipes by: {{queryString}}</h1>
+
+{{#if queryString}}
+  <h1 class='search-term'>Filter recipes by <span aria-placeholder="searchterm">{{queryString}}</span></h1>
+  {{>recipe-cards}}
+{{else}}
+  <h1 class='search-term'>No recipes found with filter <span>{{queryString}}</span></h1>
+{{/if}}
 {{>recipe-cards}}
+
