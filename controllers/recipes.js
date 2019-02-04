@@ -8,8 +8,9 @@ module.exports = (app) => {
   const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
   const EDAMAM_API_KEY = process.env.EDAMAM_API_KEY;
 
-  pullEdamamRecipes(); // do this once when server boots up
-  const edamamJob = schedule.scheduleJob('59 59 23 * * *', () => {
+  // pullEdamamRecipes(); // do this once when server boots up
+  // schedule recipe fetch for once every 24 hrs
+  schedule.scheduleJob('59 59 23 * * *', () => {
     // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
     pullEdamamRecipes();
   });
@@ -19,16 +20,17 @@ module.exports = (app) => {
     const regExpQuery = new RegExp(queryString, 'i');
 
     RecipeSchema.find({
-      label: regExpQuery
+      $or:
+        [
+          { label: regExpQuery },
+          { url: regExpQuery },
+          { ingredientLines: regExpQuery },
+        ],
     }, (err, recipes) => {
-      console.log('***********************: call back');
       if (err) {
-        console.error('Error finding recipes: ', err.message);
+        console.error('Error finding reciepes: ', err.message);
       } else {
-        res.render('index', {
-          recipes,
-          queryString,
-        });
+        res.render('index', { recipes });
       }
     });
   });
@@ -75,30 +77,4 @@ module.exports = (app) => {
     } // <--- END of foor loop
   }
 
-  pullEdamamRecipes(); // do this once when server boots up
-  // schedule recipe fetch for once every 24 hrs
-  schedule.scheduleJob('59 59 23 * * *', () => {
-    // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
-    pullEdamamRecipes();
-  });
-
-  app.get('/', (req, res) => {
-    const queryString = req.query.term;
-    const regExpQuery = new RegExp(queryString, 'i');
-
-    RecipeSchema.find({
-      $or:
-        [
-          { label: regExpQuery },
-          { url: regExpQuery },
-          { ingredientLines: regExpQuery },
-        ],
-    }, (err, recipes) => {
-      if (err) {
-        console.error(err.message);
-      } else {
-        res.render('index', { recipes });
-      }
-    });
-  });
 };

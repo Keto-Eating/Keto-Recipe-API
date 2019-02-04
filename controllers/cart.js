@@ -8,7 +8,8 @@ module.exports = (app) => {
   const UserSchema = require('../models/user');
 
   // Send a POST request to the database to create the recipes collection
-  app.post('/cart', (req) => {
+  // TODO: Make this redirect to the cart once items have been added or removed
+  app.post('/cart', (req, res) => {
     const recipeId = req.body.recipeId;
     const userId = app.locals.user.id;
 
@@ -21,13 +22,20 @@ module.exports = (app) => {
           if (err) return handleError(err);
           app.locals.user = user;
           app.locals.user.recipesInCart.pull(recipeId); // update user locally
+          console.log('Your recipe was removed from your cart!');
+          // FIXME: This is not redirecting yet
+          res.redirect('/cart');
         });
-      } else {
+      } else {        
         // user has not addedToCart before, add to recipesInCart
         UserSchema.findByIdAndUpdate(userId, { $addToSet: { recipesInCart: recipeId } }, (err, user) => {
           if (err) return handleError(err);
           app.locals.user = user;
-          app.locals.user.recipesInCart.push(recipeId); // update user locally
+          app.locals.user.recipesInCart.push(recipeId)
+            
+          console.log(`Your recipe was added to your cart!`);
+          // FIXME: This is not redirecting yet
+          res.redirect('/cart') // update user locally
         });
       }
     });
