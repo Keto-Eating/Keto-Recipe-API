@@ -8,7 +8,7 @@ module.exports = (app) => {
   const UserSchema = require('../models/user');
 
   // Send a POST request to the database to create the recipes collection
-  app.post('/cart/', (req) => {
+  app.post('/cart', (req) => {
     const recipeId = req.body.recipeId;
     const userId = app.locals.user.id;
 
