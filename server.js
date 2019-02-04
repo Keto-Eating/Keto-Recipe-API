@@ -12,7 +12,7 @@ const exphbs = require('express-handlebars');
 
 // MIDDLEWARE configuration ============================================================
 // set up our express application
-// app.use(morgan('dev')); // Log every request to the console
+app.use(morgan('dev')); // Log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
   extended: true
