@@ -237,6 +237,16 @@ a.btn.btn-light {
   color: white;
 }
 
+/* Remove footer button */
+.remove {
+  font-size: 1rem;
+  height: 3.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
 /** DASHBOARD **/
 #dashboard-favorite-img {
   /*background-color: red;*/

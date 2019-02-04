@@ -13,7 +13,7 @@ function saveFavorite(recipeId) {
 }
 
 function saveToCart(recipeId) {
-  $.post('cart/', {
+  $.post('/cart', {
     recipeId: recipeId,
   });
   // get button that was just clicked

@@ -1,18 +1,18 @@
-/* eslint-disable prefer-destructuring */
 /* eslint-disable global-require */
+/* eslint-disable prefer-destructuring */
 module.exports = (app) => {
   const http = require('https');
-  const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
-  const EDAMAM_API_KEY = process.env.EDAMAM_API_KEY;
   const schedule = require('node-schedule');
   const RecipeSchema = require('../models/recipe');
+
+  const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
+  const EDAMAM_API_KEY = process.env.EDAMAM_API_KEY;
 
   pullEdamamRecipes(); // do this once when server boots up
   const edamamJob = schedule.scheduleJob('59 59 23 * * *', () => {
     // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
     pullEdamamRecipes();
   });
-
 
   app.get('/', (req, res) => {
     const queryString = req.query.term;
@@ -43,6 +43,7 @@ module.exports = (app) => {
         response.setEncoding('utf8');
         let body = '';
         response.on('data', (d) => { body += d; });
+
 
         response.on('end', () => {
           const parsed = JSON.parse(body);
@@ -96,9 +97,7 @@ module.exports = (app) => {
       if (err) {
         console.error(err.message);
       } else {
-        res.render('index', {
-          recipes,
-        });
+        res.render('index', { recipes });
       }
     });
   });
