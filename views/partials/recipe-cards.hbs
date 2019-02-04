@@ -1,4 +1,8 @@
 <div class="card-deck">
+  {{#if recipes}}
+  {{else}}
+    <p class="helper-text">No results found. Try another search term.</p>
+  {{/if}}
   {{#each recipes as |recipe|}}
     <div class="row">
       <div class="col-sm-4">
