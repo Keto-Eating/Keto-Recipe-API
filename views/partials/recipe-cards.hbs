@@ -48,11 +48,24 @@
 	              View Full Recipe
 	            </div>
 	          </a>
-		        <a href="/dashboard" target="_blank" onClick="saveToCart('{{recipe._id}}')">
-			        <div class="card-footer card-footer-cart">
-				        Add to Cart
-			        </div>
-		        </a>
+            <!-- Save to cart button -->
+            {{#if @root.user}}
+              {{#contains @root.user.recipesInCart recipe._id}}
+              {{!-- REMOVE from cart --}}
+              <a href="/dashboard"  onClick="saveToCart('{{recipe._id}}')">
+                <div class="card-footer card-footer-cart remove">
+                  Remove from Cart
+                </div>
+              </a>
+              {{else}}
+              {{!-- Save to CART --}}
+              <a href="/dashboard" onClick="saveToCart('{{recipe._id}}')">
+                <div class="card-footer card-footer-cart add">
+                  Add to Cart
+                </div>
+              </a>
+              {{/contains}}
+            {{/if}}
 	        </div>
         </div>
       </div>

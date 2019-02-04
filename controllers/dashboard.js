@@ -38,6 +38,7 @@ module.exports = (app) => {
   app.get('/cart', (req, res) => {
     // TODO: (1) Find user's favorites (2) show all of them
     if (app.locals.user) {
+      console.log('User: ', app.locals.user);
       userId = app.locals.user.id;
       UserSchema.findById(userId, function(err, user) {
         if (err) { console.error(err) }
@@ -47,7 +48,8 @@ module.exports = (app) => {
           .in(user.recipesInCart)
           .exec(function(err, cartRecipes) {
             res.render('cart', {
-              recipes: cartRecipes
+              recipes: cartRecipes,
+              user
             });
           })
       });

@@ -1,12 +1,17 @@
+/* eslint-disable no-multi-spaces */
+/* eslint-disable key-spacing */
+/* eslint-disable func-names */
+/* eslint-disable consistent-return */
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 
 const UserSchema = new Schema({
   createdAt              :  {  type: Date  },
   updatedAt              :  {  type: Date  },
-  password               :  {  type: String, select: false},
-  username               :  {  type: String, required: true},
+  password               :  {  type: String, select: false },
+  username               :  {  type: String, required: true },
   arrayOfFavoriteRecipes :  {  type: Array },
   recipesInCart          :  {  type: Array }
 });
@@ -16,7 +21,7 @@ UserSchema.pre('save', function(next) {
   // SET createdAt AND updatedAt
   const now = new Date();
   this.updatedAt = now;
-  if (!this.createdAt ) {
+  if (!this.createdAt) {
     this.createdAt = now;
   }
   // ENCRYPT PASSWORD
@@ -29,11 +34,11 @@ UserSchema.pre('save', function(next) {
       user.password = hash;
       next();
     });
-  })
+  });
 });
 
 UserSchema.methods.comparePassword = function(password, done) {
-  bcrypt.compare(password, this.password, function(err, isMatch) {
+  bcrypt.compare(password, this.password, (err, isMatch) => {
     done(err, isMatch);
   });
 };
