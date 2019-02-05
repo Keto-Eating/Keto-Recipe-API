@@ -21,7 +21,7 @@ Node.js, Express, MongoDB, Mongoose, Handlebars, Bcryptjs, JS, Edamam API
 Nicolai Safai<br><br>
 **Lead Frontend Engineer**<br>
 Phyllis Wong<br><br>
-**Senior Engineer / QA**<br>
+**Industry Mentor / Contributor**<br>
 Leslie Kimm<br><br>
 
 ## Pages/Routes:
