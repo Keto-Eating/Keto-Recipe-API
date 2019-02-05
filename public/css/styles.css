@@ -234,6 +234,7 @@ a.btn.btn-light {
 }
 
 .card-footer-cart:hover {
+  cursor: pointer;
   color: white;
 }
 
