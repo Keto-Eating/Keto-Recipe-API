@@ -23,7 +23,7 @@ module.exports = (app) => {
           app.locals.user.recipesInCart.pull(recipeId); // update user locally
           res.redirect('/cart');
         });
-      } else {
+      } else {        
         // user has not addedToCart before, add to recipesInCart
         UserSchema.findByIdAndUpdate(userId, { $addToSet: { recipesInCart: recipeId } }, (err, user) => {
           if (err) return handleError(err);
