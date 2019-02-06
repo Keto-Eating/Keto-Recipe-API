@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 require('dotenv').config();
 const exp = require('express');
 
@@ -24,7 +25,7 @@ app.use(bodyParser.json());
 app.engine('hbs', exphbs({
   defaultLayout: 'main',
   extname: 'hbs',
-  helpers: require("handlebars-helpers")()
+  helpers: require('handlebars-helpers')(),
 }));
 app.set('view engine', 'hbs');
 
