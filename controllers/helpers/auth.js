@@ -1,4 +1,5 @@
 exports.requireLogin = (req, res, next) => {
+  // eslint-disable-next-line global-require
   const exp = require('express');
   const app = exp();
 

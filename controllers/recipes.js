@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable global-require */
 /* eslint-disable prefer-destructuring */
 module.exports = (app) => {
@@ -8,8 +9,8 @@ module.exports = (app) => {
   const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
   const EDAMAM_API_KEY = process.env.EDAMAM_API_KEY;
 
-  // pullEdamamRecipes(); // do this once when server boots up
-  // schedule recipe fetch for once every 24 hrs
+  pullEdamamRecipes(); // do this once when server boots up
+
   schedule.scheduleJob('59 59 23 * * *', () => {
     // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
     pullEdamamRecipes();
@@ -26,6 +27,7 @@ module.exports = (app) => {
           { url: regExpQuery },
           { ingredientLines: regExpQuery },
         ],
+      label: regExpQuery,
     }, (err, recipes) => {
       if (err) {
         console.error('Error finding reciepes: ', err.message);
@@ -45,7 +47,6 @@ module.exports = (app) => {
         response.setEncoding('utf8');
         let body = '';
         response.on('data', (d) => { body += d; });
-
 
         response.on('end', () => {
           const parsed = JSON.parse(body);
@@ -76,5 +77,4 @@ module.exports = (app) => {
       }); // <---------- END of fetch request
     } // <--- END of foor loop
   }
-
 };

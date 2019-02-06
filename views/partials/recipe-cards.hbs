@@ -1,78 +1,86 @@
 <div class="card-deck">
   {{#if recipes}}
+    {{#each recipes as |recipe|}}
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="card" style="width: 20rem;">
+            <input type="hidden" value="{{@root.user._id}}" name="userId"/>
+
+            {{#if @root.user}}
+                {{#contains @root.user.arrayOfFavoriteRecipes recipe._id}}
+                  <button class="save-to-faves-heart favorited" name="saveToFavoritesHeart"
+                  id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">♥</button>
+                {{else}}
+                  <button class="save-to-faves-heart" name="saveToFavoritesHeart"
+                  id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">♥</button>
+                {{/contains}}
+              <!-- user is logged in, let them save favorite -->
+            {{else}}
+              <!-- not logged in, redirect to login -->
+              <a href="/login"><button class="save-to-faves-heart" name="saveToFavoritesHeart"
+              id="{{recipe._id}}-heart">❤</button></a>
+            {{/if}}
+            <a href="{{recipe.url}}" target="_blank">
+              <img class="card-img-top" src="{{recipe.image}}" alt="Card image">
+            </a>
+            <div class="card-body">
+              <a href="{{recipe.url}}" target="_blank">
+                <h4 class="card-title">{{recipe.label}}</h4>
+              </a>
+              <div class="time-left-subheader">
+                <img src="https://cdn4.iconfinder.com/data/icons/basic-ui-elements-1-1/100/Untitled-32-512.png" style="vertical-align: middle" class="clock-icon">
+                <span class="cooking-time">
+                  {{# if recipe.totalTime}}
+                    {{recipe.totalTime}}
+                  {{else}}
+                    --
+                  {{/if}} minutes</span>
+              </div>
+              <div class="ingredientLines-container">
+                {{#each recipe.ingredientLines}}
+                  <li class="card-text">{{this}}</li>
+                {{/each}}
+              </div>
+            </div>
+            <!--footer container-->
+            <div class="card-footer-container">
+              <a href="{{recipe.url}}" target="_blank">
+                <div class="card-footer card-footer-recipe">
+                  View Full Recipe
+                </div>
+              </a>
+              <!-- Save to cart button -->
+              {{#if @root.user}}
+                {{#contains @root.user.recipesInCart recipe._id}}
+                {{!-- REMOVE from cart --}}
+                <a onClick="saveToCart('{{recipe._id}}')">
+                  <div class="card-footer card-footer-cart remove">
+                    Remove from Cart
+                  </div>
+                </a>
+                {{else}}
+                {{!-- Save to CART --}}
+                <a onClick="saveToCart('{{recipe._id}}')">
+                  <div class="card-footer card-footer-cart add">
+                    Add to Cart
+                  </div>
+                </a>
+                {{/contains}}
+              {{else}}
+              {{!-- Save to CART --}}
+                <a onClick="saveToCart('{{recipe._id}}')">
+                  <div class="card-footer card-footer-cart add">
+                    Add to Cart
+                  </div>
+                </a>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
   {{else}}
     <p class="helper-text">No results found. Try another search term.</p>
   {{/if}}
-  {{#each recipes as |recipe|}}
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="card" style="width: 20rem;">
-          <input type="hidden" value="{{@root.user._id}}" name="userId"/>
-
-          {{#if @root.user}}
-              {{#contains @root.user.arrayOfFavoriteRecipes recipe._id}}
-                <button class="save-to-faves-heart favorited" name="saveToFavoritesHeart"
-                id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">♥</button>
-              {{else}}
-                <button class="save-to-faves-heart" name="saveToFavoritesHeart"
-                id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">♥</button>
-              {{/contains}}
-            <!-- user is logged in, let them save favorite -->
-          {{else}}
-            <!-- not logged in, redirect to login -->
-            <a href="/login"><button class="save-to-faves-heart" name="saveToFavoritesHeart"
-            id="{{recipe._id}}-heart">❤</button></a>
-          {{/if}}
-          <a href="{{recipe.url}}" target="_blank">
-            <img class="card-img-top" src="{{recipe.image}}" alt="Card image">
-          </a>
-          <div class="card-body">
-            <a href="{{recipe.url}}" target="_blank">
-              <h4 class="card-title">{{recipe.label}}</h4>
-            </a>
-            <div class="time-left-subheader">
-              <img src="https://cdn4.iconfinder.com/data/icons/basic-ui-elements-1-1/100/Untitled-32-512.png" style="vertical-align: middle" class="clock-icon">
-              <span class="cooking-time">
-                {{# if recipe.totalTime}}
-                  {{recipe.totalTime}}
-                {{else}}
-                  --
-                {{/if}} minutes</span>
-            </div>
-            <div class="ingredientLines-container">
-              {{#each recipe.ingredientLines}}
-                <li class="card-text">{{this}}</li>
-              {{/each}}
-            </div>
-          </div>
-	        <!--footer container-->
-	        <div class="card-footer-container">
-	          <a href="{{recipe.url}}" target="_blank">
-	            <div class="card-footer card-footer-recipe">
-	              View Full Recipe
-	            </div>
-	          </a>
-            <!-- Save to cart button -->
-            {{#if @root.user}}
-              {{#contains @root.user.recipesInCart recipe._id}}
-              {{!-- REMOVE from cart --}}
-              <a href="/dashboard"  onClick="saveToCart('{{recipe._id}}')">
-                <div class="card-footer card-footer-cart remove">
-                  Remove from Cart
-                </div>
-              </a>
-              {{else}}
-              {{!-- Save to CART --}}
-              <a href="/dashboard" onClick="saveToCart('{{recipe._id}}')">
-                <div class="card-footer card-footer-cart add">
-                  Add to Cart
-                </div>
-              </a>
-              {{/contains}}
-            {{/if}}
-	        </div>
-        </div>
-      </div>
-    </div>
-  {{/each}}
+  
 </div>
