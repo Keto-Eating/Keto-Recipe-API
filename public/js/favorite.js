@@ -1,24 +1,26 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 
 // adds an onClick event listener for the heart button
 // post to favs by recipe id
 function saveFavorite(recipeId) {
-  $.post("favorites/", {
-    recipeId: recipeId,
+  $.post('favorites/', {
+    recipeId,
   });
   // get heart that was just clicked
-  let heartId = recipeId + "-heart";
+  const heartId = `${recipeId}-heart`;
   heart = document.getElementById(heartId);
   // toggle 'favorited' class
   heart.classList.toggle('favorited');
 }
 
 function saveToCart(recipeId) {
-  $.post('cart/', {
-    recipeId: recipeId,
+  $.post('/cart', {
+    recipeId,
+  }).then(() => {
+    window.location.pathname = '/cart';
   });
   // get button that was just clicked
-  let buttonId = recipeId + "button";
+  const buttonId = `${recipeId} button`;
   // cartButton = document.getElementById(buttonId);
-  // // toggle 'cartRecipes'
-  // cartButton.classList.toggle('addedToCart');
-}
+};

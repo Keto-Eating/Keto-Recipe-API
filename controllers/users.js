@@ -1,3 +1,8 @@
+/* eslint-disable no-else-return */
+/* eslint-disable consistent-return */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable global-require */
 // controllers/users.js
 
 module.exports = (app) => {
@@ -14,25 +19,23 @@ module.exports = (app) => {
     // CREATE User and JWT
     const user = new UserSchema(req.body);
 
-    user.save().then((user) => {
+    user.save().then((savedUser) => {
       const token = jwt.sign({
-        _id: user._id
+        _id: savedUser._id,
       }, process.env.SECRET, {
-        expiresIn: '60 days'
+        expiresIn: '60 days',
       });
       res.cookie('nToken', token, {
         maxAge: 900000,
         httpOnly: true
       });
-      console.log('user is: ' + user);
+      console.log(`user is: ${user}`);
       app.locals.user = user;
       res.redirect('/');
       // res.send("blah")
-    }).catch((err) => {
-      return res.status(400).send({
-        err
-      });
-    });
+    }).catch(err => res.status(400).send({
+      err,
+    }));
   });
 
   // LOGIN FORM
@@ -47,16 +50,15 @@ module.exports = (app) => {
 
     // Look for this user name
     UserSchema.findOne({
-        username
-      }, 'username password arrayOfFavoriteRecipes')
+      username,
+    }, 'username password arrayOfFavoriteRecipes')
       .then((user) => {
         if (!user) {
           // User not found
           return res.status(401).send({
-            message: 'Wrong Username or Password'
+            message: 'Wrong Username or Password',
           });
         } else {
-          // console.log('user is: ' + user);
           app.locals.user = user;
           // console.log(user)
           // console.log('app locals user: ' + app.locals.user);
@@ -64,7 +66,7 @@ module.exports = (app) => {
           user.comparePassword(password, (err, isMatch) => {
             if (!isMatch) {
               return res.status(401).send({
-                message: 'Wrong Username or Password'
+                message: 'Wrong Username or Password',
               });
             }
             // Create the token
@@ -72,12 +74,12 @@ module.exports = (app) => {
               _id: user._id,
               username: user.username
             }, process.env.SECRET, {
-              expiresIn: '60 days'
+              expiresIn: '60 days',
             });
             // Set a cookie and redirect to root
             res.cookie('nToken', token, {
               maxAge: 900000,
-              httpOnly: true
+              httpOnly: true,
             });
             console.log('Successfully logged in.');
             res.redirect('/dashboard');
@@ -95,5 +97,4 @@ module.exports = (app) => {
     app.locals.user = null;
     res.redirect('back'); // to automatically redirect back to the page the request came from
   });
-
-}
+};

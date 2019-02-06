@@ -1,5 +1,7 @@
+/* eslint-disable global-require */
+/* eslint-disable no-undef */
+/* eslint-disable consistent-return */
 module.exports = (app) => {
-
   const RecipeSchema = require('../models/recipe');
   const UserSchema = require('../models/user');
 
@@ -9,30 +11,30 @@ module.exports = (app) => {
     const userId = app.locals.user.id;
 
     // find recipe, add userId to usersWhoFavorited
-    RecipeSchema.findById(favoriteId, function(err, favoriteInDB) {
+    RecipeSchema.findById(favoriteId, (err, favoriteInDB) => {
       if (err) return handleError(err);
       if (favoriteInDB.usersWhoFavorited.includes(userId)) {
         // user already favorited, and is trying to un-favorite
         RecipeSchema.findByIdAndUpdate(favoriteId, {
-          $pull: { usersWhoFavorited: userId }}, function(err) {
+          $pull: { usersWhoFavorited: userId }}, (err) => {
           if (err) return handleError(err);
         });
       } else {
         // user has not favorited before
         RecipeSchema.findByIdAndUpdate(favoriteId, {
-          $addToSet: { usersWhoFavorited: userId }}, function(err) {
+          $addToSet: { usersWhoFavorited: userId }}, (err) => {
           if (err) return handleError(err);
         });
       }
     });
 
     // find user, save favorite to arrayOfFavoriteRecipes
-    UserSchema.findById(userId, function(err, userInDB) {
+    UserSchema.findById(userId, (err, userInDB) => {
       if (err) return handleError(err);
       if (userInDB.arrayOfFavoriteRecipes.includes(favoriteId)) {
         // already favorited, remove from arrayOfFavoriteRecipes
         UserSchema.findByIdAndUpdate(userId, {
-          $pull: { arrayOfFavoriteRecipes: favoriteId }}, function(err, user) {
+          $pull: { arrayOfFavoriteRecipes: favoriteId }}, (err, user) => {
           if (err) return handleError(err);
           app.locals.user = user;
           app.locals.user.arrayOfFavoriteRecipes.pull(favoriteId); // update user locally
@@ -40,7 +42,7 @@ module.exports = (app) => {
       } else {
         // user has not favorited before, add to arrayOfFavoriteRecipes
         UserSchema.findByIdAndUpdate(userId, {
-          $addToSet: { arrayOfFavoriteRecipes: favoriteId }}, function(err, user) {
+          $addToSet: { arrayOfFavoriteRecipes: favoriteId }}, (err, user) => {
           if (err) return handleError(err);
           app.locals.user = user
           app.locals.user.arrayOfFavoriteRecipes.push(favoriteId); // update user locally
