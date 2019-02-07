@@ -56,33 +56,35 @@ module.exports = (app) => {
         if (!user) {
           // User not found
           return res.status(401).send({
-            message: 'Wrong Username or Password',
+            message: 'User with that username does not exist',
           });
         } else {
-          app.locals.user = user;
           // console.log(user)
           // console.log('app locals user: ' + app.locals.user);
           // Check the password
           user.comparePassword(password, (err, isMatch) => {
+            console.log(isMatch);
             if (!isMatch) {
               return res.status(401).send({
-                message: 'Wrong Username or Password',
+                message: 'Incorrect password',
               });
+            } else {
+              app.locals.user = user;
+              // Create the token
+              const token = jwt.sign({
+                _id: user._id,
+                username: user.username,
+              }, process.env.SECRET, {
+                expiresIn: '60 days',
+              });
+              // Set a cookie and redirect to root
+              res.cookie('nToken', token, {
+                maxAge: 900000,
+                httpOnly: true,
+              });
+              console.log('Successfully logged in.');
+              res.redirect('/dashboard');
             }
-            // Create the token
-            const token = jwt.sign({
-              _id: user._id,
-              username: user.username
-            }, process.env.SECRET, {
-              expiresIn: '60 days',
-            });
-            // Set a cookie and redirect to root
-            res.cookie('nToken', token, {
-              maxAge: 900000,
-              httpOnly: true,
-            });
-            console.log('Successfully logged in.');
-            res.redirect('/dashboard');
           });
         }
       })

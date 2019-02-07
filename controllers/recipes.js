@@ -34,7 +34,9 @@ module.exports = (app) => {
       } else {
         res.render('index', { recipes });
       }
-    });
+    }).sort([
+      ['usersWhoFavorited', -1],
+    ]);
   });
 
   function pullEdamamRecipes() {
