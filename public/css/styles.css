@@ -329,7 +329,7 @@ a.btn.btn-light {
 }
 
 .checkout-btn {
-  font-size:1.1em;
+  font-size: 1.1em;
   padding: 0.6em 1.2em;
 }
 
@@ -340,6 +340,23 @@ a.btn.btn-light {
 
 .ingredient-qty, .ingredient-meas {
   font-weight:bold;
+}
+
+/******** ERROR PAGE ********/
+.error {
+  text-align: center;
+  height: 100%;
+  margin: auto;
+  margin-top: 4em;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error button {
+  margin-top: 1em;
+  width: 10em;
 }
 
 @media (min-width: 768px) {
