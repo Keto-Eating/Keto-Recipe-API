@@ -1,7 +1,7 @@
-<span>
+<div class="login-container">
   <form action="/signup" method="POST" class="signup-form">
-    <legend>Sign Up</legend>
-    <p>Sign up to save your favorites</p>
+    <legend class="form-legend">Sign Up</legend>
+    <p class="form-title">Sign up to save your favorites</p>
 
     <!--Username-->
     <div class="form-group">
@@ -15,10 +15,11 @@
       <input class="form-control" type="password" name="password" placeholder="Password">
     </div>
 
-    <!--Button-->
-
-    <button class="btn btn-success signup-btn" type="submit">Sign Up</button>
-    <a href="/" class="btn btn-light" role="button">Cancel</a>
-
+    <!--Buttons-->
+		<div class="form-btns">
+	    <button class="btn btn-success signup-btn" type="submit">Sign up</button>
+	    <a href="/" class="btn btn-light" role="button">Cancel</a>
+		</div>
   </form>
-</span>
+</div>
+
