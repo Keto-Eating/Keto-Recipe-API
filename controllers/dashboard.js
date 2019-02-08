@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable global-require */
 module.exports = (app) => {
   const RecipeSchema = require('../models/recipe');
   const UserSchema = require('../models/user');
@@ -5,7 +7,6 @@ module.exports = (app) => {
   app.get('/dashboard', (req, res) => {
     // TODO: (1) Search for user specific favorites (2) show them using code similar to below
     if (app.locals.user) {
-      user = app.locals.user;
       res.render('dashboard', {});
     } else {
       res.redirect('/login');
@@ -16,21 +17,19 @@ module.exports = (app) => {
   app.get('/dashboard/favorites', (req, res) => {
     // TODO: (1) Find user's favorites (2) show all of them
     if (app.locals.user) {
-      userId = app.locals.user.id;
-      UserSchema.findById(userId, function(err, user) {
-        if (err) { console.error(err) };
+      const userId = app.locals.user.id;
+      UserSchema.findById(userId, (errFindingUser, user) => {
+        if (errFindingUser) return res.next(errFindingUser);
         // to get updated user object
         RecipeSchema.find()
           .where('_id')
           .in(user.arrayOfFavoriteRecipes)
-          .exec(function(err, userFaves) {
-            res.render('dashboard/favorites', {
-              recipes: userFaves
-            });
-          })
+          .exec((_err, userFaves) => res.render('dashboard/favorites', {
+            recipes: userFaves,
+          }));
       });
     } else {
-      res.render('dashboard/favorites');
+      return res.render('dashboard/favorites');
     }
   });
 
@@ -39,22 +38,22 @@ module.exports = (app) => {
     // TODO: (1) Find user's favorites (2) show all of them
     if (app.locals.user) {
       console.log('User: ', app.locals.user);
-      userId = app.locals.user.id;
-      UserSchema.findById(userId, function(err, user) {
-        if (err) { console.error(err) }
+      const userId = app.locals.user.id;
+      UserSchema.findById(userId, (err, user) => {
+        if (err) return res.next(err);
         // to get updated user object
         RecipeSchema.find()
           .where('_id')
           .in(user.recipesInCart)
-          .exec(function(err, cartRecipes) {
+          .exec((_err, cartRecipes) => {
             res.render('cart', {
               recipes: cartRecipes,
-              user
+              user,
             });
-          })
+          });
       });
     } else {
       res.render('cart');
     }
   });
-}
+};

@@ -92,11 +92,7 @@ module.exports = (app) => {
           });
         }
       })
-      .catch(() => {
-        const nextError = new Error('Email or password incorrect');
-        nextError.status = 401;
-        return next(nextError);
-      });
+      .catch(err => next(err));
   });
 
   // LOGOUT
