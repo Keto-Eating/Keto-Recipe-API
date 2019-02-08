@@ -2,8 +2,8 @@
   {{#if recipes}}
     {{#each recipes as |recipe|}}
       <div class="row">
-        <div class="col-sm-4">
-          <div class="card" style="width: 20rem;">
+        {{!-- <div class="col-sm-4"> --}}
+          <div class="card">
             <input type="hidden" value="{{@root.user._id}}" name="userId"/>
 
             {{#if @root.user}}
@@ -46,7 +46,7 @@
             <div class="card-footer-container">
               <a href="{{recipe.url}}" target="_blank">
                 <div class="card-footer card-footer-recipe">
-                  View Full Recipe
+                  View Recipe
                 </div>
               </a>
               <!-- Save to cart button -->
@@ -76,7 +76,7 @@
               {{/if}}
             </div>
           </div>
-        </div>
+        {{!-- </div> --}}
       </div>
     {{/each}}
   {{else}}
