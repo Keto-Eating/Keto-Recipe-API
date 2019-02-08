@@ -2,6 +2,7 @@
 require('dotenv').config();
 const exp = require('express');
 const createError = require('http-errors');
+
 const app = exp();
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -62,7 +63,7 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   console.log('inside error handler!');
   res.locals.message = err.message;

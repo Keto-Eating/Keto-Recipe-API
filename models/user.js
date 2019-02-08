@@ -4,7 +4,7 @@
 /* eslint-disable consistent-return */
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
 const uniqueValidator = require('mongoose-unique-validator');
 
@@ -34,7 +34,8 @@ UserSchema.pre('save', function (next) {
     return next();
   }
   bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(user.password, salt, (err, hash) => {
+    bcrypt.hash(user.password, salt, (errHashing, hash) => {
+      if (errHashing) return next(errHashing);
       user.password = hash;
       next();
     });
