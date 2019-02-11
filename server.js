@@ -63,7 +63,8 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res) => {
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => { // DO NOT REMOVE next
   // set locals, only providing error in development
   console.log('inside error handler!');
   res.locals.message = err.message;
