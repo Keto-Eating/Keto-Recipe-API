@@ -45,6 +45,14 @@ a, a li, a:hover {
   text-decoration: none;
 }
 
+a {
+  color: var(--mid-green);
+}
+
+a:hover, a:active, a:focus {
+  color: var(--dark-green)
+}
+
 h1 {
   margin-top: 0.5em;
 }
@@ -308,6 +316,11 @@ a.btn.btn-light {
 
 .dash-brd-crum {
   display: block;
+  color: var(--mid-green);
+}
+
+.dash-brd-crum:hover, .dash-brd-crum:active, .dash-brd-crum:focus {
+  color: var(--dark-green)
 }
 
 .dashboard-container {
@@ -356,11 +369,11 @@ a.btn.btn-light {
 }
 
 .fav-btn {
-  background-image: linear-gradient(var(--dark-translucent), var(--dark-translucent), url('../img/Keto-Diet.jpg'));
+  background-image: linear-gradient(var(--dark-translucent), var(--dark-translucent)), url('../img/Keto-Diet.jpg');
 }
 
 .cart-btn {
-  background-image: linear-gradient(var(--dark-translucent), var(--dark-translucent), url('../img/meal-prep.jpg'));
+  background-image: linear-gradient(var(--dark-translucent), var(--dark-translucent)), url('../img/meal-prep.jpg');
 }
 
 .dash-btn.focus, .dash-btn:focus {

@@ -42,6 +42,31 @@ module.exports = (app) => {
     return listOfIngredients;
   }
 
+  // route for showing cart
+  app.get('/cart', (req, res) => {
+    // TODO: (1) Find user's favorites (2) show all of them
+    if (app.locals.user) {
+      console.log('User: ', app.locals.user);
+      const userId = app.locals.user.id;
+      UserSchema.findById(userId, (err, user) => {
+        if (err) return res.next(err);
+        // to get updated user object
+        RecipeSchema.find()
+          .where('_id')
+          .in(user.recipesInCart)
+          .exec((_err, cartRecipes) => {
+            res.render('cart', {
+              recipes: cartRecipes,
+              user,
+              instructions: 'You must first add recipes to your cart.',
+            });
+          });
+      });
+    } else {
+      res.render('cart');
+    }
+  });
+
   // Send a POST request to the database to create the recipes collection
   app.post('/cart', (req, res) => {
     const recipeId = req.body.recipeId;

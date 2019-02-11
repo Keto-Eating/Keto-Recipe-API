@@ -32,7 +32,10 @@ module.exports = (app) => {
       if (err) {
         console.error('Error finding reciepes: ', err.message);
       } else {
-        res.render('index', { recipes });
+        res.render('index', {
+          recipes,
+          instructions: 'Try another search term.',
+        });
       }
     }).sort([
       ['usersWhoFavorited', -1],
