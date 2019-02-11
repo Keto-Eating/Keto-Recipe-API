@@ -32,14 +32,9 @@ module.exports = (app) => {
       if (err) {
         console.error('Error finding reciepes: ', err.message);
       } else {
-        res.render('index', {
-          recipes,
-          instructions: 'Try another search term.',
-        });
+        res.render('index', { recipes });
       }
-    }).sort([
-      ['usersWhoFavorited', -1],
-    ]);
+    });
   });
 
   function pullEdamamRecipes() {

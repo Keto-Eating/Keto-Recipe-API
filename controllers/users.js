@@ -1,11 +1,9 @@
-// controllers/users.js
-
-/* eslint-disable no-param-reassign */
 /* eslint-disable no-else-return */
 /* eslint-disable consistent-return */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable global-require */
+// controllers/users.js
 
 module.exports = (app) => {
   const jwt = require('jsonwebtoken');
@@ -17,7 +15,7 @@ module.exports = (app) => {
   });
 
   // POST: creates a new user
-  app.post('/signup', (req, res, next) => {
+  app.post('/signup', (req, res) => {
     // CREATE User and JWT
     const user = new UserSchema(req.body);
 
@@ -29,17 +27,15 @@ module.exports = (app) => {
       });
       res.cookie('nToken', token, {
         maxAge: 900000,
-        httpOnly: true,
+        httpOnly: true
       });
       console.log(`user is: ${user}`);
       app.locals.user = user;
       res.redirect('/');
       // res.send("blah")
-    }).catch(() => {
-      const nextError = new Error('Email address already taken. Did you mean to login?');
-      nextError.status = 422; // validation error
-      return next(nextError);
-    });
+    }).catch(err => res.status(400).send({
+      err,
+    }));
   });
 
   // LOGIN FORM
@@ -48,7 +44,7 @@ module.exports = (app) => {
   });
 
   // LOGIN USER
-  app.post('/login', (req, res, next) => {
+  app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
@@ -59,40 +55,40 @@ module.exports = (app) => {
       .then((user) => {
         if (!user) {
           // User not found
-          const nextError = new Error('User with that username does not exist');
-          nextError.status = 401;
-          return next(nextError);
+          return res.status(401).send({
+            message: 'Wrong Username or Password',
+          });
         } else {
+          app.locals.user = user;
           // console.log(user)
           // console.log('app locals user: ' + app.locals.user);
           // Check the password
           user.comparePassword(password, (err, isMatch) => {
-            console.log(isMatch);
             if (!isMatch) {
-              const nextError = new Error('Incorrect password');
-              nextError.status = 401;
-              return next(nextError);
-            } else {
-              app.locals.user = user;
-              // Create the token
-              const token = jwt.sign({
-                _id: user._id,
-                username: user.username,
-              }, process.env.SECRET, {
-                expiresIn: '60 days',
+              return res.status(401).send({
+                message: 'Wrong Username or Password',
               });
-              // Set a cookie and redirect to root
-              res.cookie('nToken', token, {
-                maxAge: 900000,
-                httpOnly: true,
-              });
-              console.log('Successfully logged in.');
-              res.redirect('/dashboard');
             }
+            // Create the token
+            const token = jwt.sign({
+              _id: user._id,
+              username: user.username
+            }, process.env.SECRET, {
+              expiresIn: '60 days',
+            });
+            // Set a cookie and redirect to root
+            res.cookie('nToken', token, {
+              maxAge: 900000,
+              httpOnly: true,
+            });
+            console.log('Successfully logged in.');
+            res.redirect('/dashboard');
           });
         }
       })
-      .catch(err => next(err));
+      .catch((err) => {
+        console.log(err.message);
+      });
   });
 
   // LOGOUT
