@@ -1,16 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-:root {
-  --dark-green: #0C3F20;
-  --mid-green: #51A079;
-  --light-green: #C7E2C7;
-  --off-white: #FFF;
-  --light-grey: #eaeaea;
-  --mid-grey: #a9a9a9;
-  --dark-orange: #CC6D08;
-  --dark-translucent: rgba(44, 62, 80,.3);
-}
-
 /** FULL PAGE **/
 * {
   box-sizing: border-box;
@@ -18,17 +7,13 @@
   margin: 0;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  background-color: var(--light-grey);
-}
-
 body {
   font-family: Roboto;
   font-size:14px;
   margin: 0;
   padding: 0;
+  width: 100%;
+  heigh: 100%;
 }
 
 .body-container {
@@ -45,14 +30,6 @@ a, a li, a:hover {
   text-decoration: none;
 }
 
-a {
-  color: var(--mid-green);
-}
-
-a:hover, a:active, a:focus {
-  color: var(--dark-green)
-}
-
 h1 {
   margin-top: 0.5em;
 }
@@ -61,6 +38,7 @@ h1 {
   display:flex;
   align-items: center;
   justify-content: space-between;
+  /* flex-direction:  */
 }
 
 /** NAVBAR **/
@@ -72,9 +50,9 @@ h1 {
 }
 
 .form-group {
-  display: flex;
   position: relative;
   width: 100%;
+  /* max-width: 400px; */
 }
 
 .form-legend {
@@ -87,11 +65,9 @@ h1 {
   display: flex;
   justify-content: flex-start;
   width: 100%;
-  /* margin-bottom: 1.5em; */
 }
 
 .form-btns {
-  margin-top: 1em;
   position: relative;
   display: flex;
   justify-content: center;
@@ -99,18 +75,9 @@ h1 {
 }
 
 .btn {
+  /* margin-top: 1rem; */
   position: relative;
   width: 100%;
-  padding: 0.5em 1em;
-  box-shadow: 0px 3px 10px -4px var(--dark-translucent) !important;
-}
-
-.btn-success {
-  background-color: var(--mid-green) !important;
-}
-
-.btn-light {
-  background-color: var(--off-white) !important;
 }
 
 button.btn.btn-info {
@@ -122,14 +89,9 @@ a.btn.btn-light {
 }
 
 /******** NAVBAR *********/
-.navbar {
-  box-shadow: 0px 3px 10px -4px var(--dark-translucent);
-}
-
 .form-control {
   width: 100% !important;
   margin: 0 !important;
-  padding: 0.75em 1em;
 }
 
 .navbar-collapse {
@@ -148,43 +110,22 @@ a.btn.btn-light {
 .cart-container {
   margin: 2rem;
 }
-
 /** CARDS **/
+
 .search-term {
   text-align: center;
   margin-top: 2rem;
 }
-
-.card-deck {
-  padding: 2rem;
-  margin: 2rem;
-  justify-content: center;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: .5rem;
-}
-
-.row {
-  margin:0;
-}
-
-/* INDIVIDUAL CARD */
 .card {
   margin-bottom: 1em !important;
-  width: 100% !important;
-  background-color: var(--off-white);
-  border: none;
-  box-shadow: 2px 3px 10px -4px var(--dark-translucent);
-  /* box-shadow: h-offset v-offset blur spread color */
 }
 
-/* FAVORITE BUTTON */
 .save-to-faves-heart {
   position: absolute;
   top: 10px;
   right: 10px;
   font-size: 3em;
-  color: var(--off-white);
+  color: white;
   /* change this white to a green border with white inside */
   border:none;
   background: none;
@@ -202,15 +143,21 @@ a.btn.btn-light {
 }
 
 .save-to-faves-heart.favorited {
-  color:var(--dark-orange);
+  color:#e74c3c;
 }
 
 .favorites-container {
   margin: 2rem;
 }
 
+.card-deck {
+  padding: 2rem;
+  margin: 2rem;
+  justify-content: center;
+}
+
 .card-title {
-  color: var(--dark-green);
+  color: #343a40;
   display: block;
   display: -webkit-box;
   height: 2.5em;
@@ -221,7 +168,7 @@ a.btn.btn-light {
 }
 
 .card-title:hover {
-  color: var(--mid-green);
+  color: green;
   text-decoration: underline;
 }
 
@@ -229,7 +176,7 @@ a.btn.btn-light {
   display: flex;
   align-items: center;
   margin-bottom: 1em;
-  color: var(--mid-grey);
+  color: grey;
 }
 
 .clock-icon {
@@ -257,48 +204,41 @@ a.btn.btn-light {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
 }
 
 .card-footer-container a {
   width: 100%;
-  height: 100%;
 }
 
 .card-footer {
-  background-color: var(--mid-green);
-  color: var(--off-white);
+  background-color: green;
+  color: white;
   display: flex;
   justify-content: center;
-  height: 100%;
 }
-
+.card-footer:last-child {
+   border-radius: 0;
+}
 .card-footer {
-  border: 1px solid var(--mid-green);
+  border: 1px solid green;
   font-size: 1rem;
 }
-
 .card-footer-cart {
-  background-color: var(--off-white);
-  color: var(--mid-green);
-  height: 100%;
-  border-radius: 0 0 calc(.25rem - 1px) 0 !important;
+  background-color: white;
+  color: green;
+}
+
+.card-footer:hover {
+  border-color: grey;
+  background-color: grey;
 }
 
 .card-footer-cart:hover {
   cursor: pointer;
-  text-decoration: underline;
+  color: white;
 }
 
-.card-footer-recipe {
-  border-radius: 0 0 0 calc(.25rem - 1px) !important;
-}
-
-.card-footer-recipe:hover {
-  text-decoration: underline;
-}
-
-/* Remove from cart button */
+/* Remove footer button */
 .remove {
   font-size: 1rem;
   height: 3.1rem;
@@ -310,17 +250,13 @@ a.btn.btn-light {
 
 /** DASHBOARD **/
 #dashboard-favorite-img {
+  /*background-color: red;*/
   max-height: 5em;
   object-fit: cover;
 }
 
 .dash-brd-crum {
   display: block;
-  color: var(--mid-green);
-}
-
-.dash-brd-crum:hover, .dash-brd-crum:active, .dash-brd-crum:focus {
-  color: var(--dark-green)
 }
 
 .dashboard-container {
@@ -350,6 +286,9 @@ a.btn.btn-light {
   width: 100%;
 }
 
+.dash-content {
+}
+
 .dash-content ul {
   list-style: none;
 }
@@ -359,21 +298,25 @@ a.btn.btn-light {
   min-height: 5rem;
   position: relative;
   background-size: cover;
-  border: 0 solid var(--off-white);
+  border: 0 solid white;
   border-radius: 2rem;
-  box-shadow: 3px 3px 3px var(--light-grey);
-  color: var(--off-white);
+  box-shadow: 3px 3px 3px grey;
+  color: white;
   font-size: 2.5rem;
-  text-shadow: 2px 2px var(--dark-green);
+  text-shadow: 2px 2px #000;
   padding: 1rem;
 }
 
 .fav-btn {
-  background-image: linear-gradient(var(--dark-translucent), var(--dark-translucent)), url('../img/Keto-Diet.jpg');
+  background-image: linear-gradient(rgba(44, 62, 80,.3),
+                    rgba(44, 62, 80,.3)),
+                    url('../img/Keto-Diet.jpg');
 }
 
 .cart-btn {
-  background-image: linear-gradient(var(--dark-translucent), var(--dark-translucent)), url('../img/meal-prep.jpg');
+  background-image: linear-gradient(rgba(44, 62, 80,.3),
+                    rgba(44, 62, 80,.3)),
+                    url('../img/meal-prep.jpg');
 }
 
 .dash-btn.focus, .dash-btn:focus {
@@ -386,43 +329,24 @@ a.btn.btn-light {
 }
 
 .checkout-btn {
-  font-size: 1.1em;
+  font-size:1.1em;
   padding: 0.6em 1.2em;
 }
 
 /******* GROCERY LIST *******/
 .page-explanation {
-  color:var(--light-grey);
+  color:#aaa;
 }
 
 .ingredient-qty, .ingredient-meas {
   font-weight:bold;
 }
 
-/******** ERROR PAGE ********/
-.error {
-  text-align: center;
-  height: 100%;
-  margin: auto;
-  padding: 1em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.error button {
-  margin-top: 1em;
-  width: 10em;
-}
-
 @media (min-width: 768px) {
-  /* FULL PAGE */
   body {
     font-size:18px;
   }
 
-  /* NAVBAR */
   .navbar {
     padding: 0.5rem 3rem;
   }
@@ -455,7 +379,13 @@ a.btn.btn-light {
     display: flex;
   }
 
-  /* SIGNUP */
+  .login-container {
+    display: flex;
+    justify-content: center;
+    max-width: 50%;
+    background-color: red;
+  }
+
   .signup-form {
     align-items: center;
     max-width: 50%;
@@ -465,13 +395,11 @@ a.btn.btn-light {
     flex-flow: row nowrap;
   }
 
-  /* DASHBOARD */
   .dash-btn {
     width: 25rem;
     height: 20rem;
   }
 
-  /* BUTTONS */
   .btn-container {
     flex-direction: row;
   }

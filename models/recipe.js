@@ -1,4 +1,3 @@
-/* eslint-disable func-names */
 /* eslint-disable key-spacing */
 const mongoose = require('mongoose');
 
@@ -17,7 +16,7 @@ const RecipeSchema = mongoose.Schema({
   calories          : { type: Number },
   totalWeight       : { type: Number },
   totalTime         : { type: Number },
-  usersWhoFavorited : { type: Array },
+  usersWhoFavorited : { type: Array }
 });
 
 RecipeSchema.pre('save', function (next) {
