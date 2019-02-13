@@ -171,7 +171,7 @@ a.btn.btn-light {
 /* INDIVIDUAL CARD */
 .card {
   margin-bottom: 1em !important;
-  width: 100% !important;
+  max-width: 320px;
   background-color: var(--off-white);
   border: none;
   box-shadow: 2px 3px 10px -4px var(--dark-translucent);
