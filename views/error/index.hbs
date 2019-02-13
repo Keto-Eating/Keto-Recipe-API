@@ -1,5 +1,11 @@
 <div class="error">
-  <h1>Sorry</h1>
-  <h2>We cannot find the recipe you're looking for</h2>
-  <img src="../img/rabbit.jpg" alt="oops">
+  <h2>{{error.message}}</h2>
+  {{!-- <h5>(Error code: {{error.status}})</h5> --}}
+  <button onclick="goBack()" class="btn btn-success">Go Back</button>
 </div>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
