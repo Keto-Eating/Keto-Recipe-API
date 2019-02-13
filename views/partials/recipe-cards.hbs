@@ -2,8 +2,11 @@
   {{#if recipes}}
     {{#each recipes as |recipe|}}
       <div class="row">
-        <div class="col-sm-4">
-          <div class="card" style="width: 20rem;">
+        {{!-- <div class="col-sm-4"> --}}
+          <div class="card">
+            <a href="{{recipe.url}}" target="_blank">
+              <img class="card-img-top" src="{{recipe.image}}" alt="Card image">
+            </a>
             <input type="hidden" value="{{@root.user._id}}" name="userId"/>
 
             {{#if @root.user}}
@@ -20,9 +23,6 @@
               <a href="/login"><button class="save-to-faves-heart" name="saveToFavoritesHeart"
               id="{{recipe._id}}-heart">❤</button></a>
             {{/if}}
-            <a href="{{recipe.url}}" target="_blank">
-              <img class="card-img-top" src="{{recipe.image}}" alt="Card image">
-            </a>
             <div class="card-body">
               <a href="{{recipe.url}}" target="_blank">
                 <h4 class="card-title">{{recipe.label}}</h4>
@@ -46,7 +46,7 @@
             <div class="card-footer-container">
               <a href="{{recipe.url}}" target="_blank">
                 <div class="card-footer card-footer-recipe">
-                  View Full Recipe
+                  <p class="recipe-text">View Recipe</p>
                 </div>
               </a>
               <!-- Save to cart button -->
@@ -54,15 +54,15 @@
                 {{#contains @root.user.recipesInCart recipe._id}}
                 {{!-- REMOVE from cart --}}
                 <a onClick="saveToCart('{{recipe._id}}')">
-                  <div class="card-footer card-footer-cart remove">
-                    Remove from Cart
+                  <div class="card-footer card-footer-cart add">
+                    <i class="fas fa-minus-circle action-icon"></i><p class='grocery-btn-text'>Grocery List</p>
                   </div>
                 </a>
                 {{else}}
                 {{!-- Save to CART --}}
                 <a onClick="saveToCart('{{recipe._id}}')">
                   <div class="card-footer card-footer-cart add">
-                    Add to Cart
+                    <i class="fas fa-plus-circle action-icon"></i><p class='grocery-btn-text'>Grocery List</p>
                   </div>
                 </a>
                 {{/contains}}
@@ -70,17 +70,17 @@
               {{!-- Save to CART --}}
                 <a href='/dashboard' onClick="saveToCart('{{recipe._id}}')">
                   <div class="card-footer card-footer-cart add">
-                    Add to Cart
+                    <i class="fas fa-plus-circle action-icon"></i><p class='grocery-btn-text'>Grocery List</p>
                   </div>
                 </a>
               {{/if}}
             </div>
           </div>
-        </div>
+        {{!-- </div> --}}
       </div>
     {{/each}}
   {{else}}
-    <p class="helper-text">No results found. Try another search term.</p>
+    <p class="helper-text">No recipes found. {{#if instructions}}{{instructions}}{{/if}}</p>
   {{/if}}
   
 </div>
