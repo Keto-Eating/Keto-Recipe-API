@@ -1,5 +1,7 @@
+/* eslint-disable global-require */
 require('dotenv').config();
 const exp = require('express');
+const createError = require('http-errors');
 
 const app = exp();
 const morgan = require('morgan');
@@ -15,7 +17,7 @@ const exphbs = require('express-handlebars');
 app.use(morgan('dev')); // Log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
 }));
 // parse application/json
 app.use(bodyParser.json());
@@ -24,10 +26,9 @@ app.use(bodyParser.json());
 app.engine('hbs', exphbs({
   defaultLayout: 'main',
   extname: 'hbs',
-  helpers: require("handlebars-helpers")()
+  helpers: require('handlebars-helpers')(),
 }));
 app.set('view engine', 'hbs');
-
 
 // Static content
 app.use(exp.static('./public'));
@@ -37,7 +38,7 @@ const mongoose = require('mongoose');
 const dbConfig = require('./src/config/database');
 
 mongoose.connect(dbConfig.uri, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
 }); // connect our database
 mongoose.set('debug', true);
 
@@ -56,9 +57,27 @@ app.get('*', (req, res) => {
   res.render('error/index');
 });
 
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  next(createError(404));
+});
+
+// error handler
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => { // DO NOT REMOVE next
+  // set locals, only providing error in development
+  console.log('inside error handler!');
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error/index');
+});
+
 
 // launch =============================================================================
-const PORT = process.env.PORT;
+const { PORT } = process.env;
 app.listen(PORT, () => {
   console.log(`Keto server listening on ${PORT}`);
 });
