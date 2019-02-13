@@ -46,7 +46,7 @@
             <div class="card-footer-container">
               <a href="{{recipe.url}}" target="_blank">
                 <div class="card-footer card-footer-recipe">
-                  View Recipe
+                  <p class="recipe-text">View Recipe</p>
                 </div>
               </a>
               <!-- Save to cart button -->
@@ -54,15 +54,15 @@
                 {{#contains @root.user.recipesInCart recipe._id}}
                 {{!-- REMOVE from cart --}}
                 <a onClick="saveToCart('{{recipe._id}}')">
-                  <div class="card-footer card-footer-cart remove">
-                    Remove from Cart
+                  <div class="card-footer card-footer-cart add">
+                    <i class="fas fa-minus-circle action-icon"></i><p class='grocery-btn-text'>Grocery List</p>
                   </div>
                 </a>
                 {{else}}
                 {{!-- Save to CART --}}
                 <a onClick="saveToCart('{{recipe._id}}')">
                   <div class="card-footer card-footer-cart add">
-                    Add to Cart
+                    <i class="fas fa-plus-circle action-icon"></i><p class='grocery-btn-text'>Grocery List</p>
                   </div>
                 </a>
                 {{/contains}}
@@ -70,7 +70,7 @@
               {{!-- Save to CART --}}
                 <a href='/dashboard' onClick="saveToCart('{{recipe._id}}')">
                   <div class="card-footer card-footer-cart add">
-                    Add to Cart
+                    <i class="fas fa-plus-circle action-icon"></i><p class='grocery-btn-text'>Grocery List</p>
                   </div>
                 </a>
               {{/if}}

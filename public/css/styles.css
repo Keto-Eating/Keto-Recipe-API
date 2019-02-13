@@ -282,6 +282,8 @@ a.btn.btn-light {
 .card-footer {
   border: 1px solid var(--mid-green);
   font-size: 1rem;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .card-footer-cart {
@@ -293,7 +295,18 @@ a.btn.btn-light {
 
 .card-footer-cart:hover {
   cursor: pointer;
+}
+
+.grocery-btn-text:hover, .recipe-text:hover {
   text-decoration: underline;
+}
+
+.recipe-text, .grocery-btn-text {
+  margin: 0;
+}
+
+.action-icon {
+  margin-right: 0.25em;
 }
 
 .card-footer-recipe {

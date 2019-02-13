@@ -1,5 +1,5 @@
-/* eslint-disable no-use-before-define */
 /* eslint-disable global-require */
+/* eslint-disable no-use-before-define */
 /* eslint-disable prefer-destructuring */
 module.exports = (app) => {
   const http = require('https');
