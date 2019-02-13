@@ -1,11 +1,12 @@
 <div class="cart-container">
 
 	<a href="/dashboard">Dashboard</a> > <a href='/dashboard/cart'>Cart</a>
-	<div class="flex-div">
+	<div class="cart-header">
 		<h1>My Cart</h1>
 		<a href="/cart/grocery-list"><button class="btn btn-success checkout-btn">Create Grocery List</button></a>
 	</div>
 	<hr>
+	<h2 class='cart-subtitle'>This Week's Recipes:</h2>
 	{{#if @root.user}}
 	{{else}}
 		<a href="/login">Login</a> to view your own cart.
