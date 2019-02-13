@@ -4,6 +4,9 @@
       <div class="row">
         {{!-- <div class="col-sm-4"> --}}
           <div class="card">
+            <a href="{{recipe.url}}" target="_blank">
+              <img class="card-img-top" src="{{recipe.image}}" alt="Card image">
+            </a>
             <input type="hidden" value="{{@root.user._id}}" name="userId"/>
 
             {{#if @root.user}}
@@ -20,9 +23,6 @@
               <a href="/login"><button class="save-to-faves-heart" name="saveToFavoritesHeart"
               id="{{recipe._id}}-heart">❤</button></a>
             {{/if}}
-            <a href="{{recipe.url}}" target="_blank">
-              <img class="card-img-top" src="{{recipe.image}}" alt="Card image">
-            </a>
             <div class="card-body">
               <a href="{{recipe.url}}" target="_blank">
                 <h4 class="card-title">{{recipe.label}}</h4>

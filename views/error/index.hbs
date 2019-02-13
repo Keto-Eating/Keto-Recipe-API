@@ -1,5 +1,10 @@
 <div class="error">
-  <h2>{{error.message}}</h2>
+  {{#if error.message}}
+    <h2>{{error.message}}</h2>
+  {{else}} 
+    {{!-- 404 --}}
+    <h2>The page your requested does not exist.</h2>
+  {{/if}}
   {{!-- <h5>(Error code: {{error.status}})</h5> --}}
   <button onclick="goBack()" class="btn btn-success">Go Back</button>
 </div>

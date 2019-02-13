@@ -160,12 +160,13 @@ a.btn.btn-light {
   margin: 2rem;
   justify-content: center;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: .5rem;
 }
 
 .row {
   margin:0;
+  justify-content: center;
 }
 
 /* INDIVIDUAL CARD */
@@ -207,6 +208,11 @@ a.btn.btn-light {
 
 .favorites-container {
   margin: 2rem;
+}
+
+.card-img-top {
+  -webkit-filter: brightness(75%) contrast(120%);
+  filter: brightness(75%) contrast(120%);
 }
 
 .card-title {
@@ -392,7 +398,7 @@ a.btn.btn-light {
 
 /******* GROCERY LIST *******/
 .page-explanation {
-  color:var(--light-grey);
+  color:var(--mid-grey);
 }
 
 .ingredient-qty, .ingredient-meas {
