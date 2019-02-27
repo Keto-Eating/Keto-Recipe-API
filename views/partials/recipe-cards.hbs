@@ -12,10 +12,14 @@
             {{#if @root.user}}
                 {{#contains @root.user.arrayOfFavoriteRecipes recipe._id}}
                   <button class="save-to-faves-heart favorited" name="saveToFavoritesHeart"
-                  id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">♥</button>
+                  id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">
+                    <i class="fas fa-heart"></i>
+                  </button>
                 {{else}}
                   <button class="save-to-faves-heart" name="saveToFavoritesHeart"
-                  id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">♥</button>
+                  id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">
+                    <i class="fas fa-heart"></i>
+                  </button>
                 {{/contains}}
               <!-- user is logged in, let them save favorite -->
             {{else}}
@@ -82,5 +86,7 @@
   {{else}}
     <p class="helper-text">No recipes found. {{#if instructions}}{{instructions}}{{/if}}</p>
   {{/if}}
-  
 </div>
+{{#if currentPage}}
+  {{>page-selector}}
+{{/if}}

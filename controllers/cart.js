@@ -48,6 +48,7 @@ module.exports = (app) => {
     if (app.locals.user) {
       console.log('User: ', app.locals.user);
       const userId = app.locals.user.id;
+      // UserSchema.findById(userId).populate('recipesInCart').then((user) => {
       UserSchema.findById(userId, (err, user) => {
         if (err) return res.next(err);
         // to get updated user object

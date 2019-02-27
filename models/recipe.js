@@ -2,6 +2,12 @@
 /* eslint-disable key-spacing */
 const mongoose = require('mongoose');
 
+const mongoosePaginate = require('mongoose-paginate');
+
+mongoosePaginate.paginate.options = {
+  limit: 100, // default records per page
+};
+
 const RecipeSchema = mongoose.Schema({
   createdAt         : { type: Date },
   updatedAt         : { type: Date },
@@ -17,7 +23,14 @@ const RecipeSchema = mongoose.Schema({
   calories          : { type: Number },
   totalWeight       : { type: Number },
   totalTime         : { type: Number },
-  usersWhoFavorited : { type: Array },
+  // usersWhoFavorited : { type: Array },
+  usersWhoFavorited : [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  }],
+},
+{
+  timestamps: true,
 });
 
 RecipeSchema.pre('save', function (next) {
@@ -28,5 +41,7 @@ RecipeSchema.pre('save', function (next) {
   }
   next();
 });
+
+RecipeSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Recipe', RecipeSchema);
