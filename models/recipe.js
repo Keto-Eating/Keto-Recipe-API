@@ -23,24 +23,9 @@ const RecipeSchema = mongoose.Schema({
   totalWeight       : { type: Number },
   totalTime         : { type: Number },
   usersWhoFavorited : { type: Array },
-});
-// ,
-// {
-//   timestamps: true,
-// });
-
-// search weights
-RecipeSchema.index({
-  label: 'text',
-  url: 'text',
-  ingredientLines: 'text',
-}, {
-  name: 'textScore',
-  weights: {
-    label: 5,
-    url: 3,
-    ingredientLines: 1,
-  },
+},
+{
+  timestamps: true,
 });
 
 RecipeSchema.pre('save', function (next) {

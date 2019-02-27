@@ -58,9 +58,6 @@ module.exports = (app) => {
           searchQuery,
         });
       }).catch(err => res.send(err));
-      // .sort([
-      //   ['usersWhoFavorited', -1],
-      // ]);
     }
   });
 
