@@ -1,6 +1,11 @@
 /* eslint-disable func-names */
 /* eslint-disable key-spacing */
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
+
+mongoosePaginate.paginate.options = {
+  limit: 100, // default records per page
+};
 
 const RecipeSchema = mongoose.Schema({
   createdAt         : { type: Date },
@@ -19,6 +24,24 @@ const RecipeSchema = mongoose.Schema({
   totalTime         : { type: Number },
   usersWhoFavorited : { type: Array },
 });
+// ,
+// {
+//   timestamps: true,
+// });
+
+// search weights
+RecipeSchema.index({
+  label: 'text',
+  url: 'text',
+  ingredientLines: 'text',
+}, {
+  name: 'textScore',
+  weights: {
+    label: 5,
+    url: 3,
+    ingredientLines: 1,
+  },
+});
 
 RecipeSchema.pre('save', function (next) {
   const now = new Date();
@@ -28,5 +51,7 @@ RecipeSchema.pre('save', function (next) {
   }
   next();
 });
+
+RecipeSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Recipe', RecipeSchema);

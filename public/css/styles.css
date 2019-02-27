@@ -158,7 +158,7 @@ a.btn.btn-light {
 
 .card-deck {
   padding: 2rem;
-  margin: 2rem;
+  margin: 2rem 2rem 0rem 2rem;
   justify-content: center;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -410,6 +410,38 @@ a.btn.btn-light {
   padding: 0.6em 1.2em;
 }
 
+/******* PAGE BUTTONS *******/
+.page-buttons-bar {
+  border: 1 px solid var(--mid-grey);
+  margin-bottom: 3rem;
+}
+
+.ul-of-page-buttons {
+  list-style: none;
+  display:flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.page-button {
+  padding: 0.25em 0.5em;
+  border: 1px solid #ddd;
+  margin-left: -1px;
+}
+
+.page-button:hover {
+  background-color: #ddd;
+}
+
+.page-button.disabled {
+  color: var(--mid-grey);
+}
+
+.page-button.current {
+  color: white;
+  background-color: var(--mid-green);
+}
+
 /******* GROCERY LIST *******/
 .page-explanation {
   color:var(--mid-grey);
@@ -500,6 +532,11 @@ TABLET + DESKTOP
   }
   .btn-container a {
     width: 50%;
+  }
+  /* PAGE BUTTONS */
+  
+  .page-button {
+    padding: 0.5em 0.75em;
   }
 
   /* CART */

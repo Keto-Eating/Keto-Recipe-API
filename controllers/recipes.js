@@ -9,7 +9,7 @@ module.exports = (app) => {
   const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
   const EDAMAM_API_KEY = process.env.EDAMAM_API_KEY;
 
-  pullEdamamRecipes(); // do this once when server boots up
+  // pullEdamamRecipes(); // do this once when server boots up
 
   schedule.scheduleJob('59 59 23 * * *', () => {
     // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
@@ -17,29 +17,51 @@ module.exports = (app) => {
   });
 
   app.get('/', (req, res) => {
-    const queryString = req.query.term;
-    const regExpQuery = new RegExp(queryString, 'i');
+    const searchQuery = req.query.term || 'empty';
+    const regExpQuery = new RegExp(searchQuery, 'i');
+    const currentPage = req.query.page || 1;
 
-    RecipeSchema.find({
-      $or:
-        [
-          { label: regExpQuery },
-          { url: regExpQuery },
-          { ingredientLines: regExpQuery },
-        ],
-      label: regExpQuery,
-    }, (err, recipes) => {
-      if (err) {
-        console.error('Error finding reciepes: ', err.message);
-      } else {
+    if (searchQuery === 'empty') {
+      RecipeSchema.paginate({}, { currentPage, limit: 50 }, (err, results) => {
+        const pageNumbers = [];
+        for (let i = 1; i <= results.pages; i += 1) {
+          pageNumbers.push(i);
+        }
         res.render('index', {
-          recipes,
+          recipes: results.docs,
+          numPages: results.pages,
+          pageNumbers,
+          currentPage,
           instructions: 'Try another search term.',
         });
-      }
-    }).sort([
-      ['usersWhoFavorited', -1],
-    ]);
+      });
+    } else {
+      // user searching for recipe
+      RecipeSchema.paginate({
+        $or:
+          [
+            { label: regExpQuery },
+            { url: regExpQuery },
+            { ingredientLines: regExpQuery },
+          ],
+      }, { currentPage, limit: 50 }).then((results) => {
+        const pageNumbers = [];
+        for (let i = 1; i <= results.pages; i += 1) {
+          pageNumbers.push(i);
+        }
+        res.render('index', {
+          recipes: results.docs,
+          numPages: results.pages,
+          pageNumbers,
+          currentPage,
+          instructions: 'Try another search term.',
+          searchQuery,
+        });
+      }).catch(err => res.send(err));
+      // .sort([
+      //   ['usersWhoFavorited', -1],
+      // ]);
+    }
   });
 
   function pullEdamamRecipes() {
@@ -65,7 +87,7 @@ module.exports = (app) => {
                 if (err) {
                   console.log('Error in recipe save: ', err.message);
                 } else if (recipeInDB) {
-                  // console.log("recipe already exists");
+                  // recipe already exists
                 } else {
                   // recipe is not in DB yet, save it
                   recipeFromAPI.save((error, recipe) => {

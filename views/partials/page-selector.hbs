@@ -1,0 +1,45 @@
+<div class="page-buttons-bar">
+  <ul class="ul-of-page-buttons">
+
+    {{!-- previous page button --}}
+    {{#is currentPage 1}}
+      <a>
+        <li class="page-button disabled">
+          Prev
+        </li>
+      </a>
+    {{else}}
+      <a href="?term={{@root.searchQuery}}&page={{subtract currentPage 1}}">
+        <li class="page-button">
+          Prev
+        </li>
+      </a>
+    {{/is}}
+    {{!-- numbered page buttons --}}
+    {{#each pageNumbers as |pageNumber|}} 
+        <a href="?term={{@root.searchQuery}}&page={{pageNumber}}">
+          {{#is pageNumber @root.currentPage}}
+          <li class="page-button current">
+          {{else}}
+          <li class="page-button">
+          {{/is}}
+            {{pageNumber}}
+          </li>
+        </a>
+    {{/each}}
+    {{!-- next page button --}}
+    {{#is currentPage numPages}}
+      <a>
+        <li class="page-button disabled">
+          Next
+        </li>
+      </a>
+    {{else}}
+      <a href="?term={{@root.searchQuery}}&page={{sum currentPage 1}}">
+        <li class="page-button">
+          Next
+        </li>
+      </a>
+    {{/is}}
+  </ul>
+</div>
