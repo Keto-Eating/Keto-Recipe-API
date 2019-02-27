@@ -44,11 +44,9 @@ module.exports = (app) => {
 
   // route for showing cart
   app.get('/cart', (req, res) => {
-    // TODO: (1) Find user's favorites (2) show all of them
     if (app.locals.user) {
       console.log('User: ', app.locals.user);
       const userId = app.locals.user.id;
-      // UserSchema.findById(userId).populate('recipesInCart').then((user) => {
       UserSchema.findById(userId, (err, user) => {
         if (err) return res.next(err);
         // to get updated user object
