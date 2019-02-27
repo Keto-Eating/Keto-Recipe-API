@@ -22,7 +22,9 @@ module.exports = (app) => {
     const currentPage = req.query.page || 1;
 
     if (searchQuery === 'empty') {
-      RecipeSchema.paginate({}, { currentPage, limit: 50 }, (err, results) => {
+      RecipeSchema.paginate({},
+        { sort: { usersWhoFavorited: -1 } },
+        { currentPage, limit: 50 }).then((results) => {
         const pageNumbers = [];
         for (let i = 1; i <= results.pages; i += 1) {
           pageNumbers.push(i);
@@ -44,7 +46,9 @@ module.exports = (app) => {
             { url: regExpQuery },
             { ingredientLines: regExpQuery },
           ],
-      }, { currentPage, limit: 50 }).then((results) => {
+      },
+      { sort: { usersWhoFavorited: -1 } },
+      { currentPage, limit: 50 }).then((results) => {
         const pageNumbers = [];
         for (let i = 1; i <= results.pages; i += 1) {
           pageNumbers.push(i);
