@@ -9,7 +9,7 @@ module.exports = (app) => {
   const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
   const EDAMAM_API_KEY = process.env.EDAMAM_API_KEY;
 
-  // pullEdamamRecipes(); // do this once when server boots up
+  pullEdamamRecipes(); // do this once when server boots up
 
   schedule.scheduleJob('59 59 23 * * *', () => {
     // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
