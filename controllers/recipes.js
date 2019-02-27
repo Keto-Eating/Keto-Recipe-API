@@ -24,19 +24,20 @@ module.exports = (app) => {
     if (searchQuery === 'empty') {
       RecipeSchema.paginate({},
         { sort: { usersWhoFavorited: -1 } },
-        { currentPage, limit: 50 }).then((results) => {
-        const pageNumbers = [];
-        for (let i = 1; i <= results.pages; i += 1) {
-          pageNumbers.push(i);
-        }
-        res.render('index', {
-          recipes: results.docs,
-          numPages: results.pages,
-          pageNumbers,
-          currentPage,
-          instructions: 'Try another search term.',
+        { currentPage, limit: 50 })
+        .then((results) => {
+          const pageNumbers = [];
+          for (let i = 1; i <= results.pages; i += 1) {
+            pageNumbers.push(i);
+          }
+          res.render('index', {
+            recipes: results.docs,
+            numPages: results.pages,
+            pageNumbers,
+            currentPage,
+            instructions: 'Try another search term.',
+          });
         });
-      });
     } else {
       // user searching for recipe
       RecipeSchema.paginate({
@@ -48,20 +49,22 @@ module.exports = (app) => {
           ],
       },
       { sort: { usersWhoFavorited: -1 } },
-      { currentPage, limit: 50 }).then((results) => {
-        const pageNumbers = [];
-        for (let i = 1; i <= results.pages; i += 1) {
-          pageNumbers.push(i);
-        }
-        res.render('index', {
-          recipes: results.docs,
-          numPages: results.pages,
-          pageNumbers,
-          currentPage,
-          instructions: 'Try another search term.',
-          searchQuery,
-        });
-      }).catch(err => res.send(err));
+      { currentPage, limit: 50 })
+        .then((results) => {
+          const pageNumbers = [];
+          for (let i = 1; i <= results.pages; i += 1) {
+            pageNumbers.push(i);
+          }
+          res.render('index', {
+            recipes: results.docs,
+            numPages: results.pages,
+            pageNumbers,
+            currentPage,
+            instructions: 'Try another search term.',
+            searchQuery,
+          });
+        })
+        .catch(err => res.send(err));
     }
   });
 
