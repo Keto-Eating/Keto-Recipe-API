@@ -82,7 +82,10 @@ Leslie Kimm<br><br>
 - calories          : { type: Number },
 - totalWeight       : { type: Number },
 - totalTime         : { type: Number },
-- usersWhoFavorited : { type: Array } *--> an array of userIds*
+- usersWhoFavorited : [{
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: 'User',
+                      }]  *--> an array of userIds*
 
 ### UserSchema:
 - createdAt              :  {  type: Date  },
@@ -90,4 +93,7 @@ Leslie Kimm<br><br>
 - password               :  {  type: String, select: false},
 - username               :  {  type: String, required: true},
 - arrayOfFavoriteRecipes :  {  type: Array }, *--> an array of recipeIds*
-- recipesInCart          :  {  type: Array } *--> an array of userIds*
+- recipesInCart          :  [{
+                              type: mongoose.Schema.Types.ObjectId,
+                              ref: 'Recipe',
+                            }] *--> an array of recipeIds*

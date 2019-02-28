@@ -25,7 +25,9 @@
             {{else}}
               <!-- not logged in, redirect to login -->
               <a href="/login"><button class="save-to-faves-heart" name="saveToFavoritesHeart"
-              id="{{recipe._id}}-heart">❤</button></a>
+              id="{{recipe._id}}-heart">
+                <i class="fas fa-heart"></i>
+              </button></a>
             {{/if}}
             <div class="card-body">
               <a href="{{recipe.url}}" target="_blank">

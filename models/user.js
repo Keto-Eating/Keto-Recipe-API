@@ -13,11 +13,10 @@ const UserSchema = new Schema({
   updatedAt              :  {  type: Date  },
   password               :  {  type: String, select: false },
   username               :  {  type: String, required: true, unique: true },
-  // arrayOfFavoriteRecipes :  {  type: Array },
   recipesInCart          :  {  type: Array },
   arrayOfFavoriteRecipes :  [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Recipe',
   }],
 });
 
