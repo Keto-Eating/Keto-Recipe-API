@@ -59,14 +59,16 @@
                 {{!-- REMOVE from cart --}}
                 <a onClick="saveToCart('{{recipe._id}}')">
                   <div class="card-footer card-footer-cart add">
-                    <i class="fas fa-minus-circle action-icon"></i><p class='grocery-btn-text'>Grocery List</p>
+                    <i class="fas fa-minus-circle action-icon"></i>
+                    <p class='remove grocery-btn-text'>Grocery List</p>
                   </div>
                 </a>
                 {{else}}
                 {{!-- Save to CART --}}
                 <a onClick="saveToCart('{{recipe._id}}')">
                   <div class="card-footer card-footer-cart add">
-                    <i class="fas fa-plus-circle action-icon"></i><p class='grocery-btn-text'>Grocery List</p>
+                    <i class="fas fa-plus-circle action-icon"></i>
+                    <p class='grocery-btn-text'>Grocery List</p>
                   </div>
                 </a>
                 {{/contains}}

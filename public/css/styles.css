@@ -161,7 +161,7 @@ a.btn.btn-light {
   margin: 2rem 2rem 0rem 2rem;
   justify-content: center;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
   grid-gap: .5rem;
 }
 
@@ -304,6 +304,10 @@ a.btn.btn-light {
 
 .recipe-text, .grocery-btn-text {
   margin: 0;
+}
+
+.remove.grocery-btn-text, .fa-minus-circle {
+  color: var(--dark-orange);
 }
 
 .action-icon {
