@@ -34,6 +34,7 @@ module.exports = (app) => {
       } else {
         res.render('index', {
           recipes,
+          queryString,
           instructions: 'Try another search term.',
         });
       }
