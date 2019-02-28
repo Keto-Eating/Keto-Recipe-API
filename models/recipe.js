@@ -23,7 +23,6 @@ const RecipeSchema = mongoose.Schema({
   calories          : { type: Number },
   totalWeight       : { type: Number },
   totalTime         : { type: Number },
-  // usersWhoFavorited : { type: Array },
   usersWhoFavorited : [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
