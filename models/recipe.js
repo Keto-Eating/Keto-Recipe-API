@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 
 const mongoosePaginate = require('mongoose-paginate');
 
-mongoosePaginate.paginate.options = {
-  limit: 100, // default records per page
-};
+// mongoosePaginate.paginate.options = {
+//   limit: 100, // default records per page
+// };
 
 const RecipeSchema = mongoose.Schema({
   createdAt         : { type: Date },

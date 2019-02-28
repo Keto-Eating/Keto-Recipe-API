@@ -1,6 +1,6 @@
 <div class="page-buttons-bar">
   <ul class="ul-of-page-buttons">
-    {{#if currentPage}}
+    {{!-- {{#if currentPage}} --}}
       {{!-- previous page button --}}
       {{#is currentPage 1}}
         <a>
@@ -15,7 +15,7 @@
           </li>
         </a>
       {{/is}}
-      {{#if pageNumber}}
+      {{!-- {{#if pageNumber}} --}}
         {{!-- numbered page buttons --}}
         {{#each pageNumbers as |pageNumber|}} 
             <a href="?term={{@root.queryString}}&page={{pageNumber}}">
@@ -28,8 +28,8 @@
               </li>
             </a>
         {{/each}}
-      {{/if}}
-      {{#if numPages}}
+      {{!-- {{/if}} --}}
+      {{!-- {{#if numPages}} --}}
         {{!-- next page button --}}
         {{#is currentPage numPages}}
           <a>
@@ -44,7 +44,7 @@
             </li>
           </a>
         {{/is}}
-      {{/if}}
-    {{/if}}
+      {{!-- {{/if}}
+    {{/if}} --}}
   </ul>
 </div>

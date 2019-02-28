@@ -9,7 +9,7 @@ module.exports = (app) => {
   const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
   const EDAMAM_API_KEY = process.env.EDAMAM_API_KEY;
 
-  pullEdamamRecipes(); // do this once when server boots up
+  // pullEdamamRecipes(); // do this once when server boots up
 
   schedule.scheduleJob('59 59 23 * * *', () => {
     // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
@@ -17,14 +17,19 @@ module.exports = (app) => {
   });
 
   app.get('/', (req, res) => {
-    const queryString = req.query.term;
+    const queryString = req.query.term || 'empty';
     const regExpQuery = new RegExp(queryString, 'i');
     const currentPage = req.query.page || 1;
+    console.log('currentPage:', currentPage);
 
     if (queryString === 'empty') {
       RecipeSchema.paginate({},
-        { sort: { usersWhoFavorited: -1 } },
-        { currentPage, limit: 50 })
+        {
+          sort: { usersWhoFavorited: -1 },
+          page: currentPage,
+          limit: 24,
+        })
+        // { currentPage, offset: 12, limit: 12 })
         .then((results) => {
           const pageNumbers = [];
           for (let i = 1; i <= results.pages; i += 1) {
@@ -48,8 +53,11 @@ module.exports = (app) => {
             { ingredientLines: regExpQuery },
           ],
       },
-      { sort: { usersWhoFavorited: -1 } },
-      { currentPage, limit: 50 })
+      {
+        sort: { usersWhoFavorited: -1 },
+        page: currentPage,
+        limit: 24,
+      })
         .then((results) => {
           const pageNumbers = [];
           for (let i = 1; i <= results.pages; i += 1) {

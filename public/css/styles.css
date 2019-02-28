@@ -154,10 +154,12 @@ a.btn.btn-light {
 .search-term {
   text-align: center;
   margin-top: 2rem;
+  margin-bottom: 0;
+  font-size: 1rem;
 }
 
 .card-deck {
-  padding: 2rem;
+  padding: 0;
   margin: 2rem 2rem 0rem 2rem;
   justify-content: center;
   display: grid;
@@ -285,6 +287,7 @@ a.btn.btn-light {
   font-size: 1rem;
   display: flex !important;
   align-items: center !important;
+  padding: .75rem;
 }
 
 .card-footer-cart {
@@ -512,6 +515,11 @@ TABLET + DESKTOP
 
   .nav-links {
     display: flex;
+  }
+
+  /* Index */
+  .search-term {
+    font-size: 2rem;
   }
 
   /* SIGNUP */
