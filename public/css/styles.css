@@ -329,7 +329,6 @@ a.btn.btn-light {
 /* Remove from cart button */
 .remove {
   font-size: 1rem;
-  height: 3.1rem;
   display: flex;
   justify-content: center;
   align-items: center;
