@@ -9,7 +9,9 @@
     <!--md-auto pushes all to the left-->
 
     <form class="form-inline form-login" action="/">
-      <input class="form-control mr-sm-2 search-bar" type="search" placeholder="search recipes" aria-label="Search" name="term">
+      <input class="form-control mr-sm-2 search-bar" type="search" 
+      placeholder="search recipes" aria-label="Search" name="term"
+      {{#if queryString}} value="{{queryString}}"{{/if}}>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">search</button>
     </form>
 
