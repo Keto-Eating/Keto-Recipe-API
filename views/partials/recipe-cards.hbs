@@ -10,24 +10,38 @@
             <input type="hidden" value="{{@root.user._id}}" name="userId"/>
 
             {{#if @root.user}}
+              <!-- user is logged in, let them save favorite -->
                 {{#contains @root.user.arrayOfFavoriteRecipes recipe._id}}
-                  <button class="save-to-faves-heart favorited" name="saveToFavoritesHeart"
-                  id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">
+                  <button 
+                    class="save-to-faves-heart favorited" 
+                    name="saveToFavoritesHeart"
+                    id="{{recipe._id}}-heart" 
+                    onClick="saveFavorite('{{recipe._id}}')"
+                  >
                     <i class="fas fa-heart"></i>
                   </button>
                 {{else}}
-                  <button class="save-to-faves-heart" name="saveToFavoritesHeart"
-                  id="{{recipe._id}}-heart" onClick="saveFavorite('{{recipe._id}}')">
+                  <button 
+                    class="save-to-faves-heart" 
+                    name="saveToFavoritesHeart"
+                    id="{{recipe._id}}-heart" 
+                    onClick="saveFavorite('{{recipe._id}}')"
+                  >
                     <i class="fas fa-heart"></i>
                   </button>
                 {{/contains}}
-              <!-- user is logged in, let them save favorite -->
+              
             {{else}}
               <!-- not logged in, redirect to login -->
-              <a href="/login"><button class="save-to-faves-heart" name="saveToFavoritesHeart"
-              id="{{recipe._id}}-heart">
-                <i class="fas fa-heart"></i>
-              </button></a>
+              <a href="/login">
+                <button 
+                  class="save-to-faves-heart" 
+                  name="saveToFavoritesHeart"
+                  id="{{recipe._id}}-heart"
+                >
+                  <i class="fas fa-heart"></i>
+                </button>
+              </a>
             {{/if}}
             <div class="card-body">
               <a href="{{recipe.url}}" target="_blank">
@@ -36,7 +50,7 @@
               <div class="time-left-subheader">
                 <img src="https://cdn4.iconfinder.com/data/icons/basic-ui-elements-1-1/100/Untitled-32-512.png" style="vertical-align: middle" class="clock-icon">
                 <span class="cooking-time">
-                  {{# if recipe.totalTime}}
+                  {{#if recipe.totalTime}}
                     {{recipe.totalTime}}
                   {{else}}
                     --
@@ -88,7 +102,11 @@
       </div>
     {{/each}}
   {{else}}
-    <p class="helper-text">No recipes found. {{#if instructions}}{{instructions}}{{/if}}</p>
+    <p class="helper-text">No recipes found. 
+      {{#if instructions}}
+        {{instructions}}
+      {{/if}}
+    </p>
   {{/if}}
 </div>
 {{#if currentPage}}

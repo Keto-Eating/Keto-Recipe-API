@@ -28,45 +28,31 @@ module.exports = (app) => {
   });
 
   // Send a POST request to the database to create the recipes collection
-  app.post('/favorites/', (req) => {
+  app.post('/favorites', (req) => {
+    console.log("***************** HERE")
     const favoriteId = req.body.recipeId;
     const userId = app.locals.user.id;
 
-    // find recipe, add userId to usersWhoFavorited
-    RecipeSchema.findById(favoriteId, (errFindingFave, favoriteInDB) => {
-      if (errFindingFave) return next(errFindingFave);
-      if (favoriteInDB.usersWhoFavorited.includes(userId)) {
-        // user already favorited, and is trying to un-favorite
-        RecipeSchema.findByIdAndUpdate(favoriteId, {
-          $pull: {
-            usersWhoFavorited: userId,
-          },
-        }, (errPullingFave) => {
-          if (errPullingFave) return next(errPullingFave);
-        });
-      } else {
-        // user has not favorited before
-        RecipeSchema.findByIdAndUpdate(favoriteId, {
-          $addToSet: {
-            usersWhoFavorited: userId,
-          },
-        }, (errSavingFave) => {
-          if (errSavingFave) return next(errSavingFave);
-        });
-      }
-    });
-
     // find user, save favorite to arrayOfFavoriteRecipes
     UserSchema.findById(userId, (errFindingUser, userInDB) => {
-      if (errFindingUser) return next(errFindingUser);
+      console.log(" ******** LOOKING FOR USER ******** ")
+      if (errFindingUser) {
+        console.log(' COULDNT FIND USER ');
+        return next(errFindingUser);
+      }
       if (userInDB.arrayOfFavoriteRecipes.includes(favoriteId)) {
+        console.log(" USER ALREADY FAVORITED ")
         // already favorited, remove from arrayOfFavoriteRecipes
         UserSchema.findByIdAndUpdate(userId, {
           $pull: {
             arrayOfFavoriteRecipes: favoriteId,
           },
         }, (errRemovingFave, user) => {
-          if (errRemovingFave) return next(errRemovingFave);
+          if (errRemovingFave) {
+            console.log(" ERROR REMOVING FROM USERSCHEMA ")
+            return next(errRemovingFave);
+          }
+          console.log(" REMOVED FROM DATABASE ")
           app.locals.user = user;
           app.locals.user.arrayOfFavoriteRecipes.pull(favoriteId); // update user locally
         });
@@ -77,7 +63,12 @@ module.exports = (app) => {
             arrayOfFavoriteRecipes: favoriteId,
           },
         }, (errAddingFave, user) => {
-          if (errAddingFave) return next(errAddingFave);
+          
+          if (errAddingFave) {
+            console.log(" ERROR ADDING TO USERSCHEMA ")
+            return next(errAddingFave);
+          }
+          console.log(" ADDED TO USER MODEL ")
           app.locals.user = user;
           app.locals.user.arrayOfFavoriteRecipes.push(favoriteId); // update user locally
         });
