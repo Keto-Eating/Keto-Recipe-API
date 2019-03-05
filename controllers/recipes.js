@@ -9,7 +9,7 @@ module.exports = (app) => {
   const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
   const EDAMAM_API_KEY = process.env.EDAMAM_API_KEY;
 
-  pullEdamamRecipes(); // do this once when server boots up
+  // pullEdamamRecipes(); // do this once when server boots up
 
   schedule.scheduleJob('59 59 23 * * *', () => {
     // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
@@ -17,29 +17,63 @@ module.exports = (app) => {
   });
 
   app.get('/', (req, res) => {
-    const queryString = req.query.term;
+    const queryString = req.query.term || 'empty';
     const regExpQuery = new RegExp(queryString, 'i');
+    const currentPage = req.query.page || 1;
+    console.log('currentPage:', currentPage);
 
-    RecipeSchema.find({
-      $or:
-        [
-          { label: regExpQuery },
-          { url: regExpQuery },
-          { ingredientLines: regExpQuery },
-        ],
-      label: regExpQuery,
-    }, (err, recipes) => {
-      if (err) {
-        console.error('Error finding reciepes: ', err.message);
-      } else {
-        res.render('index', {
-          recipes,
-          instructions: 'Try another search term.',
+    if (queryString === 'empty') {
+      RecipeSchema.paginate({},
+        {
+          sort: { usersWhoFavorited: -1 },
+          page: currentPage,
+          limit: 24,
+        })
+        // { currentPage, offset: 12, limit: 12 })
+        .then((results) => {
+          const pageNumbers = [];
+          for (let i = 1; i <= results.pages; i += 1) {
+            pageNumbers.push(i);
+          }
+          res.render('index', {
+            recipes: results.docs,
+            numPages: results.pages,
+            pageNumbers,
+            currentPage,
+            instructions: 'Try another search term.',
+          });
         });
-      }
-    }).sort([
-      ['usersWhoFavorited', -1],
-    ]);
+    } else {
+      // user searching for recipe
+      RecipeSchema.paginate({
+        $or:
+          [
+            { label: regExpQuery },
+            { url: regExpQuery },
+            { ingredientLines: regExpQuery },
+          ],
+      },
+      {
+        sort: { usersWhoFavorited: -1 },
+        page: currentPage,
+        limit: 24,
+      })
+        .then((results) => {
+          const pageNumbers = [];
+          for (let i = 1; i <= results.pages; i += 1) {
+            pageNumbers.push(i);
+          }
+          res.render('index', {
+            recipes: results.docs,
+            numPages: results.pages,
+            pageNumbers,
+            currentPage,
+            instructions: 'Try another search term.',
+            queryString,
+          });
+        })
+        .catch(err => res.send(err));
+    }
   });
 
   function pullEdamamRecipes() {

@@ -68,13 +68,12 @@ app.use((err, req, res, next) => { // DO NOT REMOVE next
   // set locals, only providing error in development
   console.log('inside error handler!');
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = err;
 
   // render the error page
   res.status(err.status || 500);
   res.render('error/index');
 });
-
 
 // launch =============================================================================
 const { PORT } = process.env;

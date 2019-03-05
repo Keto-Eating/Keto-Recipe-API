@@ -44,7 +44,6 @@ module.exports = (app) => {
 
   // route for showing cart
   app.get('/cart', (req, res) => {
-    // TODO: (1) Find user's favorites (2) show all of them
     if (app.locals.user) {
       console.log('User: ', app.locals.user);
       const userId = app.locals.user.id;
@@ -85,7 +84,7 @@ module.exports = (app) => {
           if (errorInCallback) return next(errorInCallback);
           app.locals.user = user;
           app.locals.user.recipesInCart.pull(recipeId); // update user locally
-          res.redirect('/cart');
+          res.send('removed');
         });
       } else {
         // user has not addedToCart before, add to recipesInCart
@@ -97,7 +96,7 @@ module.exports = (app) => {
           if (errorUpdating) return next(errorUpdating);
           app.locals.user = user;
           app.locals.user.recipesInCart.push(recipeId); // update user locally
-          res.redirect('/cart');
+          res.send('added');
         });
       }
     });
