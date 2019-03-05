@@ -92,7 +92,7 @@ Leslie Kimm<br><br>
 - updatedAt              :  {  type: Date  },
 - password               :  {  type: String, select: false},
 - username               :  {  type: String, required: true},
-- arrayOfFavoriteRecipes :  {  type: Array }, *--> an array of recipeIds*
+- arrayOfFavoriteRecipes   :  {  type: Array }, *--> an array of recipeIds*
 - recipesInCart          :  [{
                               type: mongoose.Schema.Types.ObjectId,
                               ref: 'Recipe',

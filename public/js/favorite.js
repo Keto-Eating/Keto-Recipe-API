@@ -4,7 +4,7 @@
 // adds an onClick event listener for the heart button
 // post to favs by recipe id
 function saveFavorite(recipeId) {
-  $.post('favorites/', {
+  $.post('/favorites', {
     recipeId,
   });
   // get heart that was just clicked

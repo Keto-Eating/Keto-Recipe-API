@@ -14,10 +14,7 @@ const UserSchema = new Schema({
   password               :  {  type: String, select: false },
   username               :  {  type: String, required: true, unique: true },
   recipesInCart          :  {  type: Array },
-  arrayOfFavoriteRecipes :  [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Recipe',
-  }],
+  arrayOfFavoriteRecipes :  {  type: Array },
 });
 
 // Make sure that only 1 user can exist with the same username
