@@ -74,26 +74,20 @@ Leslie Kimm<br><br>
 - label             : { type: String, required: true },
 - image             : { type: String, required: true },
 - url               : { type: String, required: true },
-- yield             : { type: Number },
 - cautions          : { type: Array },
 - healthLabels      : { type: Array },
 - dietLabels        : { type: Array },
 - ingredientLines   : { type: Array },
+- yield             : { type: Number },
 - calories          : { type: Number },
 - totalWeight       : { type: Number },
 - totalTime         : { type: Number },
-- usersWhoFavorited : [{
-                        type: mongoose.Schema.Types.ObjectId,
-                        ref: 'User',
-                      }]  *--> an array of userIds*
+- usersWhoFavorited : { type: Array }
 
 ### UserSchema:
-- createdAt              :  {  type: Date  },
-- updatedAt              :  {  type: Date  },
-- password               :  {  type: String, select: false},
-- username               :  {  type: String, required: true},
-- arrayOfFavoriteRecipes   :  {  type: Array }, *--> an array of recipeIds*
-- recipesInCart          :  [{
-                              type: mongoose.Schema.Types.ObjectId,
-                              ref: 'Recipe',
-                            }] *--> an array of recipeIds*
+- createdAt              : { type: Date  },
+- updatedAt              : { type: Date  },
+- password               : { type: String, select: false},
+- username               : { type: String, required: true},
+- arrayOfFavoriteRecipes : { type: Array }, *--> an array of recipeIds*
+- recipesInCart          : { type: Array }

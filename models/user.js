@@ -4,17 +4,16 @@
 /* eslint-disable consistent-return */
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
 const uniqueValidator = require('mongoose-unique-validator');
 
-const UserSchema = new Schema({
-  createdAt              :  {  type: Date  },
-  updatedAt              :  {  type: Date  },
-  password               :  {  type: String, select: false },
-  username               :  {  type: String, required: true, unique: true },
-  recipesInCart          :  {  type: Array },
-  arrayOfFavoriteRecipes :  {  type: Array },
+const UserSchema = mongoose.Schema({
+  createdAt              : { type: Date  },
+  updatedAt              : { type: Date  },
+  password               : { type: String, select: false },
+  username               : { type: String, required: true, unique: true },
+  recipesInCart          : { type: Array },
+  arrayOfFavoriteRecipes : { type: Array },
 });
 
 // Make sure that only 1 user can exist with the same username
