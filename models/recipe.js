@@ -4,10 +4,6 @@ const mongoose = require('mongoose');
 
 const mongoosePaginate = require('mongoose-paginate');
 
-// mongoosePaginate.paginate.options = {
-//   limit: 100, // default records per page
-// };
-
 const RecipeSchema = mongoose.Schema({
   createdAt         : { type: Date },
   updatedAt         : { type: Date },
@@ -15,18 +11,15 @@ const RecipeSchema = mongoose.Schema({
   label             : { type: String, required: true },
   image             : { type: String, required: true },
   url               : { type: String, required: true },
-  yield             : { type: Number },
   cautions          : { type: Array },
   healthLabels      : { type: Array },
   dietLabels        : { type: Array },
   ingredientLines   : { type: Array },
+  yield             : { type: Number },
   calories          : { type: Number },
   totalWeight       : { type: Number },
   totalTime         : { type: Number },
-  usersWhoFavorited : [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-  }],
+  usersWhoFavorited : { type: Array },
 },
 {
   timestamps: true,
