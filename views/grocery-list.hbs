@@ -15,9 +15,13 @@
     {{#each ingredients as |ingredient|}}
       <ul>
 				<input type="checkbox"> <!-- TODO: POST request to save whether checked -->
-				<span class="ingredient-qty">{{ingredient.[0]}}</span>
-				<span class="ingredient-meas">{{ingredient.[1]}}</span> <!-- (ex: tsp) -->
-				<span class="ingredient-desc">{{ingredient.[2]}}</span> <!-- (ex: 'sugar') -->
+				{{#if ingredient.quantity}}
+					<input type="number" class="ingredient-qty" value={{ingredient.quantity}} onkeyup="this.style.width = ((this.value.length + 1) * 16) + 'px';">
+				{{/if}}
+				{{#if ingredient.unit}}
+				<span type="text" class="ingredient-meas">{{ingredient.unit}}</span> <!-- (ex: tsp) -->
+				{{/if}}
+				<span class="ingredient-desc">{{ingredient.ingredient}}</span> <!-- (ex: 'sugar') -->
       </ul>
     {{/each}}
 	{{/if}}

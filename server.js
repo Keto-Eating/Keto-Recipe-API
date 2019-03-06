@@ -33,7 +33,7 @@ app.set('view engine', 'hbs');
 // Static content
 app.use(exp.static('./public'));
 
-// Database configuration ==============================================================
+// Database configuration ===============================================================
 const mongoose = require('mongoose');
 const dbConfig = require('./src/config/database');
 
@@ -43,7 +43,7 @@ mongoose.connect(dbConfig.uri, {
 mongoose.set('debug', true);
 
 
-// routes =============================================================================
+// routes ==============================================================================
 // load our routes and pass to our app
 require('./controllers/home')(app);
 require('./controllers/users')(app);
@@ -62,7 +62,7 @@ app.use((req, res, next) => {
   next(createError(404));
 });
 
-// error handler
+// error handler ========================================================================
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => { // DO NOT REMOVE next
   // set locals, only providing error in development
