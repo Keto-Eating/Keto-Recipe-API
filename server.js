@@ -45,7 +45,7 @@ mongoose.set('debug', true);
 
 // routes =============================================================================
 // load our routes and pass to our app
-require('./controllers/recipes')(app);
+require('./controllers/home')(app);
 require('./controllers/users')(app);
 require('./controllers/favorites')(app);
 require('./controllers/dashboard')(app);
