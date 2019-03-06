@@ -1,5 +1,3 @@
-// controllers/users.js
-
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-else-return */
 /* eslint-disable consistent-return */
@@ -7,6 +5,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable global-require */
 
+// controllers/users.js
 module.exports = (app) => {
   const jwt = require('jsonwebtoken');
   const UserSchema = require('../models/user');
@@ -21,25 +20,26 @@ module.exports = (app) => {
     // CREATE User and JWT
     const user = new UserSchema(req.body);
 
-    user.save().then((savedUser) => {
-      const token = jwt.sign({
-        _id: savedUser._id,
-      }, process.env.SECRET, {
-        expiresIn: '60 days',
+    user.save()
+      .then((savedUser) => {
+        const token = jwt.sign({
+          _id: savedUser._id,
+        }, process.env.SECRET, {
+          expiresIn: '120 days',
+        });
+        res.cookie('nToken', token, {
+          maxAge: 900000,
+          httpOnly: true,
+        });
+        // console.log(`user is: ${user}`);
+        app.locals.user = user;
+        res.redirect('/');
+      })
+      .catch(() => {
+        const nextError = new Error('Email address already taken. Did you mean to login?');
+        nextError.status = 422; // validation error
+        return next(nextError);
       });
-      res.cookie('nToken', token, {
-        maxAge: 900000,
-        httpOnly: true,
-      });
-      console.log(`user is: ${user}`);
-      app.locals.user = user;
-      res.redirect('/');
-      // res.send("blah")
-    }).catch(() => {
-      const nextError = new Error('Email address already taken. Did you mean to login?');
-      nextError.status = 422; // validation error
-      return next(nextError);
-    });
   });
 
   // LOGIN FORM
@@ -64,7 +64,6 @@ module.exports = (app) => {
           return next(nextError);
         } else {
           // console.log(user)
-          // console.log('app locals user: ' + app.locals.user);
           // Check the password
           user.comparePassword(password, (err, isMatch) => {
             console.log(isMatch);
@@ -79,7 +78,7 @@ module.exports = (app) => {
                 _id: user._id,
                 username: user.username,
               }, process.env.SECRET, {
-                expiresIn: '60 days',
+                expiresIn: '120 days',
               });
               // Set a cookie and redirect to root
               res.cookie('nToken', token, {
@@ -96,9 +95,21 @@ module.exports = (app) => {
   });
 
   // LOGOUT
-  app.get('/logout', (req, res) => {
+  app.post('/logout', (req, res) => {
     res.clearCookie('nToken');
     app.locals.user = null;
     res.redirect('back'); // to automatically redirect back to the page the request came from
+  });
+
+  // DELETE USER ACCOUNT
+  app.post('/delete-user', (req, res, next) => {
+    // Look for user in the database
+    // if found, remove
+    // if not found, return some sort of error
+    UserSchema.findByIdAndRemove(app.locals.user.id, req.body)
+      .then((deletedUser) => {
+        console.log('User account has been removed');
+        res.redirect('/');
+      }).catch(err => next(err));
   });
 };

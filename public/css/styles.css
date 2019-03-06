@@ -377,38 +377,12 @@ a.btn.btn-light {
   width: 100%;
 }
 
+.btn-delete {
+  color: var(--mid-green);
+}
+
 .dash-content ul {
   list-style: none;
-}
-
-.dash-btn {
-  min-height: 5rem;
-  position: relative;
-  background-size: cover;
-  border: 0 solid var(--off-white);
-  border-radius: 2rem;
-  box-shadow: 3px 3px 3px var(--light-grey);
-  color: var(--off-white);
-  font-size: 2.5rem;
-  text-shadow: 2px 2px var(--dark-green);
-  padding: 1rem;
-}
-
-.fav-btn {
-  background-image: linear-gradient(var(--dark-translucent), var(--dark-translucent)), url('../img/Keto-Diet.jpg');
-}
-
-.cart-btn {
-  background-image: linear-gradient(var(--dark-translucent), var(--dark-translucent)), url('../img/meal-prep.jpg');
-}
-
-.dash-btn.focus, .dash-btn:focus {
-  outline: 0;
-  box-shadow: none!important;
-}
-
-.dash-btn:hover {
-  cursor: pointer;
 }
 
 .checkout-btn {

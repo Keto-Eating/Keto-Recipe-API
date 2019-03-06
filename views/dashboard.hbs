@@ -1,18 +1,17 @@
 <div class="dashboard-container">
-	<a href="/dashboard" class='dash-brd-crum' >Dashboard</a>
-	<div class="btn-container">
-		<a href="/dashboard/favorites"><button class="fav-btn dash-btn">favorites</button></a>
-		<a href="/cart"><button class="cart-btn dash-btn">cart</button></a>
-	</div>
-
+	<a href="/dashboard" class='dash-brd-crum' >Profile</a>
 	<div class="dash-content">
-		<h1>Dashboard</h1>
-
-		<h2>Account Details:</h2>
-
+		<h2>Account Details</h2>
 		<ul>
 		  <li>Username: {{user.username}}</li>
 		  <li>Password: ****** <!--(change password) --></li>
 		</ul>
+		<form action="delete-user" method="POST" class="signup-form">
+			<div class="form-btns">
+				<button class="btn btn-success signup-btn" type="submit">Update password</button>
+				<button class="btn btn-light btn-delete " role="button" type="submit">Delete Account</button>
+			</div>
+		</form>
+
 	</div>
 </div>
