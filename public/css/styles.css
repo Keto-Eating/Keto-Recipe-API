@@ -92,6 +92,19 @@ h1 {
   width: 100%;
 }
 
+.form-btns.dash-btns {
+  justify-content: space-between;
+}
+
+a.btn.btn-success.signup-btn {
+  color: white;
+}
+
+p.text-danger {
+  margin-top: 14px;
+  text-align: center !important;
+}
+
 .btn {
   position: relative;
   width: 100%;
@@ -342,6 +355,7 @@ a.btn.btn-light {
 }
 
 .dash-brd-crum {
+  margin: 48px 0 0 48px;
   display: block;
   color: var(--mid-green);
 }

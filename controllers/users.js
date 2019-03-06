@@ -101,6 +101,9 @@ module.exports = (app) => {
     res.redirect('back'); // to automatically redirect back to the page the request came from
   });
 
+  app.get('/delete-user', (req, res) => {
+    res.render('delete-account');
+  })
   // DELETE USER ACCOUNT
   app.post('/delete-user', (req, res, next) => {
     // Look for user in the database
@@ -108,7 +111,7 @@ module.exports = (app) => {
     // if not found, return some sort of error
     UserSchema.findByIdAndRemove(app.locals.user.id, req.body)
       .then((deletedUser) => {
-        console.log('User account has been removed');
+        console.log('User account has been removed', deletedUser);
         res.redirect('/');
       }).catch(err => next(err));
   });
