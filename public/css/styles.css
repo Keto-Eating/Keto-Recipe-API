@@ -451,10 +451,6 @@ a.btn.btn-light {
   color:var(--mid-grey);
 }
 
-.ingredient-qty, .ingredient-meas, .ingredient-desc {
-  /* font-size: 1.2em; */
-}
-
 .ingredient-qty {
   width: 4em;
 }

@@ -13,7 +13,7 @@ const UserSchema = mongoose.Schema({
   password               : { type: String, select: false },
   username               : { type: String, required: true, unique: true },
   recipesInCart          : { type: Array },
-  arrayOfFavoriteRecipes : { type: Array },
+  arrayOfFavoriteRecipes : { type: Array }, /* --> an array of recipeIds */
 });
 
 // Make sure that only 1 user can exist with the same username
