@@ -96,15 +96,6 @@ h1 {
   justify-content: space-between;
 }
 
-a.btn.btn-success.signup-btn {
-  color: white;
-}
-
-p.text-danger {
-  margin-top: 14px;
-  text-align: center !important;
-}
-
 .btn {
   position: relative;
   width: 100%;
@@ -349,6 +340,20 @@ a.btn.btn-light {
 }
 
 /** DASHBOARD **/
+
+  /* DASHBOARD */
+  .fav-btn {
+    margin-right: 2rem;
+  }
+
+  .dash-btn {
+    width: 25rem;
+    height: 20rem;
+  }
+
+  .dashboard-container {
+    padding: 3rem;
+  }
 #dashboard-favorite-img {
   max-height: 5em;
   object-fit: cover;
@@ -395,8 +400,13 @@ a.btn.btn-light {
   color: var(--mid-green);
 }
 
-.dash-content ul {
-  list-style: none;
+a.btn.btn-success.signup-btn {
+  color: white;
+}
+
+p.text-danger {
+  margin-top: 14px;
+  text-align: center !important;
 }
 
 .checkout-btn {
@@ -519,19 +529,6 @@ TABLET + DESKTOP
     flex-flow: row nowrap;
   }
 
-  /* DASHBOARD */
-  .fav-btn {
-    margin-right: 2rem;
-  }
-
-  .dash-btn {
-    width: 25rem;
-    height: 20rem;
-  }
-
-  .dashboard-container {
-    padding: 3rem;
-  }
 
   /* BUTTONS */
   .btn-container {
