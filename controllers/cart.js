@@ -6,7 +6,7 @@
 module.exports = (app) => {
   const RecipeSchema = require('../models/recipe');
   const UserSchema = require('../models/user');
-  const getIngredients = require('./helpers/ingredients-parser.js');
+  const getIngredients = require('./helpers/parse-ingredients.js');
 
   // route for showing cart
   app.get('/cart', (req, res) => {
