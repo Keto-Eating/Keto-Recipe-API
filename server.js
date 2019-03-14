@@ -41,6 +41,7 @@ mongoose.connect(dbConfig.uri, {
   useNewUrlParser: true,
 }); // connect our database
 mongoose.set('debug', true);
+mongoose.set('useCreateIndex', true);
 
 
 // routes =============================================================================

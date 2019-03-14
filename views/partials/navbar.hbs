@@ -21,21 +21,22 @@
       <div class="nav-links">
         <!-- show these links if the user is logged in  -->
         {{#if user}}
-        <li class="nav-item">
-          <a class="nav-link nav-dash" href="/dashboard">profile</a>
-        </li>
-        <li class="nav-item">
-          <a href="/cart" class="nav-link nav-cart">cart</a>
-        </li>
-        <li class="nav-item">
-          <a href="/logout" class="nav-link nav-logout">logout</a>
-        </li>
+          <li class="nav-item">
+            <a href="/cart" class="nav-link nav-cart">cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-dash" href="/dashboard">profile</a>
+          </li>       
+          <li class="nav-item">
+            <a href="/logout" class="nav-link nav-logout">logout</a>
+          </li>
         <!-- show these links if the user is not logged in -->
         {{else}}
-        <li><a href="/signup" class="nav-link nav-signup">signup</a></li>
-        <li><a href="/login" class="nav-link nav-login">login</a></li>
+          <li><a href="/signup" class="nav-link nav-signup">signup</a></li>
+          <li><a href="/login" class="nav-link nav-login">login</a></li>
         {{/if}}
       </div>
+      
     </ul>
   </div>
 </nav>

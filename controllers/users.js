@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow-callback */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-else-return */
 /* eslint-disable consistent-return */
@@ -9,6 +10,7 @@
 module.exports = (app) => {
   const jwt = require('jsonwebtoken');
   const UserSchema = require('../models/user');
+  const _ = require('lodash');
 
   // Render the signup form
   app.get('/signup', (req, res) => {
@@ -98,7 +100,7 @@ module.exports = (app) => {
   app.post('/logout', (req, res) => {
     res.clearCookie('nToken');
     app.locals.user = null;
-    res.redirect('back'); // to automatically redirect back to the page the request came from
+    res.redirect('/'); // to automatically redirect back to the page the request came from
   });
 
   // DELETE USER ACCOUNT
@@ -113,5 +115,26 @@ module.exports = (app) => {
         app.locals.user = null;
         res.redirect('/');
       }).catch(err => next(err));
+  });
+
+  // UPDATE PASSWORD
+  app.get('/update-password', (req, res) => {
+    res.render('update-password');
+  });
+
+  app.post('/update-password', (req, res, next) => {
+    UserSchema.findById(app.locals.user.id, (err, post) => {
+      if (err) return next(err);
+
+      _.assign(post, req.body); // update user
+      // app.locals.user =
+      console.log('post: ', post);
+      post.save((error) => {
+        if (error) return next(err);
+        res.clearCookie('nToken');
+        app.locals.user = null;
+        res.redirect('login');
+      });
+    });
   });
 };
