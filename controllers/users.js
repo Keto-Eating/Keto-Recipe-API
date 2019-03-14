@@ -10,7 +10,7 @@
 module.exports = (app) => {
   const jwt = require('jsonwebtoken');
   const UserSchema = require('../models/user');
-  const _ = require('lodash');
+  const lodash = require('lodash');
 
   // Render the signup form
   app.get('/signup', (req, res) => {
@@ -126,7 +126,7 @@ module.exports = (app) => {
     UserSchema.findById(app.locals.user.id, (err, post) => {
       if (err) return next(err);
 
-      _.assign(post, req.body); // update user
+      lodash.assign(post, req.body); // update user
       // app.locals.user =
       console.log('post: ', post);
       post.save((error) => {
@@ -137,4 +137,28 @@ module.exports = (app) => {
       });
     });
   });
+
+  // app.post('/update-password/:id', (req, res, next) => {
+  //   const userId = req.params.id;
+  //   UserSchema.findById(userId, (errFindingUser, userInDB) => {
+  //     if (errFindingUser) {
+  //       return next(errFindingUser);
+  //     }
+  //     if (userInDB) {
+  //       UserSchema.findByIdAndUpdate(userId, {
+  //         $set: {
+  //           password: req.body.password,
+  //         },
+  //       }).then((updatedUser) => {
+  //         console.log(updatedUser);
+  //         res.clearCookie('nToken');
+  //         app.locals.user = null;
+  //         res.redirect('login');
+
+  //       }).catch((error) => {
+  //         if (error) return next(error);
+  //       });
+  //     }
+  //   });
+  // });
 };
