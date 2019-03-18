@@ -123,19 +123,22 @@ module.exports = (app) => {
   });
 
   app.post('/update-password', (req, res, next) => {
-    UserSchema.findById(app.locals.user.id, (err, post) => {
-      if (err) return next(err);
+    // UserSchema.findById(app.locals.user.id, (err, post) => {
+    //   if (err) return next(err);
 
-      lodash.assign(post, req.body); // update user
-      // app.locals.user =
-      console.log('post: ', post);
-      post.save((error) => {
-        if (error) return next(err);
-        res.clearCookie('nToken');
-        app.locals.user = null;
-        res.redirect('login');
-      });
-    });
+    //   lodash.assign(post, req.body); // update user
+    //   // app.locals.user =
+    //   console.log('post: ', post);
+    //   post.save((error) => {
+    //     if (error) return next(err);
+    //     res.clearCookie('nToken');
+    //     app.locals.user = null;
+    //     res.redirect('login');
+    //   });
+    // });
+    const user = UserSchema.findById(req.body.id);
+    user.password = req.body.password;
+    user.save();
   });
 
   // app.post('/update-password/:id', (req, res, next) => {
