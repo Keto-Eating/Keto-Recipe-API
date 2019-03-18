@@ -136,9 +136,16 @@ module.exports = (app) => {
     //     res.redirect('login');
     //   });
     // });
-    const user = UserSchema.findById(req.body.id);
-    user.password = req.body.password;
-    user.save();
+    UserSchema.findById(app.locals.user.id)
+      .then((foundUser) => {
+        foundUser.password = req.body.password;
+        foundUser.save();
+        app.locals.user = foundUser;
+        res.redirect('/');
+      })
+      .catch((err) => {
+        if (err) return next(err);
+      });
   });
 
   // app.post('/update-password/:id', (req, res, next) => {
