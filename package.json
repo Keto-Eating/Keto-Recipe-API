@@ -29,6 +29,7 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.16.1",
     "handlebars-helpers": "^0.10.0",
     "http-errors": "^1.7.1",
     "is-number": "^7.0.0",
