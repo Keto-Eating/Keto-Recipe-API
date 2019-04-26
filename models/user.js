@@ -28,7 +28,6 @@ UserSchema.pre('save', function (next) {
   // if (!user.isModified('password')) {
   //   return next();
   // }
-  // bcrypt.hash(plaintext_password, saltRounds, function(err, hash) {}
   bcrypt.hash(user.password, 10, (errHashing, hash) => {
     if (errHashing) return next(errHashing);
     user.password = hash;
@@ -36,13 +35,14 @@ UserSchema.pre('save', function (next) {
   });
 });
 
-UserSchema.statics.authenticate = function (email, password, next) {
+UserSchema.statics.authenticate = function (username, password, next) {
+  // eslint-disable-next-line quotes
+  console.log("username:", username, "password:", password);
   User
     .findOne({
-      email,
-    })
-    .exec((err, user) => {
-      if (err) return next(err);
+      username,
+    }, 'username password') // fetch username and password
+    .then((user) => {
       if (!user) {
         const error = new Error('User not found.');
         error.status = 401;
@@ -50,6 +50,7 @@ UserSchema.statics.authenticate = function (email, password, next) {
       }
       if (user) {
         // User found, compare password
+        console.log(user);
         bcrypt.compare(password, user.password, (error, isMatch) => {
           if (error) return next(error);
           if (isMatch === true) {
@@ -58,16 +59,9 @@ UserSchema.statics.authenticate = function (email, password, next) {
           return next();
         });
       }
-    });
+    })
+    .catch(err => next(err));
 };
-
-// UserSchema.methods.comparePassword = function (password, done) {
-//   bcrypt.compare(password, this.password, (err, isMatch) => {
-//     done(err, isMatch);
-//   });
-// };
-
-// module.exports = mongoose.model('User', UserSchema);
 
 const User = mongoose.model('User', UserSchema);
 module.exports = User;

@@ -20,13 +20,12 @@ module.exports = (app) => {
     console.log('currentPage:', currentPage);
 
     if (queryString === 'empty') {
-      RecipeSchema.paginate({},
-        {
+      RecipeSchema
+        .paginate({}, {
           sort: { usersWhoFavorited: -1 },
           page: currentPage,
           limit: 24,
         })
-        // { currentPage, offset: 12, limit: 12 })
         .then((results) => {
           const pageNumbers = [];
           for (let i = 1; i <= results.pages; i += 1) {
@@ -42,19 +41,19 @@ module.exports = (app) => {
         });
     } else {
       // user searching for recipe
-      RecipeSchema.paginate({
-        $or:
-          [
-            { label: regExpQuery },
-            { url: regExpQuery },
-            { ingredientLines: regExpQuery },
-          ],
-      },
-      {
-        sort: { usersWhoFavorited: -1 },
-        page: currentPage,
-        limit: 24,
-      })
+      RecipeSchema
+        .paginate({
+          $or:
+            [
+              { label: regExpQuery },
+              { url: regExpQuery },
+              { ingredientLines: regExpQuery },
+            ],
+        }, {
+          sort: { usersWhoFavorited: -1 },
+          page: currentPage,
+          limit: 24,
+        })
         .then((results) => {
           const pageNumbers = [];
           for (let i = 1; i <= results.pages; i += 1) {

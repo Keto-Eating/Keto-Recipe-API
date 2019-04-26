@@ -18,25 +18,13 @@ module.exports = (app) => {
 
   // POST: creates a new user
   app.post('/signup', (req, res, next) => {
-    // CREATE User and JWT
+    // CREATE User
     const user = new UserSchema(req.body);
 
-    user
-      .save()
+    user.save()
       .then((savedUser) => {
         req.session.user = savedUser;
         res.redirect('/');
-      // const token = jwt.sign({
-      //   _id: savedUser._id,
-      // }, process.env.SECRET, {
-      //   expiresIn: '60 days',
-      // });
-      // res.cookie('nToken', token, {
-      //   maxAge: 900000,
-      //   httpOnly: true,
-      // });
-      // app.locals.user = user;
-      // res.redirect('/');
       })
       .catch(() => {
         const nextError = new Error('Email address already taken. Did you mean to login?');
@@ -57,54 +45,13 @@ module.exports = (app) => {
 
     UserSchema.authenticate(username, password, (err, user) => {
       if (err || !user) {
-        const nextError = new Error('Email or password incorrect')
-        nextError.status = 401;
-        return next(nextError);
+        return next(err);
       }
       // user authenticated correctly
       req.session.user = user;
-      return res.redirect('/lists');
+      // redirect back to the page the request came from
+      res.redirect('/');
     });
-
-    // // Look for this user name
-    // UserSchema.findOne({
-    //   username,
-    // }, 'username password arrayOfFavoriteRecipes')
-    //   .then((user) => {
-    //     if (!user) {
-    //       // User not found
-    //       const nextError = new Error('User with that username does not exist');
-    //       nextError.status = 401;
-    //       return next(nextError);
-    //     } else {
-    //       // Check the password
-    //       user.comparePassword(password, (err, isMatch) => {
-    //         console.log(isMatch);
-    //         if (!isMatch) {
-    //           const nextError = new Error('Incorrect password');
-    //           nextError.status = 401;
-    //           return next(nextError);
-    //         } else {
-    //           app.locals.user = user;
-    //           // Create the token
-    //           const token = jwt.sign({
-    //             _id: user._id,
-    //             username: user.username,
-    //           }, process.env.SECRET, {
-    //             expiresIn: '60 days',
-    //           });
-    //           // Set a cookie and redirect to root
-    //           res.cookie('nToken', token, {
-    //             maxAge: 900000,
-    //             httpOnly: true,
-    //           });
-    //           console.log('Successfully logged in.');
-    //           res.redirect('/dashboard');
-    //         }
-    //       });
-    //     }
-    //   })
-    //   .catch(err => next(err));
   });
 
   // LOGOUT
@@ -116,7 +63,6 @@ module.exports = (app) => {
     }
     // redirect back to the page the request came from
     res.redirect('back');
-    // res.clearCookie('nToken');
-    // app.locals.user = null;
+    app.locals.user = null;
   });
 };
