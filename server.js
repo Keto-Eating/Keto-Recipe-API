@@ -8,8 +8,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
-// const passport = require('passport'); // Authentication
-// const flash = require('connect-flash'); // messages
+const session = require('express-session');
 
 
 // MIDDLEWARE configuration ============================================================
@@ -42,6 +41,22 @@ mongoose.connect(dbConfig.uri, {
 }); // connect our database
 mongoose.set('debug', true);
 
+// configure sessions ==================================================================
+
+app.use(session({
+  secret: process.env.SECRET,
+  cookie: { maxAge: 3600000 },
+  resave: true,
+  saveUninitialized: true,
+}));
+
+// routes ==============================================================================
+// set layout variables
+app.use((req, res, next) => {
+  // so we can check if user is logged in
+  res.locals.user = req.session.user;
+  next();
+});
 
 // routes =============================================================================
 // load our routes and pass to our app
@@ -50,7 +65,6 @@ require('./controllers/users')(app);
 require('./controllers/favorites')(app);
 require('./controllers/dashboard')(app);
 require('./controllers/cart')(app);
-
 
 // 404 page
 app.get('*', (req, res) => {

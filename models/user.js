@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-multi-spaces */
 /* eslint-disable key-spacing */
 /* eslint-disable func-names */
@@ -8,8 +9,8 @@ const bcrypt = require('bcryptjs');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const UserSchema = mongoose.Schema({
-  createdAt              : { type: Date  },
-  updatedAt              : { type: Date  },
+  createdAt              : { type: Date, default: Date.now },
+  updatedAt              : { type: Date },
   password               : { type: String, select: false },
   username               : { type: String, required: true, unique: true },
   recipesInCart          : { type: Array },
@@ -17,34 +18,52 @@ const UserSchema = mongoose.Schema({
 });
 
 // Make sure that only 1 user can exist with the same username
-UserSchema.plugin(uniqueValidator);
+UserSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
 
 // Defines the callback with a regular function to avoid problems with this schema
 UserSchema.pre('save', function (next) {
-  // SET createdAt AND updatedAt
-  const now = new Date();
-  this.updatedAt = now;
-  if (!this.createdAt) {
-    this.createdAt = now;
-  }
-  // ENCRYPT PASSWORD
   const user = this;
-  if (!user.isModified('password')) {
-    return next();
-  }
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(user.password, salt, (errHashing, hash) => {
-      if (errHashing) return next(errHashing);
-      user.password = hash;
-      next();
-    });
+  user.updatedAt = Date.now;
+
+  // if (!user.isModified('password')) {
+  //   return next();
+  // }
+
+  // ENCRYPT PASSWORD
+  bcrypt.hash(user.password, 10, (errHashing, hash) => {
+    if (errHashing) return next(errHashing);
+    user.password = hash;
+    next();
   });
 });
 
-UserSchema.methods.comparePassword = function (password, done) {
-  bcrypt.compare(password, this.password, (err, isMatch) => {
-    done(err, isMatch);
-  });
+UserSchema.statics.authenticate = function (username, password, next) {
+  // eslint-disable-next-line quotes
+  console.log("username:", username, "password:", password);
+  User
+    .findOne({
+      username,
+    }, 'username password') // fetch username and password
+    .then((user) => {
+      if (!user) {
+        const error = new Error('User not found.');
+        error.status = 401;
+        return next(error);
+      }
+      if (user) {
+        // User found, compare password
+        console.log(user);
+        bcrypt.compare(password, user.password, (error, isMatch) => {
+          if (error) return next(error);
+          if (isMatch === true) {
+            return next(null, user);
+          }
+          return next();
+        });
+      }
+    })
+    .catch(err => next(err));
 };
 
-module.exports = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+module.exports = User;
