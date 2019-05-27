@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
 /* eslint-disable consistent-return */
@@ -10,9 +11,9 @@ module.exports = (app) => {
 
   // route for showing cart
   app.get('/cart', (req, res) => {
-    if (app.locals.user) {
-      console.log('User: ', app.locals.user);
-      const userId = app.locals.user.id;
+    if (req.session.user) {
+      console.log('User: ', req.session.user);
+      const userId = req.session.user._id;
       UserSchema.findById(userId, (err, user) => {
         if (err) return res.next(err);
         // to get updated user object
@@ -35,7 +36,7 @@ module.exports = (app) => {
   // Send a POST request to the database to create the recipes collection
   app.post('/cart', (req, res) => {
     const recipeId = req.body.recipeId;
-    const userId = app.locals.user.id;
+    const userId = req.session.user._id;
 
     // find user, save recipeId to recipesInCart
     UserSchema.findById(userId, (errFindingUser, userInDB) => {
@@ -48,8 +49,6 @@ module.exports = (app) => {
           },
         }, (errorInCallback, user) => {
           if (errorInCallback) return next(errorInCallback);
-          app.locals.user = user;
-          app.locals.user.recipesInCart.pull(recipeId); // update user locally
           res.send('removed');
         });
       } else {
@@ -60,8 +59,6 @@ module.exports = (app) => {
           },
         }, (errorUpdating, user) => {
           if (errorUpdating) return next(errorUpdating);
-          app.locals.user = user;
-          app.locals.user.recipesInCart.push(recipeId); // update user locally
           res.send('added');
         });
       }
@@ -70,8 +67,8 @@ module.exports = (app) => {
 
   app.get('/cart/grocery-list', (req, res) => {
     // TODO: (1) Find user's favorites (2) show all of them
-    if (app.locals.user) {
-      const userId = app.locals.user.id;
+    if (req.session.user) {
+      const userId = req.session.user._id;
       UserSchema.findById(userId, (err, user) => {
         if (err) return next(err);
         // to get updated user object

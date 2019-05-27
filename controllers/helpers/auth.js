@@ -1,10 +1,10 @@
 exports.requireLogin = (req, res, next) => {
   // eslint-disable-next-line global-require
-  const exp = require('express');
-  const app = exp();
-
+  // const exp = require('express');
+  // const app = exp();
+  console.log(req);
   // console.log(app);
-  if (app.locals.user) {
+  if (req.session.user) {
     return next();
   }
   const err = new Error('You must log in to view this page');

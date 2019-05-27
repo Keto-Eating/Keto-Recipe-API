@@ -81,6 +81,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => { // DO NOT REMOVE next
   // set locals, only providing error in development
   console.log('inside error handler!');
+  console.log(err);
   res.locals.message = err.message;
   res.locals.error = err;
 

@@ -7,11 +7,11 @@
 		This combined grocery list was automatically created from the recipes in
 		your <a href='/cart'>cart</a>
 	</p>
-	{{#if @root.user}}
+	{{#if user}}
 	{{else}}
 		<a href="/login">Login</a> to view your own grocery list.
 	{{/if}}
-	{{#if @root.user}}
+	{{#if user}}
     {{#each ingredients as |ingredient|}}
       <ul>
 				<input type="checkbox"> <!-- TODO: POST request to save whether checked -->
