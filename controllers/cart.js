@@ -83,8 +83,6 @@ module.exports = (app) => {
           },
         }, (errorInCallback, user) => {
           if (errorInCallback) return next(errorInCallback);
-          req.session.user = user;
-          req.session.user.recipesInCart.pull(recipeId); // update user locally
           res.send('removed');
         });
       } else {
@@ -95,8 +93,6 @@ module.exports = (app) => {
           },
         }, (errorUpdating, user) => {
           if (errorUpdating) return next(errorUpdating);
-          req.session.user = user;
-          req.session.user.recipesInCart.push(recipeId); // update user locally
           res.send('added');
         });
       }
