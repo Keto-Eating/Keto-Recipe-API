@@ -1,4 +1,4 @@
-const { parse } = require('recipe-ingredient-parser');
+const { parse } = require('recipe-ingredient-parser-v2');
 const sortIngredients = require('./sort-ingredients.js');
 
 module.exports = (cartRecipes) => {
