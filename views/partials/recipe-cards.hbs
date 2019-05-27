@@ -1,4 +1,3 @@
-{{user}}
 <div class="card-deck">
   {{#if recipes}}
     {{#each recipes as |recipe|}}
@@ -9,7 +8,6 @@
               <img class="card-img-top" src="{{recipe.image}}" alt="Card image">
             </a>
             <input type="hidden" value="{{@root.user._id}}" name="userId"/>
-            {{recipe._id}}
             {{#if @root.user}}
               <!-- user is logged in, let them save favorite -->
                 {{#contains @root.user.arrayOfFavoriteRecipes recipe._id}}
