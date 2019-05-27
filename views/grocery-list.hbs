@@ -14,11 +14,27 @@
 	{{#if user}}
     {{#each ingredients as |ingredient|}}
       <ul>
-				<input type="checkbox"> <!-- TODO: POST request to save whether checked -->
+				<input 
+					type="checkbox"
+					onClick="toggleIngredient('{{ingredient._id}}')"
+					{{#if ingredient.acquired}}
+						checked
+					{{/if}}
+				> <!-- TODO: POST request to save whether checked -->
 				{{#if ingredient.quantity}}
-					<input type="number" class="ingredient-qty" value={{ingredient.quantity}} onkeyup="this.style.width = ((this.value.length + 1) * 16) + 'px';">
+					<input 
+						type="number" 
+						class="ingredient-qty" 
+						value={{ingredient.quantity}} 
+						onkeyup="this.style.width = ((this.value.length + 1) * 16) + 'px';"
+					>
 				{{else}}
-					<input type="number" class="ingredient-qty" value=1 onkeyup="this.style.width = ((this.value.length + 1) * 16) + 'px';">
+					<input 
+						type="number" 
+						class="ingredient-qty" 
+						value=1 
+						onkeyup="this.style.width = ((this.value.length + 1) * 16) + 'px';"
+					>
 				{{/if}}
 				{{#if ingredient.unit}}
 					<span type="text" class="ingredient-meas">{{ingredient.unit}}</span> <!-- (ex: tsp) -->

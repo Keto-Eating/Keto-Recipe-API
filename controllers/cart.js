@@ -7,6 +7,7 @@
 module.exports = (app) => {
   const RecipeSchema = require('../models/recipe');
   const UserSchema = require('../models/user');
+  const IngredientSchema = require('../models/ingredient');
   const getIngredients = require('./helpers/parse-ingredients.js');
 
   // route for showing cart
@@ -47,7 +48,7 @@ module.exports = (app) => {
           $pull: {
             recipesInCart: recipeId,
           },
-        }, (errorInCallback, user) => {
+        }, (errorInCallback) => {
           if (errorInCallback) return next(errorInCallback);
           res.send('removed');
         });
@@ -57,7 +58,7 @@ module.exports = (app) => {
           $addToSet: {
             recipesInCart: recipeId,
           },
-        }, (errorUpdating, user) => {
+        }, (errorUpdating) => {
           if (errorUpdating) return next(errorUpdating);
           res.send('added');
         });
@@ -66,7 +67,6 @@ module.exports = (app) => {
   });
 
   app.get('/cart/grocery-list', (req, res) => {
-    // TODO: (1) Find user's favorites (2) show all of them
     if (req.session.user) {
       const userId = req.session.user._id;
       UserSchema.findById(userId, (err, user) => {
@@ -76,7 +76,7 @@ module.exports = (app) => {
           .where('_id')
           .in(user.recipesInCart)
           .then((cartRecipes) => {
-            const ingredients = getIngredients(cartRecipes);
+            const ingredients = getIngredients(cartRecipes, userId);
             res.render('grocery-list', { ingredients });
           })
           .catch(error => next(error));
@@ -84,5 +84,14 @@ module.exports = (app) => {
     } else {
       res.render('grocery-list');
     }
+  });
+
+  app.post('/cart/grocery-list/toggleIngredient', (req, res, next) => {
+    const { ingredientId } = req.body;
+    IngredientSchema.findById(ingredientId, (err, ingredient) => {
+      if (err) return next(err);
+      ingredient.acquired = !ingredient.acquired;
+      ingredient.save().catch(error => next(error));
+    });
   });
 };
