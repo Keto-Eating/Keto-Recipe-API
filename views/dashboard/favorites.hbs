@@ -2,11 +2,11 @@
 	<a href="/dashboard">Dashboard</a> > <a href='/dashboard/favorites'>Favorites</a>
 	<h1>My Favorites</h1>
 	<hr>
-	{{#if @root.user}}
+	{{#if user}}
 	{{else}}
 	  <a href="/login">Login</a> to view your own favorites.
 	{{/if}}
-	{{#if @root.user}}
+	{{#if user}}
 	  {{>recipe-cards}}
 	{{/if}}
 </div>

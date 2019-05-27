@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable global-require */
 /* eslint-disable no-undef */
@@ -9,8 +10,8 @@ module.exports = (app) => {
   // route for showing favorites
   app.get('/dashboard/favorites', (req, res) => {
     // TODO: (1) Find user's favorites (2) show all of them
-    if (app.locals.user) {
-      const userId = app.locals.user.id;
+    if (req.session.user) {
+      const userId = req.session.user._id;
       UserSchema.findById(userId, (errFindingUser, user) => {
         if (errFindingUser) return res.next(errFindingUser);
         // to get updated user object
@@ -18,6 +19,7 @@ module.exports = (app) => {
           .where('_id')
           .in(user.arrayOfFavoriteRecipes)
           .exec((_err, userFaves) => res.render('dashboard/favorites', {
+            user,
             recipes: userFaves,
             instructions: 'You must save recipes as favorites.',
           }));
@@ -31,7 +33,7 @@ module.exports = (app) => {
   app.post('/favorites', (req) => {
     console.log('***************** HERE');
     const favoriteId = req.body.recipeId;
-    const userId = app.locals.user.id;
+    const userId = req.session.user._id;
 
     // find recipe, add userId to usersWhoFavorited
     RecipeSchema.findById(favoriteId, (errFindingFave, favoriteInDB) => {
@@ -71,14 +73,12 @@ module.exports = (app) => {
           $pull: {
             arrayOfFavoriteRecipes: favoriteId,
           },
-        }, (errRemovingFave, user) => {
+        }, (errRemovingFave) => {
           if (errRemovingFave) {
             console.log(' ERROR REMOVING FROM USERSCHEMA ');
             return next(errRemovingFave);
           }
           console.log(' REMOVED FROM DATABASE ');
-          app.locals.user = user;
-          app.locals.user.arrayOfFavoriteRecipes.pull(favoriteId); // update user locally
         });
       } else {
         // user has not favorited before, add to arrayOfFavoriteRecipes
@@ -86,14 +86,12 @@ module.exports = (app) => {
           $addToSet: {
             arrayOfFavoriteRecipes: favoriteId,
           },
-        }, (errAddingFave, user) => {
+        }, (errAddingFave) => {
           if (errAddingFave) {
             console.log(' ERROR ADDING TO USERSCHEMA ');
             return next(errAddingFave);
           }
           console.log(' ADDED TO USER MODEL ');
-          app.locals.user = user;
-          app.locals.user.arrayOfFavoriteRecipes.push(favoriteId); // update user locally
         });
       }
     });

@@ -7,11 +7,11 @@
 	</div>
 	<hr>
 	<h2 class='cart-subtitle'>This Week's Recipes:</h2>
-	{{#if @root.user}}
+	{{#if user}}
 	{{else}}
 		<a href="/login">Login</a> to view your own cart.
 	{{/if}}
-	{{#if @root.user}}
+	{{#if user}}
 		{{>recipe-cards}} <!-- current showing all favorites, need to narrow down to user's only -->
 	{{/if}}
 </div>
