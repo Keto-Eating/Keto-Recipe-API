@@ -19,65 +19,68 @@ module.exports = (app) => {
     const queryString = req.query.term || 'empty';
     const regExpQuery = new RegExp(queryString, 'i');
     const currentPage = req.query.page || 1;
-    const userId = req.session.user._id;
-
-    UserSchema.findById(userId, (errFindingUser, user) => {
-      if (errFindingUser) return res.next(errFindingUser);
-
-      if (queryString === 'empty') {
-        RecipeSchema.paginate({},
-          {
-            sort: { usersWhoFavorited: -1 },
-            page: currentPage,
-            limit: 24,
-          })
-          // { currentPage, offset: 12, limit: 12 })
-          .then((results) => {
-            const pageNumbers = [];
-            for (let i = 1; i <= results.pages; i += 1) {
-              pageNumbers.push(i);
-            }
-            return res.render('index', {
-              user,
-              recipes: results.docs,
-              numPages: results.pages,
-              pageNumbers,
-              currentPage,
-              instructions: 'Try another search term.',
-            });
-          })
-          .catch(err => res.send(err));
-      } else {
-        // user searching for recipe
-        RecipeSchema.paginate({
-          $or:
-            [
-              { label: regExpQuery },
-              { url: regExpQuery },
-              { ingredientLines: regExpQuery },
-            ],
-        },
+    let user;
+    if (req.session.user) {
+      const userId = req.session.user._id;
+      UserSchema.findById(userId, (errFindingUser, userFromDB) => {
+        if (errFindingUser) return res.next(errFindingUser);
+        user = userFromDB;
+      });
+    }
+    
+    if (queryString === 'empty') {
+      RecipeSchema.paginate({},
         {
           sort: { usersWhoFavorited: -1 },
           page: currentPage,
           limit: 24,
         })
-          .then((results) => {
-            const pageNumbers = [];
-            for (let i = 1; i <= results.pages; i += 1) {
-              pageNumbers.push(i);
-            }
-            return res.render('index', {
-              recipes: results.docs,
-              numPages: results.pages,
-              pageNumbers,
-              currentPage,
-              instructions: 'Try another search term.',
-              queryString,
-            });
-          })
-          .catch(err => res.send(err));
-      }
-    });
+        // { currentPage, offset: 12, limit: 12 })
+        .then((results) => {
+          const pageNumbers = [];
+          for (let i = 1; i <= results.pages; i += 1) {
+            pageNumbers.push(i);
+          }
+          return res.render('index', {
+            user,
+            recipes: results.docs,
+            numPages: results.pages,
+            pageNumbers,
+            currentPage,
+            instructions: 'Try another search term.',
+          });
+        })
+        .catch(err => res.send(err));
+    } else {
+      // user searching for recipe
+      RecipeSchema.paginate({
+        $or:
+          [
+            { label: regExpQuery },
+            { url: regExpQuery },
+            { ingredientLines: regExpQuery },
+          ],
+      },
+      {
+        sort: { usersWhoFavorited: -1 },
+        page: currentPage,
+        limit: 24,
+      })
+        .then((results) => {
+          const pageNumbers = [];
+          for (let i = 1; i <= results.pages; i += 1) {
+            pageNumbers.push(i);
+          }
+          return res.render('index', {
+            recipes: results.docs,
+            numPages: results.pages,
+            pageNumbers,
+            currentPage,
+            instructions: 'Try another search term.',
+            queryString,
+          });
+        })
+        .catch(err => res.send(err));
+    }
   });
 };
