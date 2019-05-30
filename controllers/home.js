@@ -8,7 +8,10 @@ module.exports = (app) => {
   const pullEdamamRecipes = require('./helpers/edamam.js');
   const UserSchema = require('../models/user');
 
-  pullEdamamRecipes(); // do this once when server boots up
+  const env = process.env.NODE_ENV || 'dev';
+  if (env === 'production') {
+    pullEdamamRecipes(); // do this once when server boots up, on production only
+  }
 
   schedule.scheduleJob('59 59 23 * * *', () => {
     // schedule.scheduleJob(second min hr dayOfMonth month dayOfWeek)
@@ -27,7 +30,7 @@ module.exports = (app) => {
         user = userFromDB;
       });
     }
-    
+
     if (queryString === 'empty') {
       RecipeSchema.paginate({},
         {
@@ -35,7 +38,6 @@ module.exports = (app) => {
           page: currentPage,
           limit: 24,
         })
-        // { currentPage, offset: 12, limit: 12 })
         .then((results) => {
           const pageNumbers = [];
           for (let i = 1; i <= results.pages; i += 1) {

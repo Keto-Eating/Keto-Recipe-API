@@ -25,10 +25,6 @@ UserSchema.pre('save', function (next) {
   const user = this;
   user.updatedAt = Date.now;
 
-  // if (!user.isModified('password')) {
-  //   return next();
-  // }
-
   // ENCRYPT PASSWORD
   bcrypt.hash(user.password, 10, (errHashing, hash) => {
     if (errHashing) return next(errHashing);
