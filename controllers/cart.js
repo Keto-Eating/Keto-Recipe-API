@@ -78,45 +78,37 @@ module.exports = (app) => {
           .where('_id')
           .in(user.recipesInCart)
           .then((cartRecipes) => {
-            // if groceryList already exists
-            if (user.groceryList) {
+            // if groceryList exists && nothing has been added or removed from cart since grocery list was last generated
+            if (user.groceryList && _.isEqual(user.groceryList.recipes, user.recipesInCart)) {
               GroceryListSchema.findById(user.groceryList)
                 .then((groceryList) => {
-                  console.log('groceryList.recipes', groceryList.recipes);
-                  console.log('user.recipesInCart', user.recipesInCart);
-
-                  // nothing has been added or removed to cart since grocery list was last generated
-                  if (_.isEqual(groceryList.recipes, user.recipesInCart)) {
-                    console.log('WHOO ALREADY GENERATED THIS GROCERY LIST, EASY WORK');
-                    return res.render('grocery-list', {
-                      ingredients: groceryList.ingredients,
-                      user,
-                    });
-                  }
-                  // ALREADY GENERATED A GROCERY LIST BUT THERE HAVE BEEN CHANGES
+                  console.log('WHOO ALREADY GENERATED THIS GROCERY LIST, EASY WORK');
+                  return res.render('grocery-list', {
+                    ingredients: groceryList.ingredients,
+                    user,
+                  });
                 })
                 .catch(errr => next(errr));
-            } else {
-              console.log('GENERATING A NEW GROCERY LIST');
-              // get ingredients from all recipes in cart
-              const ingredients = getIngredients(cartRecipes, userId);
-              // regenerate new grocery list
-              const groceryList = new GroceryListSchema({
-                recipes: user.recipesInCart,
-                ingredients,
-                user: user._id,
-              });
-
-              // save grocery list
-              groceryList.save()
-                .then(() => {
-                  user.groceryList = groceryList;
-                  user.save()
-                    .then(() => res.render('grocery-list', { ingredients, user }))
-                    .catch(error => next(error));
-                })
-                .catch(error => next(error));
             }
+            console.log('GENERATING A NEW GROCERY LIST');
+            // get ingredients from all recipes in cart
+            const ingredients = getIngredients(cartRecipes, userId);
+            // regenerate new grocery list
+            const groceryList = new GroceryListSchema({
+              recipes: user.recipesInCart,
+              ingredients,
+              user: user._id,
+            });
+
+            // save grocery list
+            groceryList.save()
+              .then(() => {
+                user.groceryList = groceryList;
+                user.save()
+                  .then(() => res.render('grocery-list', { ingredients, user }))
+                  .catch(error => next(error));
+              })
+              .catch(error => next(error));
           })
           .catch(error => next(error));
       });
