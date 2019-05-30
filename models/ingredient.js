@@ -20,9 +20,6 @@ const IngredientSchema = mongoose.Schema({
 IngredientSchema.pre('save', function (next) {
   const now = new Date();
   this.updatedAt = now;
-  if (!this.createdAt) {
-    this.createdAt = now;
-  }
   next();
 });
 

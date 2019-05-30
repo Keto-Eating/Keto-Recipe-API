@@ -8,6 +8,7 @@ module.exports = (app) => {
   const RecipeSchema = require('../models/recipe');
   const UserSchema = require('../models/user');
   const IngredientSchema = require('../models/ingredient');
+  const GroceryListSchema = require('../models/grocery-list');
   const getIngredients = require('./helpers/parse-ingredients.js');
 
   // route for showing cart
@@ -66,7 +67,7 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/cart/grocery-list', (req, res) => {
+  app.get('/cart/grocery-list', (req, res, next) => {
     if (req.session.user) {
       const userId = req.session.user._id;
       UserSchema.findById(userId, (err, user) => {
@@ -77,7 +78,33 @@ module.exports = (app) => {
           .in(user.recipesInCart)
           .then((cartRecipes) => {
             const ingredients = getIngredients(cartRecipes, userId);
-            res.render('grocery-list', { ingredients });
+
+            // if groceryList already exists and nothing has been added or removed
+            if (user.groceryList && user.groceryList.recipes === user.recipesInCart) {
+              res.render('grocery-list', { ingredients: user.groceryList.ingredients });
+            } else {
+              // user added or removed a recipe, need to regenerate new grocery list
+              const groceryList = new GroceryListSchema({
+                recipes: user.recipesInCart,
+                ingredients,
+                user: user._id,
+              });
+              console.log('about to save grocery list');
+
+              groceryList.save()
+                .then(() => {
+                  console.log('saved grocery list');
+                  user.groceryList = groceryList;
+                  console.log('about to save user');
+                  user.save()
+                    .then(() => {
+                      console.log('about to save user');
+                      return res.render('grocery-list', { ingredients });
+                    })
+                    .catch(error => next(error));
+                })
+                .catch(error => next(error));
+            }
           })
           .catch(error => next(error));
       });

@@ -15,6 +15,7 @@ const UserSchema = mongoose.Schema({
   username               : { type: String, required: true, unique: true },
   recipesInCart          : { type: Array },
   arrayOfFavoriteRecipes : { type: Array }, /* --> an array of recipeIds */
+  groceryList            : { type: mongoose.Schema.Types.ObjectId, ref: 'GroceryListSchema' },
 });
 
 // Make sure that only 1 user can exist with the same username
@@ -25,12 +26,16 @@ UserSchema.pre('save', function (next) {
   const user = this;
   user.updatedAt = Date.now;
 
-  // ENCRYPT PASSWORD
-  bcrypt.hash(user.password, 10, (errHashing, hash) => {
-    if (errHashing) return next(errHashing);
-    user.password = hash;
-    next();
-  });
+  // if password has been modified
+  if (this.isModified('password')) {
+    // ENCRYPT PASSWORD
+    bcrypt.hash(user.password, 10, (errHashing, hash) => {
+      if (errHashing) return next(errHashing);
+      user.password = hash;
+      next();
+    });
+  }
+  next();
 });
 
 UserSchema.statics.authenticate = function (username, password, next) {
@@ -54,7 +59,7 @@ UserSchema.statics.authenticate = function (username, password, next) {
           if (isMatch === true) {
             return next(null, user);
           }
-          return next();
+          return next(null, false);
         });
       }
     })
