@@ -2,6 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-use-before-define */
 /* eslint-disable prefer-destructuring */
+/* eslint-disable consistent-return */
 module.exports = (app) => {
   const schedule = require('node-schedule');
   const RecipeSchema = require('../models/recipe');
@@ -25,6 +26,7 @@ module.exports = (app) => {
     let user;
     if (req.session.user) {
       const userId = req.session.user._id;
+
       UserSchema.findById(userId, (errFindingUser, userFromDB) => {
         if (errFindingUser) return res.next(errFindingUser);
         user = userFromDB;

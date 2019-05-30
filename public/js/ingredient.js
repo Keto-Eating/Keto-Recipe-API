@@ -15,9 +15,10 @@
 //   heart.classList.toggle('favorited');
 // }
 
-function toggleIngredient(ingredientId) {
+function toggleIngredient(groceryListId, ingredientIndex) {
   $.post('/cart/grocery-list/toggleIngredient', {
-    ingredientId,
+    groceryListId,
+    ingredientIndex,
   })
     .then((res) => {
       console.log(res);
