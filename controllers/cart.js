@@ -16,7 +16,6 @@ module.exports = (app) => {
   // route for showing cart
   app.get('/cart', (req, res) => {
     if (req.session.user) {
-      console.log('User: ', req.session.user);
       const userId = req.session.user._id;
       UserSchema.findById(userId, (err, user) => {
         if (err) return res.next(err);
@@ -154,9 +153,8 @@ module.exports = (app) => {
       groceryList.markModified(`ingredients.${ingrIdx}.acquired`);
 
       // save updated grocery list
-      groceryList.save().then((updatedList) => {
-        console.log('value after updating is:', updatedList.ingredients[ingrIdx].acquired);
-      }).catch(error => next(error));
+      groceryList.save()
+        .catch(error => next(error));
     });
   });
 };
