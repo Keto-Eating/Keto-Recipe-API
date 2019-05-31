@@ -16,7 +16,7 @@
       <ul>
 				<input 
 					type="checkbox"
-					onClick="toggleIngredient('{{@root.user.groceryList}}', '{{@index}}')"
+					onClick="toggleIngredient(this, '{{@root.user.groceryList}}', '{{@index}}')"
 					{{#if ingredient.acquired}}
 						checked
 					{{/if}}

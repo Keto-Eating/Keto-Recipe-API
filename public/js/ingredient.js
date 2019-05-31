@@ -15,10 +15,12 @@
 //   heart.classList.toggle('favorited');
 // }
 
-function toggleIngredient(groceryListId, ingredientIndex) {
+function toggleIngredient(elmt, groceryListId, ingrIdx) {
+  console.log('new value should be:', elmt.checked);
   $.post('/cart/grocery-list/toggleIngredient', {
     groceryListId,
-    ingredientIndex,
+    ingrIdx,
+    newValue: elmt.checked, // if checkbox was checked before toggling it
   })
     .then((res) => {
       console.log(res);
