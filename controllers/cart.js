@@ -103,12 +103,15 @@ module.exports = (app) => {
         if (user) {
           if (user.groceryList) {
             GroceryListSchema.findById(user.groceryList)
-              .then((groceryList) => res.render('grocery-list', {
-                ingredients: groceryList.ingredients,
-                user,
-              }))
+              .then((groceryList) => {
+                res.render('grocery-list', {
+                  ingredients: groceryList.ingredients,
+                  user,
+                });
+              })
               .catch(error => next(error));
           } else {
+            // if user doesn't have a grocery list yet, create one
             const groceryList = await createGroceryList(user);
             res.render('grocery-list', {
               ingredients: groceryList.ingredients,
@@ -127,7 +130,6 @@ module.exports = (app) => {
       const userId = req.session.user._id;
       UserSchema.findById(userId, async (err, user) => {
         if (err) return next(err);
-        // to get updated user object
         const groceryList = await createGroceryList(user);
         res.render('grocery-list', {
           ingredients: groceryList.ingredients,
@@ -148,11 +150,12 @@ module.exports = (app) => {
       // if was unchecked, change to checked & vice-versa
       groceryList.ingredients[ingrIdx].acquired = newValue;
 
+      // we have to tell MongoDB we've made a change inside the array before saving
       groceryList.markModified(`ingredients.${ingrIdx}.acquired`);
 
       // save updated grocery list
       groceryList.save().then((updatedList) => {
-        console.log(updatedList.ingredients);
+        console.log('value after updating is:', updatedList.ingredients[ingrIdx].acquired);
       }).catch(error => next(error));
     });
   });

@@ -139,7 +139,8 @@ a.btn.btn-light {
 
 /*CART*/
 .cart-container {
-  margin: 3rem;
+  margin: 3rem auto 3rem auto;
+  padding: 0 1rem;
 }
 
 .cart-subtitle {
@@ -451,12 +452,67 @@ a.btn.btn-light {
   color:var(--mid-grey);
 }
 
-.ingredient-qty {
-  width: 4em;
+.ingredient-tr:nth-child(even) {
+  background-color: #cfd1ce;
+}
+
+.ingredient-header-row {
+  background-color: var(--light-grey);
+  border-bottom: 2px solid var(--mid-grey);
+  margin-bottom: 1em;
+  -webkit-position: sticky;
+  position: sticky;
+}
+
+.ingredient-tr:hover {
+  font-weight: 600;
+}
+
+.ingredient-td, .ingredient-th {
+  padding: 0.5em 1em;
+  align-items: flex-start;
+}
+
+.ingredient-td > p {
+  margin-bottom: 0;
 }
 
 .ingredient-meas {
   font-weight: 600;
+}
+/******** CHECKBOXES ********/
+/* Kudos to SO for checkbox solution below */
+input[type=checkbox] {
+  width: 1em;
+  height: 1em;
+  margin-right: 8px;
+  cursor: pointer;
+  font-size: 17px;
+  visibility: hidden;
+}
+
+input[type=checkbox]:after {
+  content: " ";
+  background-color: #fff;
+  display: inline-block;
+  margin-left: 0;
+  padding-top: 1px;
+  margin-bottom: 5px;
+  /* padding-bottom: 5px; */
+  color: var(--mid-green);
+  width: 24px;
+  height: 24px;
+  visibility: visible;
+  border: 1px solid var(--mid-grey);
+  padding-left: 5px;
+  border-radius: 100%;
+}
+
+input[type=checkbox]:checked:after {
+  content: "\2714";
+  padding: -5px;
+  font-weight: bold;
+  font-size: 0.9em;
 }
 
 /******** ERROR PAGE ********/
@@ -556,6 +612,11 @@ TABLET + DESKTOP
   }
 
   /* CART */
+  .cart-container {
+    margin: 3rem;
+    padding: 0 1rem;
+  }
+
   .cart-header {
     display:flex;
     align-items: center;

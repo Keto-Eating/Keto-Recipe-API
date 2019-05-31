@@ -8,39 +8,42 @@
 		your <a href='/cart'>cart</a>
 	</p>
 	{{#if user}}
+		<table>
+			<tr class="ingredient-tr ingredient-header-row">
+				<th class="ingredient-th"></th> 
+				<th class="ingredient-th">Qty.</th> 
+				<th class="ingredient-th">Unit</th>
+				<th class="ingredient-th">Description</th>
+			</tr>
+    {{#each ingredients as |ingredient|}}
+			<tr class="ingredient-tr">
+				<td class="ingredient-td">
+					<input 
+						type="checkbox"
+						onClick="toggleIngredient(this, '{{@root.user.groceryList}}', '{{@index}}')"
+						{{#eq ingredient.acquired 'true'}}
+							checked
+						{{/eq}}
+					>
+				</td>
+				<td class="ingredient-td">
+					<p 
+						type="number" 
+						class="ingredient-qty"
+					>
+						{{ingredient.quantity}}
+					</p>
+				</td class="ingredient-td"> 
+				<td class="ingredient-td">
+					<p type="text" class="ingredient-meas">{{ingredient.unit}}</p> <!-- (ex: tsp) -->
+				</td>
+				<td class="ingredient-td">
+					<p class="ingredient-desc">{{ingredient.ingredient}}</p> <!-- (ex: 'sugar') -->
+				</td>
+			</tr>
+    {{/each}}
+		</table>
 	{{else}}
 		<a href="/login">Login</a> to view your own grocery list.
-	{{/if}}
-	{{#if user}}
-    {{#each ingredients as |ingredient|}}
-      <ul>
-				<input 
-					type="checkbox"
-					onClick="toggleIngredient(this, '{{@root.user.groceryList}}', '{{@index}}')"
-					{{#if ingredient.acquired}}
-						checked
-					{{/if}}
-				> <!-- TODO: POST request to save whether checked -->
-				{{#if ingredient.quantity}}
-					<input 
-						type="number" 
-						class="ingredient-qty" 
-						value={{ingredient.quantity}} 
-						onkeyup="this.style.width = ((this.value.length + 1) * 16) + 'px';"
-					>
-				{{else}}
-					<input 
-						type="number" 
-						class="ingredient-qty" 
-						value=1 
-						onkeyup="this.style.width = ((this.value.length + 1) * 16) + 'px';"
-					>
-				{{/if}}
-				{{#if ingredient.unit}}
-					<span type="text" class="ingredient-meas">{{ingredient.unit}}</span> <!-- (ex: tsp) -->
-				{{/if}}
-				<span class="ingredient-desc">{{ingredient.ingredient}}</span> <!-- (ex: 'sugar') -->
-      </ul>
-    {{/each}}
 	{{/if}}
 </div>
