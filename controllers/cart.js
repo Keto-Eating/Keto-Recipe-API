@@ -69,54 +69,30 @@ module.exports = (app) => {
     });
   });
 
-  createGroceryList = (user) => {
-    RecipeSchema.find()
-      .where('_id')
-      .in(user.recipesInCart)
-      .then((cartRecipes) => {
-        // get ingredients from all recipes in cart
-        const ingredients = getIngredients(cartRecipes, userId);
-        // regenerate new grocery list
-        const groceryList = new GroceryListSchema({
-          recipes: user.recipesInCart,
-          ingredients,
-          user: user._id,
-        });
-
-        // save grocery list
-        groceryList.save()
-          .then(() => {
-            user.groceryList = groceryList;
-            user.save()
-              .then(() => groceryList)
-              .catch(error => next(error));
-          })
-          .catch(error => next(error));
-      })
-      .catch(error => next(error));
-  };
-
   app.get('/cart/grocery-list/', (req, res, next) => {
     if (req.session.user) {
-      UserSchema.findById(req.session.user._id, async (err, user) => {
+      UserSchema.findById(req.session.user._id, (err, user) => {
         if (err) return next(err);
         if (user) {
           if (user.groceryList) {
             GroceryListSchema.findById(user.groceryList)
               .then((groceryList) => {
+                let cartHasChanged;
+                if (_.isEqual(groceryList.recipes, user.recipesInCart)) {
+                  cartHasChanged = false;
+                } else {
+                  cartHasChanged = true;
+                }
                 res.render('grocery-list', {
                   ingredients: groceryList.ingredients,
                   user,
+                  cartHasChanged,
                 });
               })
               .catch(error => next(error));
           } else {
             // if user doesn't have a grocery list yet, create one
-            const groceryList = await createGroceryList(user);
-            res.render('grocery-list', {
-              ingredients: groceryList.ingredients,
-              user,
-            });
+            res.redirect('/cart/grocery-list/new');
           }
         }
       });
@@ -128,16 +104,40 @@ module.exports = (app) => {
   app.get('/cart/grocery-list/new', (req, res, next) => {
     if (req.session.user) {
       const userId = req.session.user._id;
-      UserSchema.findById(userId, async (err, user) => {
+      // Find current user
+      UserSchema.findById(userId, (err, user) => {
         if (err) return next(err);
-        const groceryList = await createGroceryList(user);
-        res.render('grocery-list', {
-          ingredients: groceryList.ingredients,
-          user,
-        });
+        // Get all recipes in cart
+        RecipeSchema.find()
+          .where('_id')
+          .in(user.recipesInCart)
+          .then(async (cartRecipes) => {
+            // get ingredients from all recipes in cart
+            const ingredients = await getIngredients(cartRecipes, userId);
+            // regenerate new grocery list
+            const groceryList = new GroceryListSchema({
+              recipes: user.recipesInCart,
+              ingredients,
+              user: user._id,
+            });
+
+            // save grocery list
+            groceryList.save()
+              .then(() => {
+                // update user's grocery list
+                user.groceryList = groceryList;
+                user.save()
+                  .then(() => {
+                    res.redirect('/cart/grocery-list');
+                  })
+                  .catch(error => next(error));
+              })
+              .catch(error => next(error));
+          })
+          .catch(error => next(error));
       });
     } else { // user is not logged in
-      return res.render('grocery-list');
+      res.redirect('/cart/grocery-list');
     }
   });
 

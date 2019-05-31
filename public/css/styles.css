@@ -448,8 +448,17 @@ a.btn.btn-light {
 }
 
 /******* GROCERY LIST *******/
+.warning {
+  color: var(--dark-orange);
+}
+
+.warning > a {
+  color: black;
+  text-decoration: underline;
+}
+
 .page-explanation {
-  color:var(--mid-grey);
+  color: var(--mid-grey);
 }
 
 .ingredient-tr:nth-child(even) {
@@ -471,6 +480,10 @@ a.btn.btn-light {
 .ingredient-td, .ingredient-th {
   padding: 0.5em 1em;
   align-items: flex-start;
+}
+
+.ingredient-th {
+  font-size: 1.1em;
 }
 
 .ingredient-td > p {

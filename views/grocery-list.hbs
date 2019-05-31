@@ -2,6 +2,12 @@
 
 	<a href='/cart'>Cart</a> > <a href="">Grocery List</a>
 	<h1 class="">Grocery List</h1>
+	{{#if cartHasChanged}}
+		<p class="warning">
+			NOTE: Your Shopping Cart has changed since you generated this Grocery List.<br>Would you like to 
+			<a href="/cart/grocery-list/new">Generate a New Grocery List</a>?
+		</p>
+	{{/if}}
 	<hr>
 	<p class="page-explanation">
 		This combined grocery list was automatically created from the recipes in
