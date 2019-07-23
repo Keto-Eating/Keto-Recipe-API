@@ -14,16 +14,22 @@ const agent = chai.request.agent(server);
 describe('Users', () => {
   // Sign-up
   it('should signup a single user POST', (done) => {
-    agent.post('/sign-up')
+    const min = 100;
+    const max = 10000000;
+    const random = Math.floor(Math.random() * max) + min;
+    const random2 = Math.floor(Math.random() * max) + min;
+    agent.post('/signup')
       .send({
-        username: 'test2@test.com',
+        username: `test${random}@test${random2}.com`,
         password: 'test123',
       })
-      .end((err) => {
+      .end((err, res) => {
         if (err) {
           console.log('Error: ', err.message);
         }
-        expect(agent).to.have.cookie('nToken');
+        // expect to get re-directed to home on success
+        expect(res).to.have.status(200); // re-direct http code
+        expect(res.req.path).to.equal('/'); // expected URL path
         done();
       });
   });
