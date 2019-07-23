@@ -1,3 +1,4 @@
+/* eslint-disable arrow-parens */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
@@ -5,48 +6,16 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable global-require */
 module.exports = (app) => {
-  const isNumber = require('is-number');
   const RecipeSchema = require('../models/recipe');
   const UserSchema = require('../models/user');
-
-  function getIngredients(cartRecipes) {
-    const listOfIngredients = [];
-    cartRecipes.forEach((recipe) => {
-      // iterate through recipes in cart
-      recipe.ingredientLines.forEach((ingredientLine) => {
-        const ingrWithoutStars = ingredientLine.replace('*', '');
-        const ingrWordsArr = ingrWithoutStars.split(' ');
-        // console.log(ingrWordsArr);
-
-        if (ingrWordsArr.length === 1) {
-          // this catches instances like "salt"
-          const qty = 1;
-          const unit = 'x';
-          const desc = ingrWordsArr.slice(0, ingrWordsArr.length).join(' ');
-          listOfIngredients.push([qty, unit, desc]);
-        } else if (ingrWordsArr.length === 2 && isNumber(ingrWordsArr[0])) {
-          // this catches instances like "1 Lime"
-          const qty = ingrWordsArr[0];
-          const unit = '';
-          const desc = ingrWordsArr.slice(1, ingrWordsArr.length).join(' ');
-          listOfIngredients.push([qty, unit, desc]);
-        } else {
-          // almost every other ingredient will land in here
-          const qty = ingrWordsArr[0];
-          const unit = ingrWordsArr[1];
-          const desc = ingrWordsArr.slice(2, ingrWordsArr.length).join(' ');
-          listOfIngredients.push([qty, unit, desc]);
-        }
-        // console.log(listOfIngredients);
-      });
-    });
-    return listOfIngredients;
-  }
+  // const IngredientSchema = require('../models/ingredient');
+  const GroceryListSchema = require('../models/grocery-list');
+  const getIngredients = require('./helpers/parse-ingredients.js');
+  const _ = require('lodash');
 
   // route for showing cart
   app.get('/cart', (req, res) => {
     if (req.session.user) {
-      console.log('User: ', req.session.user);
       const userId = req.session.user._id;
       UserSchema.findById(userId, (err, user) => {
         if (err) return res.next(err);
@@ -81,7 +50,7 @@ module.exports = (app) => {
           $pull: {
             recipesInCart: recipeId,
           },
-        }, (errorInCallback, user) => {
+        }, (errorInCallback) => {
           if (errorInCallback) return next(errorInCallback);
           res.send('removed');
         });
@@ -91,7 +60,7 @@ module.exports = (app) => {
           $addToSet: {
             recipesInCart: recipeId,
           },
-        }, (errorUpdating, user) => {
+        }, (errorUpdating) => {
           if (errorUpdating) return next(errorUpdating);
           res.send('added');
         });
@@ -99,24 +68,93 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/cart/grocery-list', (req, res) => {
-    // TODO: (1) Find user's favorites (2) show all of them
+  app.get('/cart/grocery-list/', (req, res, next) => {
+    if (req.session.user) {
+      UserSchema.findById(req.session.user._id, (err, user) => {
+        if (err) return next(err);
+        if (user) {
+          if (user.groceryList) {
+            GroceryListSchema.findById(user.groceryList)
+              .then((groceryList) => {
+                let cartHasChanged;
+                if (_.isEqual(groceryList.recipes, user.recipesInCart)) {
+                  cartHasChanged = false;
+                } else {
+                  cartHasChanged = true;
+                }
+                res.render('grocery-list', {
+                  ingredients: groceryList.ingredients,
+                  user,
+                  cartHasChanged,
+                });
+              })
+              .catch(error => next(error));
+          } else {
+            // if user doesn't have a grocery list yet, create one
+            res.redirect('/cart/grocery-list/new');
+          }
+        }
+      });
+    } else { // user is not logged in
+      return res.render('grocery-list');
+    }
+  });
+
+  app.get('/cart/grocery-list/new', (req, res, next) => {
     if (req.session.user) {
       const userId = req.session.user._id;
+      // Find current user
       UserSchema.findById(userId, (err, user) => {
         if (err) return next(err);
-        // to get updated user object
+        // Get all recipes in cart
         RecipeSchema.find()
           .where('_id')
           .in(user.recipesInCart)
-          .then((cartRecipes) => {
-            const ingredients = getIngredients(cartRecipes);
-            res.render('grocery-list', { ingredients });
+          .then(async (cartRecipes) => {
+            // get ingredients from all recipes in cart
+            const ingredients = await getIngredients(cartRecipes, userId);
+            // regenerate new grocery list
+            const groceryList = new GroceryListSchema({
+              recipes: user.recipesInCart,
+              ingredients,
+              user: user._id,
+            });
+
+            // save grocery list
+            groceryList.save()
+              .then(() => {
+                // update user's grocery list
+                user.groceryList = groceryList;
+                user.save()
+                  .then(() => {
+                    res.redirect('/cart/grocery-list');
+                  })
+                  .catch(error => next(error));
+              })
+              .catch(error => next(error));
           })
           .catch(error => next(error));
       });
-    } else {
-      res.render('grocery-list');
+    } else { // user is not logged in
+      res.redirect('/cart/grocery-list');
     }
+  });
+
+  app.post('/cart/grocery-list/toggleIngredient', (req, res, next) => {
+    const { groceryListId, ingrIdx, newValue } = req.body;
+
+    GroceryListSchema.findById(groceryListId, (err, groceryList) => {
+      if (err) return next(err);
+
+      // if was unchecked, change to checked & vice-versa
+      groceryList.ingredients[ingrIdx].acquired = newValue;
+
+      // we have to tell MongoDB we've made a change inside the array before saving
+      groceryList.markModified(`ingredients.${ingrIdx}.acquired`);
+
+      // save updated grocery list
+      groceryList.save()
+        .catch(error => next(error));
+    });
   });
 };

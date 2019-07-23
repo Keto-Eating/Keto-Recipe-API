@@ -76,3 +76,5 @@ typings/
 *.idea
 .idea
 .eslintrc
+
+package-lock.json

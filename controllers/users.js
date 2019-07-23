@@ -44,8 +44,12 @@ module.exports = (app) => {
 
     // Look for this user name
     UserSchema.authenticate(username, password, (err, user) => {
-      if (err || !user) {
+      if (err) {
         return next(err);
+      } else if (!user) {
+        const error = new Error('Incorrect password');
+        error.status = 401;
+        return next(error);
       }
       // user authenticated correctly
       req.session.user = user;

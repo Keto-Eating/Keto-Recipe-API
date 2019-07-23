@@ -32,7 +32,7 @@ app.set('view engine', 'hbs');
 // Static content
 app.use(exp.static('./public'));
 
-// Database configuration ==============================================================
+// Database configuration ===============================================================
 const mongoose = require('mongoose');
 const dbConfig = require('./src/config/database');
 
@@ -58,9 +58,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// routes =============================================================================
+// routes ==============================================================================
 // load our routes and pass to our app
-require('./controllers/recipes')(app);
+require('./controllers/home')(app);
 require('./controllers/users')(app);
 require('./controllers/favorites')(app);
 require('./controllers/dashboard')(app);
@@ -76,7 +76,7 @@ app.use((req, res, next) => {
   next(createError(404));
 });
 
-// error handler
+// error handler ========================================================================
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => { // DO NOT REMOVE next
   // set locals, only providing error in development

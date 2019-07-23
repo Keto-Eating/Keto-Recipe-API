@@ -43,10 +43,9 @@ Leslie Kimm<br><br>
 -   [x] **Nov 14** Re-factor search to look inside our own DB (WIP)
 -   [x] **Nov 12** Shipped to our custom domain
 -   [x] **Nov 12** Ship functional version and share with friends
--   [ ] Re-factor Favorites (WIP)
--   [ ] Add styling to dashboard, include a weekly meal plan
--   [ ] Create a cart object to store current week's recipes
--   [ ] Parse ingredientLines and create list
+-   [x] Add styling to dashboard, include a weekly meal plan
+-   [x] Create a cart object to store current week's recipes
+-   [x] Parse ingredientLines and create list
 -   [ ] Add same ingredients with same units to create reduced grocery list
 
 ## How tos
@@ -75,20 +74,20 @@ Leslie Kimm<br><br>
 - label             : { type: String, required: true },
 - image             : { type: String, required: true },
 - url               : { type: String, required: true },
-- yield             : { type: Number },
 - cautions          : { type: Array },
 - healthLabels      : { type: Array },
 - dietLabels        : { type: Array },
 - ingredientLines   : { type: Array },
+- yield             : { type: Number },
 - calories          : { type: Number },
 - totalWeight       : { type: Number },
 - totalTime         : { type: Number },
-- usersWhoFavorited : { type: Array } *--> an array of userIds*
+- usersWhoFavorited : { type: Array }
 
 ### UserSchema:
-- createdAt              :  {  type: Date  },
-- updatedAt              :  {  type: Date  },
-- password               :  {  type: String, select: false},
-- username               :  {  type: String, required: true},
-- arrayOfFavoriteRecipes :    {  type: Array }, *--> an array of recipeIds*
-- recipesInCart          :  {  type: Array } *--> an array of userIds*
+- createdAt              : { type: Date  },
+- updatedAt              : { type: Date  },
+- password               : { type: String, select: false},
+- username               : { type: String, required: true},
+- arrayOfFavoriteRecipes : { type: Array }, *--> an array of recipeIds*
+- recipesInCart          : { type: Array }
