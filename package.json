@@ -34,7 +34,7 @@
     "http-errors": "^1.7.1",
     "is-number": "^7.0.0",
     "jsonwebtoken": "^8.3.0",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.19",
     "mocha": "^5.2.0",
     "mongodb": "^3.1.6",
     "mongoose": "^5.7.5",
