@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/Keto-Eating/Keto-Recipe-API#readme",
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^2.6.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
